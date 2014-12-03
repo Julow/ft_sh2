@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/03 13:55:37 by jaguillo         ###   ########.fr       */
+/*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
+/*   Updated: 2014/12/03 14:59:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include "get_next_line.h"
 
-int				main(int argc, char **argv)
+void			exec_line(char *line)
 {
-	char			*line;
+	char			**commands;
 
-	ft_putstr("$> ");
-	while (get_next_line(0, &line) >= 0)
-	{
-		ft_putstr(line);
-		free(line);
-		ft_putstr("\n$> ");
-	}
-	(void)argc;
-	(void)argv;
-	return (0);
+}
+
+void			exec_cmd(t_cmd *cmd)
+{
+}
+
+t_cmd			*parse_cmd(char *command)
+{
 }
