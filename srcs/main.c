@@ -12,17 +12,33 @@
 
 #include "minish.h"
 #include "get_next_line.h"
+#include <stdlib.h>
+#include <unistd.h>
+
+static void		update_sh(t_sh *sh)
+{
+	if (sh->pwd != NULL)
+		free(sh->pwd);
+	sh->pwd = getcwd(NULL, 0);
+	if (sh->pwd == NULL)
+		exit_err("Cannot get the current pwd.");
+	ft_putstr(sh->pwd);
+	ft_putstr(" $> ");
+}
 
 int				main(int argc, char **argv)
 {
 	char			*line;
+	t_sh			*sh;
 
-	ft_putstr("$> ");
+	sh = MAL1(t_sh);
+	sh->pwd = NULL;
+	update_sh(sh);
 	while (get_next_line(0, &line) >= 0)
 	{
-		ft_putstr(line);
-		free(line);
-		ft_putstr("\n$> ");
+		parse_line(sh, line);
+		ft_gbfree(line);
+		update_sh(sh);
 	}
 	(void)argc;
 	(void)argv;

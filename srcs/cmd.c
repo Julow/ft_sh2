@@ -12,16 +12,40 @@
 
 #include "minish.h"
 
-void			exec_line(char *line)
+void			parse_line(t_sh *sh, char *line)
 {
-	char			**commands;
+	char			**cmds;
+	t_cmd			cmd;
+	int				i;
 
+	cmds = ft_strsplit(line, ';');
+	i = -1;
+	while (cmds[++i] != NULL)
+	{
+		cmd.argv = ft_strsplit(cmds[i], ' ');
+		cmd.argc = ft_tablen((void**)cmd.argv);
+		if (cmd.argc > 0)
+		{
+			if (!exec_builtin(sh, &cmd))
+				exec_cmd(sh, &cmd);
+		}
+		ft_tabkil((void**)cmd.argv);
+	}
 }
 
-void			exec_cmd(t_cmd *cmd)
+void			exec_cmd(t_sh *sh, t_cmd *cmd)
 {
-}
+	int				i;
 
-t_cmd			*parse_cmd(char *command)
-{
+	ft_putendl(cmd->argv[0]);
+	i = 0;
+	while (++i < cmd->argc)
+	{
+		ft_putstr(cmd->argv[i]);
+		ft_putchar(((i + 1) < cmd->argc) ? ',' : '\n');
+	}
+	/*
+	** find cmd->argv[0] execve
+	*/
+	(void)sh;
 }

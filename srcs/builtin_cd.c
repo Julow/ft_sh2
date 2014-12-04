@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/03 14:19:12 by jaguillo         ###   ########.fr       */
+/*   Created: 2014/12/04 18:13:50 by jaguillo          #+#    #+#             */
+/*   Updated: 2014/12/04 18:13:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <unistd.h>
 
-t_builtin		g_builtins[] = {
-	{"cd", &builtin_cd},
-	{NULL, NULL}
-};
-
-t_bool			exec_builtin(t_sh *sh, t_cmd *cmd)
+void			builtin_cd(t_sh *sh, t_cmd *cmd)
 {
-	int				i;
-
-	i = -1;
-	while (g_builtins[++i].name != NULL)
-	{
-		if (ft_strequ(g_builtins[i].name, cmd->argv[0]))
-		{
-			g_builtins[i].func(sh, cmd);
-			return (TRUE);
-		}
-	}
-	return (FALSE);
+	if (cmd->argc >= 2)
+		chdir(cmd->argv[1]);
+	else if (cmd->argc == 1)
+		chdir("~");
+	if (cmd->argc > 2)
+		ft_putstr_fd("cd: Warning: Too many arguments.", 2);
+	(void)sh;
 }
