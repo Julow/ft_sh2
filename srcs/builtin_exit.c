@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/04 17:36:17 by jaguillo         ###   ########.fr       */
+/*   Created: 2014/12/08 19:39:00 by jaguillo          #+#    #+#             */
+/*   Updated: 2014/12/08 19:39:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-void			exit_err(char *err)
+void			builtin_exit(t_sh *sh, t_cmd *cmd)
 {
-	ft_putstr_fd("ft_minishell1: ", 2);
-	ft_putstr_fd(err, 2);
-	ft_putchar_fd('\n', 2);
-	exit(1);
-}
+	int				error;
 
-void			ft_tabkil(void **tab)
-{
-	int				i;
-
-	i = -1;
-	while (tab[++i] != NULL)
-		free(tab[i]);
-	free(tab);
+	error = 0;
+	if (cmd->argc > 1)
+		error = ft_atoi(cmd->argv[1]);
+	if (error > 255 || error < 0)
+		error = 1;
+	exit(error);
+	(void)sh;
 }

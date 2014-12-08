@@ -14,6 +14,7 @@
 
 t_builtin		g_builtins[] = {
 	{"cd", &builtin_cd},
+	{"exit", &builtin_exit},
 	{NULL, NULL}
 };
 

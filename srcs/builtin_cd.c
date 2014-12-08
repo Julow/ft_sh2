@@ -18,7 +18,7 @@ void			builtin_cd(t_sh *sh, t_cmd *cmd)
 	if (cmd->argc >= 2)
 		chdir(cmd->argv[1]);
 	else if (cmd->argc == 1)
-		chdir("~");
+		chdir("");
 	if (cmd->argc > 2)
 		ft_putstr_fd("cd: Warning: Too many arguments.", 2);
 	(void)sh;

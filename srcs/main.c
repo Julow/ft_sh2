@@ -37,7 +37,7 @@ int				main(int argc, char **argv)
 	while (get_next_line(0, &line) >= 0)
 	{
 		parse_line(sh, line);
-		ft_gbfree(line);
+		free(line);
 		update_sh(sh);
 	}
 	(void)argc;

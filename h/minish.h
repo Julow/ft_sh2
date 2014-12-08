@@ -43,6 +43,7 @@ void			exec_cmd(t_sh *sh, t_cmd *cmd);
 */
 t_bool			exec_builtin(t_sh *sh, t_cmd *cmd);
 void			builtin_cd(t_sh *sh, t_cmd *cmd);
+void			builtin_exit(t_sh *sh, t_cmd *cmd);
 
 /*
 ** utils.c
