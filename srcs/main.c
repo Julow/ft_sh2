@@ -15,14 +15,28 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static t_sh		*init_sh()
+{
+	extern char		**environ;
+	t_sh			*sh;
+
+	sh = MAL1(t_sh);
+	sh->pwd = NULL;
+	ft_arrayini(sh->env);
+	while (*environ != NULL)
+		ft_arrayadd(&sh->pwd, *(environ++));
+	return (sh);
+}
+
 static void		update_sh(t_sh *sh)
 {
 	if (sh->pwd != NULL)
 		free(sh->pwd);
 	sh->pwd = getcwd(NULL, 0);
 	if (sh->pwd == NULL)
-		exit_err("Cannot get the current pwd.");
-	ft_putstr(sh->pwd);
+		ft_putstr("(null)");
+	else
+		ft_putstr(sh->pwd);
 	ft_putstr(" $> ");
 }
 
@@ -31,8 +45,7 @@ int				main(int argc, char **argv)
 	char			*line;
 	t_sh			*sh;
 
-	sh = MAL1(t_sh);
-	sh->pwd = NULL;
+	sh = init_sh();
 	update_sh(sh);
 	while (get_next_line(0, &line) >= 0)
 	{
@@ -40,6 +53,7 @@ int				main(int argc, char **argv)
 		free(line);
 		update_sh(sh);
 	}
+	ft_putstr("exit\n");
 	(void)argc;
 	(void)argv;
 	return (0);

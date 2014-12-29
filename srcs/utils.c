@@ -30,3 +30,14 @@ void			ft_tabkil(void **tab)
 		free(tab[i]);
 	free(tab);
 }
+
+t_array			*ft_arraydup(t_array *array)
+{
+	t_array			*dup;
+
+	dup = ft_arraynew();
+	ft_arrayext(dup, array->length);
+	ft_memcpy(dup->data, array->data, array->length * sizeof(void*));
+	dup->length = array->length;
+	return (dup);
+}

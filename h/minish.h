@@ -24,6 +24,7 @@ typedef struct	s_cmd
 typedef struct	s_sh
 {
 	char			*pwd;
+	t_array			env;
 }				t_sh;
 
 typedef struct	s_builtin
@@ -44,11 +45,13 @@ void			exec_cmd(t_sh *sh, t_cmd *cmd);
 t_bool			exec_builtin(t_sh *sh, t_cmd *cmd);
 void			builtin_cd(t_sh *sh, t_cmd *cmd);
 void			builtin_exit(t_sh *sh, t_cmd *cmd);
+void			builtin_env(t_sh *sh, t_cmd *cmd);
 
 /*
 ** utils.c
 */
 void			ft_tabkil(void **tab);
 void			exit_err(char *err);
+t_array			*ft_arraydup(t_array *array);
 
 #endif
