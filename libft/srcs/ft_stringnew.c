@@ -17,13 +17,6 @@ t_string		*ft_stringnew(void)
 	t_string		*str;
 
 	str = MAL1(t_string);
-	if (str != NULL)
-	{
-		str->content = MAL(char, 1);
-		if (str->content != NULL)
-			str->content[0] = '\0';
-		str->length = 0;
-		str->alloc_length = (str->content == NULL) ? 0 : 1;
-	}
+	ft_stringini(str);
 	return (str);
 }
