@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/29 15:21:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 09:56:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ void			builtin_env(t_sh *sh, t_cmd *cmd)
 	int				i;
 	t_array			*env;
 
-	env = ft_arraydup(sh->env);
+	env = ft_arraydup(&(sh->env));
 	i = 0;
-	if (cmd->argc > 1 && cmd->argv[1][0] == '-')
+	if (cmd->argv.length > 1 && AG(char*, &(cmd->argv), 1)[0] == '-')
 	{
-		while (cmd->argv[1][++i] != '\0')
-			if (cmd->argv[1][i] == 'i')
-				ft_arrayclr(env)
+		while (AG(char*, &(cmd->argv), 1)[++i] != '\0')
+			if (AG(char*, &(cmd->argv), 1)[i] == 'i')
+				ft_arrayclr(env, NULL);
 			else
-				return (illegal_option, void);
+				return (illegal_option(AG(char*, &(cmd->argv), 1)[i]));
 		i = 1;
 	}
-	while (++i < cmd->argc && ft_strchr(cmd->argv[i], '='))
-		ft_arrayadd(env, cmd->argv[i]);
+	while (++i < cmd->argv.length && ft_strchr(AG(char*, &(cmd->argv), i), '='))
+		ft_arrayadd(env, AG(char*, &(cmd->argv), i));
 	print_env(env);
 	ft_arraykil(env, NULL);
 }

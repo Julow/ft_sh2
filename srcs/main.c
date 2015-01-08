@@ -6,12 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/03 13:55:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 09:58:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include "get_next_line.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -22,9 +21,9 @@ static t_sh		*init_sh()
 
 	sh = MAL1(t_sh);
 	sh->pwd = NULL;
-	ft_arrayini(sh->env);
+	ft_arrayini(&(sh->env));
 	while (*environ != NULL)
-		ft_arrayadd(&sh->pwd, *(environ++));
+		ft_arrayadd(&(sh->env), *(environ++));
 	return (sh);
 }
 
@@ -49,8 +48,7 @@ int				main(int argc, char **argv)
 	update_sh(sh);
 	while (get_next_line(0, &line) >= 0)
 	{
-		parse_line(sh, line);
-		free(line);
+		exec_line(sh, line);
 		update_sh(sh);
 	}
 	ft_putstr("exit\n");

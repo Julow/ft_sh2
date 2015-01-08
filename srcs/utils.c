@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/04 17:36:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:17:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ void			exit_err(char *err)
 	exit(1);
 }
 
-void			ft_tabkil(void **tab)
+char			*get_env(t_sh *sh, char *key)
 {
+	const int		len = ft_strlen(key);
 	int				i;
 
 	i = -1;
-	while (tab[++i] != NULL)
-		free(tab[i]);
-	free(tab);
+	while (++i < sh->env.length)
+	{
+		if (ft_strnequ(AG(char*, &(sh->env), i), key, len))
+			return (AG(char*, &(sh->env), i) + len);
+	}
+	return (NULL);
 }
 
 t_array			*ft_arraydup(t_array *array)

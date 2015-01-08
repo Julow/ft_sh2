@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/03 14:19:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 09:59:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool			exec_builtin(t_sh *sh, t_cmd *cmd)
 	i = -1;
 	while (g_builtins[++i].name != NULL)
 	{
-		if (ft_strequ(g_builtins[i].name, cmd->argv[0]))
+		if (ft_strequ(g_builtins[i].name, cmd->argv.data[0]))
 		{
 			g_builtins[i].func(sh, cmd);
 			return (TRUE);

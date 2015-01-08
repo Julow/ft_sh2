@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 18:13:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/04 18:13:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:28:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 
 void			builtin_cd(t_sh *sh, t_cmd *cmd)
 {
-	if (cmd->argc >= 2)
-		chdir(cmd->argv[1]);
-	else if (cmd->argc == 1)
-		chdir("");
-	if (cmd->argc > 2)
-		ft_putstr_fd("cd: Warning: Too many arguments.", 2);
-	(void)sh;
+	char			*dir;
+
+	if (cmd->argv.length >= 2)
+		dir = cmd->argv.data[1];
+	else if ((dir = get_env(sh, "HOME=")) == NULL)
+		ft_putstr_fd("cd: cannot find $HOME variable.\n", 2);
+	if (dir != NULL && chdir(dir) != 0)
+	{
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+		ft_putendl_fd(dir, 2);
+	}
 }

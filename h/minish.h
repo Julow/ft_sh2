@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2014/12/03 13:19:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:21:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 
 typedef struct	s_cmd
 {
-	int				argc;
-	char			**argv;
+	t_array			argv;
 }				t_cmd;
 
 typedef struct	s_sh
@@ -36,8 +35,7 @@ typedef struct	s_builtin
 /*
 ** cmd.c
 */
-void			parse_line(t_sh *sh, char *line);
-void			exec_cmd(t_sh *sh, t_cmd *cmd);
+void			exec_line(t_sh *sh, char *line);
 
 /*
 ** builtins.c
@@ -50,8 +48,19 @@ void			builtin_env(t_sh *sh, t_cmd *cmd);
 /*
 ** utils.c
 */
-void			ft_tabkil(void **tab);
+char			*get_env(t_sh *sh, char *key);
 void			exit_err(char *err);
 t_array			*ft_arraydup(t_array *array);
+
+/*
+** parse_line.c
+*/
+void			cmd_kill(t_cmd *cmd);
+void			parse_line(t_sh *sh, t_tab *cmds, char *line);
+
+/*
+** fork.c
+*/
+//pid_t			ft_fork(void (*f)(void*), void *param);
 
 #endif
