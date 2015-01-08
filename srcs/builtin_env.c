@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 09:56:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:58:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		illegal_option(char o)
 	ft_putstr_fd("[utility [argument ...]]\n", 2);
 }
 
-void			builtin_env(t_sh *sh, t_cmd *cmd)
+void			builtin_env(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
 	t_array			*env;

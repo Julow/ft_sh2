@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 10:21:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:58:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-static void		exec_cmd(t_sh *sh, t_cmd *cmd)
+static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
 
@@ -31,7 +31,7 @@ static void		exec_cmd(t_sh *sh, t_cmd *cmd)
 	ft_putchar('\n');
 }
 
-void			exec_line(t_sh *sh, char *line)
+void			exec_line(t_sh *sh, const char *line)
 {
 	t_tab			cmds;
 	int				i;

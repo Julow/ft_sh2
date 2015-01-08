@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 18:13:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 10:28:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:58:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <unistd.h>
 
-void			builtin_cd(t_sh *sh, t_cmd *cmd)
+void			builtin_cd(t_sh *sh, const t_cmd *cmd)
 {
 	char			*dir;
 

@@ -6,13 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 09:58:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:56:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
-#include <unistd.h>
 
 static t_sh		*init_sh()
 {
@@ -20,7 +19,6 @@ static t_sh		*init_sh()
 	t_sh			*sh;
 
 	sh = MAL1(t_sh);
-	sh->pwd = NULL;
 	ft_arrayini(&(sh->env));
 	while (*environ != NULL)
 		ft_arrayadd(&(sh->env), *(environ++));
@@ -29,14 +27,12 @@ static t_sh		*init_sh()
 
 static void		update_sh(t_sh *sh)
 {
-	if (sh->pwd != NULL)
-		free(sh->pwd);
-	sh->pwd = getcwd(NULL, 0);
-	if (sh->pwd == NULL)
-		ft_putstr("(null)");
+	const char		*ps1 = get_env(sh, "PS1=");
+
+	if (ps1 == NULL)
+		print_ps1(sh, DEF_PS1);
 	else
-		ft_putstr(sh->pwd);
-	ft_putstr(" $> ");
+		print_ps1(sh, ps1);
 }
 
 int				main(int argc, char **argv)

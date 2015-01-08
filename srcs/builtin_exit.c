@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/08 19:39:00 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 09:43:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 10:58:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-void			builtin_exit(t_sh *sh, t_cmd *cmd)
+void			builtin_exit(t_sh *sh, const t_cmd *cmd)
 {
 	char			error;
 
