@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 10:57:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 15:47:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,24 @@ char			*get_env(t_sh *sh, const char *key)
 	return (NULL);
 }
 
-t_array			*ft_arraydup(const t_array *array)
+void			set_env(t_sh *sh, const char *key, const char *value)
 {
-	t_array			*dup;
+	const int		keylen = ft_strlen(key);
+	const int		valuelen = ft_strlen(value);
+	void			*tmp;
+	int				i;
 
-	dup = ft_arraynew();
-	ft_arrayext(dup, array->length);
-	ft_memcpy(dup->data, array->data, array->length * sizeof(void*));
-	dup->length = array->length;
-	return (dup);
+	i = -1;
+	while (++i < sh->env.length)
+		if (ft_strnequ(AG(char*, &(sh->env), i), key, keylen))
+		{
+			free(AG(char*, &(sh->env), i));
+			ft_arrayrem(&(sh->env), i);
+		}
+	if (value == NULL)
+		return ;
+	tmp = MAL(char, keylen + valuelen + 1);
+	ft_memcpy(tmp, key, keylen);
+	ft_memcpy(tmp + keylen, value, valuelen + 1);
+	ft_arrayadd(&(sh->env), tmp);
 }

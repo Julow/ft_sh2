@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 11:09:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 15:39:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_builtin
 }				t_builtin;
 
 # define DEF_PS1	"%v$ "
+# define DEF_PATH	"/bin:/usr/bin"
 
 /*
 ** cmd.c
@@ -55,7 +56,14 @@ void			builtin_env(t_sh *sh, const t_cmd *cmd);
 ** utils.c
 */
 char			*get_env(t_sh *sh, const char *key);
+void			set_env(t_sh *sh, const char *key, const char *value);
 void			exit_err(const char *err);
+
+/*
+** ftutils.c
+*/
+t_bool			ft_strcase(const char *s1, const char *s2);
+t_bool			ft_strncase(const char *s1, const char *s2, t_uint n);
 t_array			*ft_arraydup(const t_array *array);
 
 /*

@@ -6,12 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 10:44:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 11:06:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/08 11:33:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <unistd.h>
 
 void			print_ps1(t_sh *sh, const char *ps1)
 {
@@ -23,7 +22,7 @@ void			print_ps1(t_sh *sh, const char *ps1)
 			if (*ps1 == 'u')
 				ft_putstr(get_env(sh, "USER="));
 			else if (*ps1 == 'w')
-				ft_putstr(getcwd(NULL, 0));
+				ft_putstr(get_env(sh, "PWD="));
 			else if (*ps1 == 'v')
 				ft_putstr("ft_minishell1");
 			else
