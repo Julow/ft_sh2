@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 13:41:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 20:16:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 static char		*search_file(const char *path, int len, const char *name)
 {
@@ -51,6 +52,8 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 		ft_putstr_fd("ft_minishell1: fork: cannot create process.\n", 2);
 	else if (pid == 0)
 	{
+		cmd->argv.data[cmd->argv.length] = NULL;
+		sh->env.data[sh->env.length] = NULL;
 		execve(file, (char**)(cmd->argv.data), (char**)(sh->env.data));
 		ft_fdprintf(2, "ft_minishell1: %s: cannot exec\n", file);
 		exit(0);

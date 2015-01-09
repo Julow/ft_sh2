@@ -6,20 +6,20 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 13:41:47 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 20:33:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-static void		print_env(t_array *env)
+static void		print_env(t_sh *sh)
 {
 	int				i;
 
 	i = -1;
-	while (++i < env->length)
-		ft_putendl(env->data[i]);
+	while (++i < sh->env.length)
+		ft_putendl(sh->env.data[i]);
 }
 
 static void		illegal_option(char o)
@@ -30,7 +30,7 @@ static void		illegal_option(char o)
 	ft_putstr_fd("[utility [argument ...]]\n", 2);
 }
 
-static void		env_exec(t_sh sh, const t_cmd *cmd, int i)
+static void		env_exec(t_sh *sh, const t_cmd *cmd, int i)
 {
 	t_string		line;
 
@@ -41,31 +41,32 @@ static void		env_exec(t_sh sh, const t_cmd *cmd, int i)
 		ft_stringaddc(&line, ' ');
 		i++;
 	}
-	exec_line(&sh, line.content);
+	exec_line(sh, line.content);
 	free(line.content);
 }
 
 void			builtin_env(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
-	t_array			*env;
+	t_sh			cpy;
 
-	env = ft_arraydup(&(sh->env));
+	ft_arrayini(&(cpy.env));
+	ft_arrayapp(&(cpy.env), &(sh->env));
 	i = 0;
 	if (cmd->argv.length > 1 && AG(char*, &(cmd->argv), 1)[0] == '-')
 	{
 		while (AG(char*, &(cmd->argv), 1)[++i] != '\0')
 			if (AG(char*, &(cmd->argv), 1)[i] == 'i')
-				ft_arrayclr(env, NULL);
+				ft_arrayclr(&(cpy.env), NULL);
 			else
 				return (illegal_option(AG(char*, &(cmd->argv), 1)[i]));
 		i = 1;
 	}
 	while (++i < cmd->argv.length && ft_strchr(AG(char*, &(cmd->argv), i), '='))
-		ft_arrayadd(env, AG(char*, &(cmd->argv), i));
+		set_env_line(&cpy, AG(char*, &(cmd->argv), i));
 	if (i < cmd->argv.length)
-		env_exec((t_sh){*env}, cmd, i);
+		env_exec(&cpy, cmd, i);
 	else
-		print_env(env);
-	ft_arraykil(env, NULL);
+		print_env(&cpy);
+	free(cpy.env.data);
 }
