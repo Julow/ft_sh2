@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtin_unsetenv.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 20:46:24 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/09 20:44:08 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/09 20:45:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-t_builtin		g_builtins[] = {
-	{"cd", &builtin_cd},
-	{"exit", &builtin_exit},
-	{"env", &builtin_env},
-	{"setenv", &builtin_setenv},
-	{"unsetenv", &builtin_unsetenv},
-	{NULL, NULL}
-};
-
-t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd)
+void			builtin_unsetenv(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
 
-	i = -1;
-	while (g_builtins[++i].name != NULL)
-	{
-		if (ft_strequ(g_builtins[i].name, cmd->argv.data[0]))
+	i = 0;
+	if (cmd->argv.length > 1)
+		while (++i < cmd->argv.length)
 		{
-			g_builtins[i].func(sh, cmd);
-			return (TRUE);
+			set_env(sh, cmd->argv.data[i], NULL);
+			ft_printf("unsetenv: %s\n", cmd->argv.data[i]);
 		}
-	}
-	return (FALSE);
+	else
+		ft_fdprintf(2, "unsetenv: not enought argument\n"
+			"usage: unsetenv [name ...]\n");
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 20:19:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 20:46:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			builtin_cd(t_sh *sh, const t_cmd *cmd);
 void			builtin_exit(t_sh *sh, const t_cmd *cmd);
 void			builtin_env(t_sh *sh, const t_cmd *cmd);
 void			builtin_setenv(t_sh *sh, const t_cmd *cmd);
+void			builtin_unsetenv(t_sh *sh, const t_cmd *cmd);
 
 /*
 ** utils.c
