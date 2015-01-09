@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 09:58:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 13:41:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void			parse_line(t_sh *sh, t_tab *cmds, const char *line)
 			while (ft_isspace(*line))
 				line++;
 			line += parse_arg(sh, line, cmd);
+			while (ft_isspace(*line))
+				line++;
 		}
-		while (ft_isspace(*line))
+		if (*line == ';')
 			line++;
 	}
 }

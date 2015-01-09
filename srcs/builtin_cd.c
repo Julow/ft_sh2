@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 18:13:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 10:58:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 13:41:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,5 @@ void			builtin_cd(t_sh *sh, const t_cmd *cmd)
 	else if ((dir = get_env(sh, "HOME=")) == NULL)
 		ft_putstr_fd("cd: cannot find $HOME variable.\n", 2);
 	if (dir != NULL && chdir(dir) != 0)
-	{
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-		ft_putendl_fd(dir, 2);
-	}
+		ft_fdprintf(2, "cd: no such file or directory: %s\n", dir);
 }

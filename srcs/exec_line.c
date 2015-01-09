@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 09:56:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 13:41:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 
 	if (lstat(file, &stat) < 0)
 	{
-		ft_putstr_fd("ft_minishell1: no such file or directory: ", 2);
-		ft_putendl_fd(file, 2);
+		ft_fdprintf(2, "ft_minishell1: %s: no such file or directory\n", file);
 		return ;
 	}
 	if ((pid = fork()) < 0)
@@ -53,9 +52,7 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 	else if (pid == 0)
 	{
 		execve(file, (char**)(cmd->argv.data), (char**)(sh->env.data));
-		ft_putstr_fd("ft_minishell1: cannot call '", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd("'\n", 2);
+		ft_fdprintf(2, "ft_minishell1: %s: cannot exec\n", file);
 		exit(0);
 	}
 	else
@@ -86,9 +83,8 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 		}
 		path += len + 1;
 	}
-	ft_putstr_fd("ft_minishell1: command not found: ", 2);
-	ft_putstr_fd(AG(char*, &(cmd->argv), 0), 2);
-	ft_putchar_fd('\n', 2);
+	ft_fdprintf(2, "ft_minishell1: command not found: %s\n",
+		AG(char*, &(cmd->argv), 0));
 }
 
 void			exec_line(t_sh *sh, const char *line)

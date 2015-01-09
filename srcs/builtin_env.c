@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 10:58:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 13:41:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <stdlib.h>
 
 static void		print_env(t_array *env)
 {
@@ -27,6 +28,21 @@ static void		illegal_option(char o)
 	ft_putchar_fd(o, 2);
 	ft_putstr_fd("\nusage: env [-i] [name=value ...] ", 2);
 	ft_putstr_fd("[utility [argument ...]]\n", 2);
+}
+
+static void		env_exec(t_sh sh, const t_cmd *cmd, int i)
+{
+	t_string		line;
+
+	ft_stringini(&line);
+	while (i < cmd->argv.length)
+	{
+		ft_stringadd(&line, cmd->argv.data[i]);
+		ft_stringaddc(&line, ' ');
+		i++;
+	}
+	exec_line(&sh, line.content);
+	free(line.content);
 }
 
 void			builtin_env(t_sh *sh, const t_cmd *cmd)
@@ -47,6 +63,9 @@ void			builtin_env(t_sh *sh, const t_cmd *cmd)
 	}
 	while (++i < cmd->argv.length && ft_strchr(AG(char*, &(cmd->argv), i), '='))
 		ft_arrayadd(env, AG(char*, &(cmd->argv), i));
-	print_env(env);
+	if (i < cmd->argv.length)
+		env_exec((t_sh){*env}, cmd, i);
+	else
+		print_env(env);
 	ft_arraykil(env, NULL);
 }
