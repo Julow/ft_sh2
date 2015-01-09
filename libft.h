@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 11:52:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/06 13:24:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 12:53:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@
 # define IGNORE(f)		((void)((f) + 1))
 
 # define ISNAN(d)		((d) != (d))
+
+# ifdef DEBUG_MODE
+#  define DEBUG(d, ...) ft_debug(#__FILE__, #__LINE__, d, ##__VA_ARGS__)
+# else
+#  define DEBUG(d, ...)
+# endif
 
 # ifndef TRUE
 #  define TRUE			1
@@ -211,6 +217,8 @@ int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, t_uint n);
 t_bool			ft_strequ(const char *s1, const char *s2);
 t_bool			ft_strnequ(const char *s1, const char *s2, t_uint n);
+t_bool			ft_strcase(const char *s1, const char *s2);
+t_bool			ft_strncase(const char *s1, const char *s2, t_uint n);
 
 void			ft_strnadd(char **str, const char *add, t_uint len);
 
@@ -274,6 +282,10 @@ int				ft_toupper(int c);
 int				ft_tolower(int c);
 void			ft_strlower(char *str);
 void			ft_strupper(char *str);
+
+int				ft_wstrconv(char *buff, int *wstr);
+int				ft_wstrnconv(char *buff, int *wstr, int n);
+int				ft_widetoa(char *buff, int w);
 
 /*
 ** Write
@@ -339,6 +351,7 @@ void			*ft_arrayrem(t_array *array, int index);
 void			*ft_arraypop(t_array *array);
 int				ft_arraychr(t_array *array, const void *chr);
 void			ft_arrayapp(t_array *array, const t_array *app);
+t_array			*ft_arraydup(const t_array *array);
 void			ft_arrayfree(t_array *array);
 void			ft_arrayclr(void *array, void (*f)(void *data));
 void			ft_arraykil(void *array, void (*f)(void *data));
@@ -436,5 +449,41 @@ void			ft_drawtrif(t_image *img, t_pt pts[3], t_color color);
 ** get_next_line
 */
 int				get_next_line(int const fd, char **line);
+
+/*
+** =============
+** A format sequence be like:
+**    %[flags][width][.precision]format
+** flags can be 0 or more: '#', ' ', '-', '+', '^', '0', ''', '>', 'm', 'M', 'T'
+** width is a positive integer
+** precision is a positive integer or '*', precision start with '.'
+** format can be one of "%sSdDoOuUxXicCnp"
+** =============
+** =
+** =
+** ft_printf
+** =============
+** Process the format sequence like printf and print the result to stdout
+** =============
+** Return the total of char printed.
+** =
+** =
+** ft_printf_fd
+** =============
+** Like ft_printf but the result is printed to the fd 'fd'
+** =============
+** Return the total of char printed.
+** =
+** =
+** ft_stringf
+** =============
+** Like ft_printf but the result return in a t_string
+** =============
+** A t_string containing the result.
+*/
+int				ft_printf(const char *format, ...);
+int				ft_fdprintf(const int fd, const char *format, ...);
+t_string		*ft_stringf(const char *format, ...);
+void			ft_debug(char *file, int line, const char *format, ...);
 
 #endif
