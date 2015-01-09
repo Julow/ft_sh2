@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 15:39:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 09:57:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static t_sh		*init_sh()
+static t_sh		*init_sh(void)
 {
 	extern char		**environ;
 	t_sh			*sh;
@@ -52,6 +52,7 @@ int				main(int argc, char **argv)
 	char			*line;
 	t_sh			*sh;
 
+	print_motd();
 	sh = init_sh();
 	update_sh(sh);
 	while (get_next_line(0, &line) > 0)

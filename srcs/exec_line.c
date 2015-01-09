@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/08 15:42:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/09 09:56:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 		return ;
 	if (ft_strrchr(AG(char*, &(cmd->argv), 0), '/') != NULL)
 		return (exec_bin(sh, AG(char*, &(cmd->argv), 0), cmd));
-	path = get_env(sh, "PATH=");
-	if (path == NULL)
+	if ((path = get_env(sh, "PATH=")) == NULL)
 		set_env(sh, "PATH=", (path = DEF_PATH));
 	while (*path != '\0')
 	{
