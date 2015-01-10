@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 17:49:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 00:03:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,20 @@ static t_sh		*init_sh(void)
 	return (sh);
 }
 
+static void		kill_sh(t_sh *sh)
+{
+	ft_arrayclr(&(sh->env), &free);
+	free(sh->env.data);
+	free(sh);
+}
+
 static void		update_sh(t_sh *sh)
 {
 	const char		*ps1 = get_env(sh, "PS1=");
-	const char		*pwd = getcwd(NULL, 0);
+	char			*pwd;
 	char			*tmp;
 
-	if (pwd != NULL)
+	if ((pwd = getcwd(NULL, 0)) != NULL)
 	{
 		tmp = get_env(sh, "PWD=");
 		if (!ft_strequ(pwd, tmp))
@@ -40,6 +47,7 @@ static void		update_sh(t_sh *sh)
 			set_env(sh, "OLDPWD=", tmp);
 			set_env(sh, "PWD=", pwd);
 		}
+		free(pwd);
 	}
 	if (ps1 == NULL)
 		print_ps1(sh, DEF_PS1);
@@ -61,6 +69,7 @@ int				main(int argc, char **argv)
 		update_sh(sh);
 	}
 	ft_putstr("exit\n");
+	kill_sh(sh);
 	(void)argc;
 	(void)argv;
 	return (0);

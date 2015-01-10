@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 20:16:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 00:06:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,49 @@ static char		*search_file(const char *path, int len, const char *name)
 	return (free(file.content), closedir(dir), NULL);
 }
 
+static void		handle_status(const char *file, int status)
+{
+	int				sign;
+
+	if (WIFSIGNALED(status))
+	{
+		sign = WTERMSIG(status);
+		ft_fdprintf(2, "ft_minishell1: %s: Process terminated: ", file);
+		if (sign == 6)
+			ft_putstr_fd("Aborted\n", 2);
+		else if (sign == 11)
+			ft_putstr_fd("Segmentation fault\n", 2);
+		else
+			ft_fdprintf(2, "Terminate by signal %d\n", sign);
+	}
+}
+
 static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 {
 	pid_t			pid;
 	struct stat		stat;
+	int				status;
 
 	if (lstat(file, &stat) < 0)
 	{
-		ft_fdprintf(2, "ft_minishell1: %s: no such file or directory\n", file);
+		ft_fdprintf(2, "ft_minishell1: %s: No such file or directory\n", file);
 		return ;
 	}
 	if ((pid = fork()) < 0)
-		ft_putstr_fd("ft_minishell1: fork: cannot create process.\n", 2);
+		ft_fdprintf(2, "ft_minishell1: %s: Cannot create process.\n", file);
 	else if (pid == 0)
 	{
 		cmd->argv.data[cmd->argv.length] = NULL;
 		sh->env.data[sh->env.length] = NULL;
 		execve(file, (char**)(cmd->argv.data), (char**)(sh->env.data));
-		ft_fdprintf(2, "ft_minishell1: %s: cannot exec\n", file);
+		ft_fdprintf(2, "ft_minishell1: %s: Process cannot start\n", file);
 		exit(0);
 	}
 	else
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &status, 0);
+		handle_status(file, status);
+	}
 }
 
 static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
