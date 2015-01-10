@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 12:04:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 20:31:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-t_builtin		g_builtins[] = {
+const t_builtin	g_builtins[] = {
 	{"cd", &builtin_cd},
 	{"exit", &builtin_exit},
 	{"env", &builtin_env},

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 15:55:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 20:27:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_sub
 	int				length;
 }				t_sub;
 
-# define SUB(s,l)		((t_str){(s), (l)})
+# define SUB(s,l)		((t_sub){(s), (l)})
 
 # define DEF_PS1		"%v$ "
 # define DEF_PATH		"/bin:/usr/bin"
