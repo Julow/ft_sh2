@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 14:07:54 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/10 14:50:17 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/10 14:53:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <stdlib.h>
 
-int				main(int argc, char **argv)
+void			cmd_init(t_cmd *cmd)
 {
-	t_sh			*sh;
+	ft_arrayini(&(cmd->argv));
+}
 
-	print_motd();
-	sh = init_sh();
-	start_sh(sh);
-	ft_putstr("exit\n");
-	kill_sh(sh);
-	(void)argc;
-	(void)argv;
-	return (0);
+void			cmd_kill(t_cmd *cmd)
+{
+	ft_arrayclr(&(cmd->argv), &free);
+	free(cmd->argv.data);
 }

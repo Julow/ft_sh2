@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 00:06:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 14:50:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ static int		parse_arg(t_sh *sh, const char *line, t_cmd *cmd)
 	if (arg.length > 0)
 		return (ft_arrayadd(&(cmd->argv), arg.content), i);
 	return (free(arg.content), i);
-}
-
-static void		cmd_init(t_cmd *cmd)
-{
-	ft_arrayini(&(cmd->argv));
-}
-
-void			cmd_kill(t_cmd *cmd)
-{
-	ft_arrayclr(&(cmd->argv), &free);
-	free(cmd->argv.data);
 }
 
 void			parse_line(t_sh *sh, t_tab *cmds, const char *line)

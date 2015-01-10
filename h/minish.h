@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 12:04:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 14:53:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef struct	s_builtin
 # define ACCESS_RIGHT	3
 
 /*
+** sh.c
+*/
+t_sh			*init_sh(void);
+void			kill_sh(t_sh *sh);
+void			update_sh(t_sh *sh);
+void			start_sh(t_sh *sh);
+
+/*
 ** cmd.c
 */
 void			exec_line(t_sh *sh, const char *line);
@@ -56,7 +64,7 @@ void			print_ps1(t_sh *sh, const char *ps1);
 void			print_motd(void);
 
 /*
-** builtins.c
+** builtin*
 */
 t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd);
 void			builtin_cd(t_sh *sh, const t_cmd *cmd);
@@ -69,15 +77,29 @@ void			builtin_help(t_sh *sh, const t_cmd *cmd);
 /*
 ** utils.c
 */
+void			exit_err(const char *err);
+
+/*
+** env_utils.c
+*/
 char			*get_env(t_sh *sh, const char *key);
 void			set_env_line(t_sh *sh, const char *line);
 void			set_env(t_sh *sh, const char *key, const char *value);
-void			exit_err(const char *err);
+
+/*
+** cmd_utils.c
+*/
+void			cmd_init(t_cmd *cmd);
+void			cmd_kill(t_cmd *cmd);
+
+/*
+** search_file.c
+*/
+char			*search_file(const char *path, int len, const char *name);
 
 /*
 ** parse_line.c
 */
-void			cmd_kill(t_cmd *cmd);
 void			parse_line(t_sh *sh, t_tab *cmds, const char *line);
 
 #endif

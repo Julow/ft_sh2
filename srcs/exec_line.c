@@ -6,36 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 11:33:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 14:52:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include <dirent.h>
 #include <sys/wait.h>
-
-static char		*search_file(const char *path, int len, const char *name)
-{
-	DIR				*dir;
-	struct dirent	*ent;
-	t_string		file;
-
-	ft_stringini(&file);
-	ft_stringaddl(&file, path, len);
-	dir = opendir(file.content);
-	if (dir == NULL)
-		return (NULL);
-	while ((ent = readdir(dir)) != NULL)
-		if (ft_strcase(ent->d_name, name))
-		{
-			ft_stringaddc(&file, '/');
-			ft_stringadd(&file, ent->d_name);
-			return (closedir(dir), file.content);
-		}
-	return (free(file.content), closedir(dir), NULL);
-}
 
 static void		handle_status(const char *file, int status)
 {
