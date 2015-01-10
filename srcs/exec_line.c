@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 00:06:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 11:33:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <sys/stat.h>
 #include <sys/wait.h>
 
 static char		*search_file(const char *path, int len, const char *name)
@@ -58,14 +57,10 @@ static void		handle_status(const char *file, int status)
 static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 {
 	pid_t			pid;
-	struct stat		stat;
 	int				status;
 
-	if (lstat(file, &stat) < 0)
-	{
-		ft_fdprintf(2, "ft_minishell1: %s: No such file or directory\n", file);
+	if (access_error(file))
 		return ;
-	}
 	if ((pid = fork()) < 0)
 		ft_fdprintf(2, "ft_minishell1: %s: Cannot create process.\n", file);
 	else if (pid == 0)
