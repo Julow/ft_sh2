@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 20:46:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 12:04:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_builtin		g_builtins[] = {
 	{"env", &builtin_env},
 	{"setenv", &builtin_setenv},
 	{"unsetenv", &builtin_unsetenv},
+	{"help", &builtin_help},
 	{NULL, NULL}
 };
 
