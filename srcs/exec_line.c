@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 14:52:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/10 15:55:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 	while (*path != '\0')
 	{
 		len = ft_strcskipe(path, ":");
-		tmp = search_file(path, len, AG(char*, &(cmd->argv), 0));
+		tmp = search_file(SUB(path, len), AG(char*, &(cmd->argv), 0));
 		if (tmp != NULL)
 		{
 			exec_bin(sh, tmp, cmd);
