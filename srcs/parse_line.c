@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 17:27:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 
 	ft_stringini(&arg);
 	str = '\0';
-	while (line->i < line->length && ft_buffget(line) != ';')
+	while (line->i < line->length)
 	{
 		escaped = (str != '\'' && ft_buffget(line) == '\\' && ++line->i) ? TRUE : FALSE;
 		if (!escaped && ft_buffget(line) == '\'' && (str == '\'' || str == '\0'))
 			str = (str == '\0') ? ft_buffget(line) : '\0';
 		else if (!escaped && ft_buffget(line) == '"' && (str == '"' || str == '\0'))
 			str = (str == '\0') ? ft_buffget(line) : '\0';
-		else if (!escaped && str == '\0' && ft_buffget(line) == ' ')
+		else if (!escaped && str == '\0' && (ft_buffget(line) == ' ' || ft_buffget(line) == ';'))
 			break ;
 		else
 			ft_stringaddc(&arg, ft_buffget(line));

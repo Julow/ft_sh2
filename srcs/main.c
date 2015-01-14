@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 17:03:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 17:14:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static void		update_shlvl(t_sh *sh)
 	const char		*shlvl = get_env(sh, "SHLVL=");
 	char			*lvl;
 
+	if (shlvl == NULL)
+	{
+		set_env(sh, "SHLVL=", "1");
+		return ;
+	}
 	lvl = ft_itoa(ft_atoi(shlvl) + 1);
 	if (lvl == NULL)
 		return ;
