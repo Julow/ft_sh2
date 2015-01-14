@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:44:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 17:37:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISH_H
 
 # include "libft.h"
+
+# define BG			ft_buffget
 
 typedef struct	s_cmd
 {

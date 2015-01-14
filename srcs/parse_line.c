@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 17:27:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 17:37:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		resolve_home(t_sh *sh, t_string *arg)
 
 static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
-	t_bool			escaped;
+	t_bool			esc;
 	char			str;
 	t_string		arg;
 
@@ -35,15 +35,15 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 	str = '\0';
 	while (line->i < line->length)
 	{
-		escaped = (str != '\'' && ft_buffget(line) == '\\' && ++line->i) ? TRUE : FALSE;
-		if (!escaped && ft_buffget(line) == '\'' && (str == '\'' || str == '\0'))
-			str = (str == '\0') ? ft_buffget(line) : '\0';
-		else if (!escaped && ft_buffget(line) == '"' && (str == '"' || str == '\0'))
-			str = (str == '\0') ? ft_buffget(line) : '\0';
-		else if (!escaped && str == '\0' && (ft_buffget(line) == ' ' || ft_buffget(line) == ';'))
+		esc = (str != '\'' && BG(line) == '\\' && ++line->i) ? TRUE : FALSE;
+		if (!esc && BG(line) == '\'' && (str == '\'' || str == '\0'))
+			str = (str == '\0') ? BG(line) : '\0';
+		else if (!esc && BG(line) == '"' && (str == '"' || str == '\0'))
+			str = (str == '\0') ? BG(line) : '\0';
+		else if (!esc && str == '\0' && (BG(line) == ' ' || BG(line) == ';'))
 			break ;
 		else
-			ft_stringaddc(&arg, ft_buffget(line));
+			ft_stringaddc(&arg, BG(line));
 		line->i++;
 	}
 	resolve_home(sh, &arg);
@@ -61,7 +61,7 @@ void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line)
 	{
 		cmd = (t_cmd*)ft_tabadd0(cmds);
 		cmd_init(cmd);
-		while (line->i < line->length && ft_buffget(line) != ';')
+		while (line->i < line->length && BG(line) != ';')
 		{
 			ft_parsespace(line);
 			parse_arg(sh, line, cmd);
