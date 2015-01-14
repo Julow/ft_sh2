@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/09 23:41:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 23:41:27 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/14 09:00:19 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/14 09:11:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <signal.h>
 
 int				main(int argc, char **argv)
 {
-	free(&argc);
-	return (0);
+	return (raise(atoi(argv[1])));
 }
