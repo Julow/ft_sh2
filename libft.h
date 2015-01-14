@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 11:52:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 12:53:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/13 15:29:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define TG(t,b,i)		(*(t*)(((t_tab*)b)->data + (((t_tab*)b)->size * (i))))
 # define TI(b,i)		(((t_tab*)b)->data + (((t_tab*)b)->size * (i)))
 # define AG(t,a,i)		((t)(((t_array*)(a))->data[i]))
+
+# define BUFF_SIZE		192
+
+# define B(b)			((b)->data[(b)->i])
+# define BUFF(s,i,l)	((t_buff){(s), (i), (l), -1})
+# define FBUFF(fd)		((t_buff){MAL(char, BUFF_SIZE), 0, 0, fd})
 
 # define MIN(a,b)		(((a) < (b)) ? (a) : (b))
 # define MAX(a,b)		(((a) > (b)) ? (a) : (b))
@@ -49,9 +55,11 @@
 # define ISNAN(d)		((d) != (d))
 
 # ifdef DEBUG_MODE
-#  define DEBUG(d, ...) ft_debug(#__FILE__, #__LINE__, d, ##__VA_ARGS__)
+#  define DEBUG(d, ...) ft_debug(__func__, __FILE__, __LINE__, d, __VA_ARGS__)
+#  define TRACE			ft_debug(__func__, __FILE__, __LINE__, NULL)
 # else
 #  define DEBUG(d, ...)
+#  define TRACE
 # endif
 
 # ifndef TRUE
@@ -133,6 +141,14 @@ typedef struct	s_pair
 	void			*value;
 }				t_pair;
 
+typedef struct	s_buff
+{
+	char			*data;
+	int				i;
+	int				length;
+	int				fd;
+}				t_buff;
+
 typedef struct	s_image
 {
 	t_byte			*data;
@@ -183,7 +199,7 @@ typedef struct	s_pos
 /*
 ** Memory
 */
-void			ft_bzero(void *s, t_uint n);
+inline void		ft_bzero(void *s, t_uint n);
 t_ulong			*ft_memalign(void *mem, const void *data, t_uint *len);
 void			*ft_memset(void *b, int c, t_uint len);
 void			*ft_memcpy(void *dst, const void *src, t_uint len);
@@ -203,10 +219,10 @@ t_uint			ft_tablen(void **array);
 ** String
 */
 char			*ft_strnew(t_uint size);
-t_uint			ft_strlen(const char *str);
+inline t_uint	ft_strlen(const char *str);
 char			*ft_strdup(const char *src);
 char			*ft_strndup(const char *src, t_uint len);
-char			*ft_strcpy(char *dst, const char *src);
+inline char		*ft_strcpy(char *dst, const char *src);
 char			*ft_strncpy(char *dst, const char *src, t_uint len);
 char			*ft_strsub(const char *s, t_uint start, t_uint len);
 char			*ft_strjoin(const char *s1, const char *s2);
@@ -222,13 +238,13 @@ t_bool			ft_strncase(const char *s1, const char *s2, t_uint n);
 
 void			ft_strnadd(char **str, const char *add, t_uint len);
 
-t_bool			ft_isalpha(char c);
-t_bool			ft_isdigit(char c);
-t_bool			ft_isalnum(char c);
-t_bool			ft_isascii(int c);
-t_bool			ft_isprint(char c);
-t_bool			ft_isspace(char c);
-t_bool			ft_iswhite(char c);
+inline t_bool	ft_isalpha(char c);
+inline t_bool	ft_isdigit(char c);
+inline t_bool	ft_isalnum(char c);
+inline t_bool	ft_isascii(int c);
+inline t_bool	ft_isprint(char c);
+inline t_bool	ft_isspace(char c);
+inline t_bool	ft_iswhite(char c);
 
 t_bool			ft_isato(const char *str);
 t_bool			ft_isnumber(const char *str);
@@ -278,11 +294,16 @@ char			*ft_ltoa(t_long n);
 char			*ft_itobase(t_ulong nb, const char *base);
 t_ulong			ft_basetoi(const char *str, const char *base);
 
-int				ft_toupper(int c);
-int				ft_tolower(int c);
+inline int		ft_toupper(int c);
+inline int		ft_tolower(int c);
 void			ft_strlower(char *str);
 void			ft_strupper(char *str);
 
+/*
+** W String
+*/
+
+inline t_uint	ft_wstrlen(int *wstr);
 int				ft_wstrconv(char *buff, int *wstr);
 int				ft_wstrnconv(char *buff, int *wstr, int n);
 int				ft_widetoa(char *buff, int w);
@@ -290,18 +311,18 @@ int				ft_widetoa(char *buff, int w);
 /*
 ** Write
 */
-int				ft_putchar(char c);
-int				ft_putnchar(char c, int n);
-int				ft_putstr(const char *s);
-int				ft_putlstr(const char *s, int len);
-int				ft_putendl(const char *s);
-int				ft_putnbr(int n);
-int				ft_putlong(t_long n);
-int				ft_putchar_fd(char c, int fd);
+inline int		ft_putchar(char c);
+inline int		ft_putnchar(char c, int n);
+inline int		ft_putstr(const char *s);
+inline int		ft_putlstr(const char *s, int len);
+inline int		ft_putendl(const char *s);
+inline int		ft_putnbr(int n);
+inline int		ft_putlong(t_long n);
+inline int		ft_putchar_fd(char c, int fd);
 int				ft_putnchar_fd(char c, int n, int fd);
-int				ft_putstr_fd(const char *s, int fd);
-int				ft_putlstr_fd(const char *s, int len, int fd);
-int				ft_putendl_fd(const char *s, int fd);
+inline int		ft_putstr_fd(const char *s, int fd);
+inline int		ft_putlstr_fd(const char *s, int len, int fd);
+inline int		ft_putendl_fd(const char *s, int fd);
 int				ft_putnbr_fd(int n, int fd);
 int				ft_putlong_fd(t_long n, int fd);
 
@@ -322,14 +343,14 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 */
 t_tab			*ft_tabnew(int size);
 void			ft_tabini(t_tab *tab, int size);
-void			*ft_tabget(t_tab *tab, int index);
+inline void		*ft_tabget(t_tab *tab, int index);
 void			*ft_tabadd0(t_tab *tab);
-void			ft_tabadd(t_tab *tab, const void *add);
-void			ft_tabaddn(t_tab *tab, const void *add, int n);
+inline void		ft_tabadd(t_tab *tab, const void *add);
+inline void		ft_tabaddn(t_tab *tab, const void *add, int n);
 void			ft_tabset(t_tab *tab, const void *set, int index, int n);
 void			ft_tabins(t_tab *tab, const void *ins, int index, int n);
 void			ft_tabrem(t_tab *tab, int index, int n);
-void			ft_tabpop(t_tab *tab);
+inline void		ft_tabpop(t_tab *tab);
 int				ft_tabchr(t_tab *tab, const void *chr);
 void			ft_tabfree(t_tab *tab);
 void			ft_tabclr(t_tab *tab);
@@ -344,11 +365,11 @@ t_bool			ft_tabext(t_tab *tab, int need);
 */
 t_array			*ft_arraynew(void);
 void			ft_arrayini(t_array *array);
-void			ft_arrayadd(t_array *array, void *add);
+inline void		ft_arrayadd(t_array *array, void *add);
 void			ft_arrayset(t_array *array, void *set, int index);
 void			ft_arrayins(t_array *array, void *ins, int index);
 void			*ft_arrayrem(t_array *array, int index);
-void			*ft_arraypop(t_array *array);
+inline void		*ft_arraypop(t_array *array);
 int				ft_arraychr(t_array *array, const void *chr);
 void			ft_arrayapp(t_array *array, const t_array *app);
 t_array			*ft_arraydup(const t_array *array);
@@ -377,14 +398,14 @@ void			ft_pairsort(t_array *array);
 t_string		*ft_stringnew(void);
 t_string		*ft_stringnews(const char *s);
 void			ft_stringini(t_string *str);
-void			ft_stringaddc(t_string *str, char c);
-void			ft_stringadd(t_string *str, const char *add);
+inline void		ft_stringaddc(t_string *str, char c);
+inline void		ft_stringadd(t_string *str, const char *add);
 void			ft_stringaddi(t_string *str, int nbr);
 void			ft_stringaddil(t_string *str, t_long nbr);
 void			ft_stringaddid(t_string *str, double nbr);
 void			ft_stringaddd(t_string *str, double d, int preci);
 void			ft_stringaddde(t_string *str, double d, int preci);
-void			ft_stringaddl(t_string *str, const char *add, int len);
+inline void		ft_stringaddl(t_string *str, const char *add, int len);
 void			ft_stringaddcn(t_string *str, char c, int n);
 void			ft_stringsetc(t_string *str, char c, int index);
 void			ft_stringset(t_string *str, const char *set, int index);
@@ -411,28 +432,62 @@ int				ft_stringput(t_string *str);
 int				ft_stringputfd(t_string *str, int const fd);
 
 /*
+** struct s_buff (t_buff) represent a buffer being parsed
+** 'data' may not be NULL terminated
+** == string buff ('fd' < 0)
+** 'data' is not the original malloced pointer (can't be free)
+** macro B() return the current char
+** macro BUFF() init a t_buff
+** == file buff ('fd' >= 0)
+** 'data' need to be the original malloced pointer (automaticaly free)
+** macro FBUFF() init a file t_buff (malloc 'data')
+*/
+inline char		ft_readbuff(t_buff *buff);
+inline char		ft_buffget(t_buff *buff);
+void			ft_parse(t_buff *buff, const char *parse);
+void			ft_parsef(t_buff *buff, t_bool (*f)(char c));
+void			ft_parsenot(t_buff *buff, const char *parse);
+t_string		ft_parsesub(t_buff *buff, const char *parse);
+t_string		ft_parsesubf(t_buff *buff, t_bool (*f)(char c));
+t_string		ft_parseline(t_buff *buff);
+void			ft_parseendl(t_buff *buff);
+int				ft_parseint(t_buff *buff);
+t_long			ft_parselong(t_buff *buff);
+void			ft_parsespace(t_buff *buff);
+void			ft_parsewhite(t_buff *buff);
+
+/*
+** Work only for string buff
+*/
+double			ft_parsedouble(t_buff *buff);
+t_bool			ft_parsestr(t_buff *buff, const char *str);
+
+/*
 ** Math
 */
-int				ft_mix(int a, int b, t_big pos);
-int				ft_max(int a, int b);
+inline int		ft_mix(int a, int b, t_big pos);
+inline int		ft_max(int a, int b);
 
-void			ft_resalpha(t_color *c, t_color bg);
-void			ft_resrect(t_rect *rect, t_rect bounds);
+inline void		ft_resalpha(t_color *c, t_color bg);
+inline void		ft_resrect(t_rect *rect, t_rect bounds);
+
+inline t_pt		ft_nearest(t_pt pos, t_pt p1, t_pt p2);
 
 /*
 ** Draw on struct s_image (t_image)
 */
-t_color			ft_imagept(t_image *img, t_pt pt);
-t_color			ft_imagepos(t_image *img, int pos);
-void			ft_imageput(t_image *img, int pos, t_color color);
+inline t_color	ft_imagept(t_image *img, t_pt pt);
+inline t_color	ft_imagepos(t_image *img, int pos);
+inline void		ft_imageput(t_image *img, int pos, t_color color);
 void			ft_imageclr(t_image *img);
 void			ft_imageclrc(t_image *img, t_color color);
 t_image			*ft_imageclone(t_image *img);
 void			ft_imageclonekil(t_image *clone);
 
-void			ft_drawxy(t_image *img, int x, int y, t_color color);
-void			ft_drawpt(t_image *img, t_pt pt, t_color color);
+inline void		ft_drawxy(t_image *img, int x, int y, t_color color);
+inline void		ft_drawpt(t_image *img, t_pt pt, t_color color);
 void			ft_drawnpt(t_image *img, t_pt pt, int n, t_color color);
+void			ft_drawvert(t_image *img, t_pt pt, int height, t_color color);
 
 void			ft_drawimage(t_image *dst, t_image *src, t_pt pos, t_rect part);
 
@@ -448,16 +503,19 @@ void			ft_drawtrif(t_image *img, t_pt pts[3], t_color color);
 /*
 ** get_next_line
 */
-int				get_next_line(int const fd, char **line);
+int				get_next_line(int const fd, t_buff *line);
 
 /*
 ** =============
 ** A format sequence be like:
 **    %[flags][width][.precision]format
-** flags can be 0 or more: '#', ' ', '-', '+', '^', '0', ''', '>', 'm', 'M', 'T'
+** flags can be 0 or more: '#', ' ', '-', '+', '^', '0', ''', '>', 'm', 'M'
 ** width is a positive integer
 ** precision is a positive integer or '*', precision start with '.'
-** format can be one of "%sSdDoOuUxXicCnp"
+** format can be one of "%sSdDoOuUxXicCnpfFeE"
+** A meta sequence be like:
+**    {meta_name}
+** (list of meta in srcs/ft_printf/parse_meta.c)
 ** =============
 ** =
 ** =
@@ -480,10 +538,17 @@ int				get_next_line(int const fd, char **line);
 ** Like ft_printf but the result return in a t_string
 ** =============
 ** A t_string containing the result.
+** =
+** =
+** ft_debug
+** =============
+** Print debug, used by macros DEBUG and TRACE
+** =============
+** A t_string containing the result.
 */
 int				ft_printf(const char *format, ...);
 int				ft_fdprintf(const int fd, const char *format, ...);
 t_string		*ft_stringf(const char *format, ...);
-void			ft_debug(char *file, int line, const char *format, ...);
+void			ft_debug(const char *c, char *f, int l, const char *s, ...);
 
 #endif

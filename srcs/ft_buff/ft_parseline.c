@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_parseline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 17:36:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/12 22:32:50 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/12 20:13:55 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/13 15:33:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-inline int		ft_putendl(const char *s)
+t_string		ft_parseline(t_buff *buff)
 {
-	return (ft_putstr(s) + ft_putchar('\n'));
+	char			c;
+	t_string		line;
+
+	ft_stringini(&line);
+	c = ft_buffget(buff);
+	while (c != '\0')
+	{
+		if ((c = ft_buffget(buff)) == '\n' || c == '\0')
+			break ;
+		ft_stringaddc(&line, c);
+		buff->i++;
+	}
+	if (c == '\n')
+		buff->i++;
+	return (line);
 }
