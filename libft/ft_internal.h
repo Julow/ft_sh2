@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 19:49:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 11:47:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/13 15:17:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@
 # include "libft.h"
 
 # include <stdarg.h>
-# include <wchar.h>
 
 /*
 ** =============
-** libft
+** ft_put
 */
 
 # define PUTNBR_BUFF	11
@@ -56,21 +55,6 @@ typedef struct	s_gnlfd
 
 # define LONG_BUFF	(40)
 
-typedef struct	s_ldouble_bits
-{
-	t_ulong			fract:64;
-	t_uint			e:15;
-	t_bool			sign:1;
-}				t_ldouble_bits;
-
-typedef union	u_ldouble
-{
-	t_ldouble_bits	b;
-	long double		d;
-}				t_ldouble;
-
-# define EXP(d)		((((t_ldouble)(d)).b).e)
-
 typedef struct	s_format
 {
 	char			name;
@@ -100,7 +84,6 @@ int				parse_format(t_string *out, const char *format, va_list *ap);
 
 int				parse_meta(t_string *out, const char *format);
 
-t_uint			ft_wstrlen(wchar_t *wstr);
 void			ft_stringaddupper(t_string *str, const char *add, int len);
 void			ft_stringaddlower(t_string *str, const char *add, int len);
 int				ft_atoin(const char *str, int len);
@@ -128,6 +111,5 @@ void			flag_e(t_string *out, t_opt *opt, va_list *ap);
 void			flag_f(t_string *out, t_opt *opt, va_list *ap);
 void			flag_b(t_string *out, t_opt *opt, va_list *ap);
 void			flag_r(t_string *out, t_opt *opt, va_list *ap);
-void			flag_g(t_string *out, t_opt *opt, va_list *ap);
 
 #endif

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_parsewhite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 17:36:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/12 22:32:50 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/13 15:29:27 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/13 15:29:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-inline int		ft_putendl(const char *s)
+void			ft_parsewhite(t_buff *buff)
 {
-	return (ft_putstr(s) + ft_putchar('\n'));
+	while (ft_iswhite(ft_buffget(buff)))
+		buff->i++;
 }

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_parseendl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 17:36:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/12 22:32:50 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/13 15:27:51 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/13 15:33:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-inline int		ft_putendl(const char *s)
+void			ft_parseendl(t_buff *buff)
 {
-	return (ft_putstr(s) + ft_putchar('\n'));
+	char			c;
+
+	c = '\0';
+	while ((c = ft_buffget(buff)) != '\n' && c != '\0')
+		buff->i++;
+	if (c == '\n')
+		buff->i++;
 }
