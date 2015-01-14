@@ -6,12 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 17:03:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
+#include <signal.h>
+
+static void		handle_signal(int sign)
+{
+	(void)sign;
+}
 
 static void		update_shlvl(t_sh *sh)
 {
@@ -29,6 +35,7 @@ int				main(int argc, char **argv)
 {
 	t_sh			*sh;
 
+	signal(SIGINT, &handle_signal);
 	print_motd();
 	sh = init_sh();
 	update_shlvl(sh);
