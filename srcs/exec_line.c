@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 09:48:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:44:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 	if (access_error(file))
 		return ;
 	if ((pid = fork()) < 0)
-		ft_fdprintf(2, "ft_minishell1: %s: cannot create process.\n", file);
+		ft_fdprintf(2, "ft_minishell1: %s: cannot create process\n", file);
 	else if (pid == 0)
 	{
 		cmd->argv.data[cmd->argv.length] = NULL;
@@ -114,7 +114,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 		AG(char*, &(cmd->argv), 0));
 }
 
-void			exec_line(t_sh *sh, const char *line)
+void			exec_line(t_sh *sh, t_buff *line)
 {
 	t_tab			cmds;
 	int				i;

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 08:48:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:37:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,52 +25,48 @@ static void		resolve_home(t_sh *sh, t_string *arg)
 	}
 }
 
-static int		parse_arg(t_sh *sh, const char *line, t_cmd *cmd)
+static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	t_bool			escaped;
 	char			str;
-	int				i;
 	t_string		arg;
 
-	i = 0;
 	ft_stringini(&arg);
 	str = '\0';
-	while (line[i] != '\0' && line[i] != ';')
+	while (line->i < line->length && ft_buffget(line) != ';')
 	{
-		escaped = (str != '\'' && line[i] == '\\' && ++i) ? TRUE : FALSE;
-		if (!escaped && line[i] == '\'' && (str == '\'' || str == '\0'))
-			str = (str == '\0') ? line[i] : '\0';
-		else if (!escaped && line[i] == '"' && (str == '"' || str == '\0'))
-			str = (str == '\0') ? line[i] : '\0';
-		else if (!escaped && str == '\0' && line[i] == ' ')
+		escaped = (str != '\'' && ft_buffget(line) == '\\' && ++line->i) ? TRUE : FALSE;
+		if (!escaped && ft_buffget(line) == '\'' && (str == '\'' || str == '\0'))
+			str = (str == '\0') ? ft_buffget(line) : '\0';
+		else if (!escaped && ft_buffget(line) == '"' && (str == '"' || str == '\0'))
+			str = (str == '\0') ? ft_buffget(line) : '\0';
+		else if (!escaped && str == '\0' && ft_buffget(line) == ' ')
 			break ;
 		else
-			ft_stringaddc(&arg, line[i]);
-		i++;
+			ft_stringaddc(&arg, ft_buffget(line));
+		line->i++;
 	}
 	resolve_home(sh, &arg);
 	if (arg.length > 0)
-		return (ft_arrayadd(&(cmd->argv), arg.content), i);
-	return (free(arg.content), i);
+		ft_arrayadd(&(cmd->argv), arg.content);
+	else
+		free(arg.content);
 }
 
-void			parse_line(t_sh *sh, t_tab *cmds, const char *line)
+void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line)
 {
 	t_cmd			*cmd;
 
-	while (*line != '\0')
+	while (line->i < line->length)
 	{
 		cmd = (t_cmd*)ft_tabadd0(cmds);
 		cmd_init(cmd);
-		while (*line != '\0' && *line != ';')
+		while (line->i < line->length && ft_buffget(line) != ';')
 		{
-			while (ft_isspace(*line))
-				line++;
-			line += parse_arg(sh, line, cmd);
-			while (ft_isspace(*line))
-				line++;
+			ft_parsespace(line);
+			parse_arg(sh, line, cmd);
+			ft_parsespace(line);
 		}
-		if (*line == ';')
-			line++;
+		ft_parse(line, ";");
 	}
 }

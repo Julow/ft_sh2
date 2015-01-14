@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 13:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 09:54:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:37:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ t_sh			*init_sh(void)
 	while (*environ != NULL)
 		ft_arrayadd(&(sh->env), ft_strdup(*(environ++)));
 	return (sh);
-}
-
-void			kill_sh(t_sh *sh)
-{
-	ft_arrayclr(&(sh->env), &free);
-	free(sh->env.data);
-	free(sh);
 }
 
 void			update_sh(t_sh *sh)
@@ -57,12 +50,12 @@ void			update_sh(t_sh *sh)
 
 void			start_sh(t_sh *sh)
 {
-	char			*line;
+	t_buff			line;
 
 	update_sh(sh);
 	while (get_next_line(0, &line) > 0)
 	{
-		exec_line(sh, line);
+		exec_line(sh, &line);
 		update_sh(sh);
 	}
 }

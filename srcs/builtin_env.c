@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/09 23:35:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:37:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void		illegal_option(char o)
 static void		env_exec(t_sh *sh, const t_cmd *cmd, int i)
 {
 	t_string		line;
+	t_buff			buff;
 
 	ft_stringini(&line);
 	while (i < cmd->argv.length)
@@ -41,7 +42,8 @@ static void		env_exec(t_sh *sh, const t_cmd *cmd, int i)
 		ft_stringaddc(&line, ' ');
 		i++;
 	}
-	exec_line(sh, line.content);
+	buff = BUFF(line.content, 0, line.length);
+	exec_line(sh, &buff);
 	free(line.content);
 }
 

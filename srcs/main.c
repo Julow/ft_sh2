@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 10:11:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:37:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int				main(int argc, char **argv)
 	update_shlvl(sh);
 	start_sh(sh);
 	ft_putstr("exit\n");
-	kill_sh(sh);
 	(void)argc;
 	(void)argv;
 	return (0);

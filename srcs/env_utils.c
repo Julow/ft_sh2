@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:48:41 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/10 14:49:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:37:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void			set_env(t_sh *sh, const char *key, const char *value)
 	void			*tmp;
 	int				i;
 
+	if (keylen <= 0)
+		return ;
 	i = -1;
 	while (++i < sh->env.length)
 		if (ft_strnequ(AG(char*, &(sh->env), i), key, keylen))
@@ -65,7 +67,7 @@ void			set_env(t_sh *sh, const char *key, const char *value)
 			free(AG(char*, &(sh->env), i));
 			ft_arrayrem(&(sh->env), i);
 		}
-	if (value == NULL)
+	if (valuelen <= 0)
 		return ;
 	tmp = MAL(char, keylen + valuelen + 1);
 	ft_memcpy(tmp, key, keylen);

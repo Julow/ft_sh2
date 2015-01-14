@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 09:17:47 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/14 11:44:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ typedef struct	s_sub
 ** sh.c
 */
 t_sh			*init_sh(void);
-void			kill_sh(t_sh *sh);
 void			update_sh(t_sh *sh);
 void			start_sh(t_sh *sh);
 
 /*
 ** cmd.c
 */
-void			exec_line(t_sh *sh, const char *line);
+void			exec_line(t_sh *sh, t_buff *line);
 
 /*
 ** ft_access.c
@@ -114,6 +113,6 @@ char			*search_file(t_sub sub, const char *name);
 /*
 ** parse_line.c
 */
-void			parse_line(t_sh *sh, t_tab *cmds, const char *line);
+void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line);
 
 #endif
