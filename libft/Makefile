@@ -6,7 +6,7 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 13:05:11 by jaguillo          #+#    #+#              #
-#    Updated: 2015/01/07 12:53:46 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/01/16 18:09:34 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ C_DIR = srcs
 O_DIR = o
 
 FLAGS = -Wall -Wextra -Werror -O2
-LINKS = -I$(H_DIR)
+LINKS = -I$(H_DIR) $(FT_CONFIG)
 DEBUG = 0
 
 C_FILES = $(shell find $(C_DIR) -type f -print | grep "\.c")

@@ -6,23 +6,79 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 11:52:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/13 15:29:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/17 12:21:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define MAL(t,l)		((t*)malloc(sizeof(t) * (l)))
-# define MAL1(t)		((t*)malloc(sizeof(t)))
+/*
+** ========================================================================== **
+** ========================================================================== **
+** Configuration
+** ---
+** BUFF_SIZE
+** GNL_BUFF
+** ARRAY_CHUNK
+** TAB_CHUNK
+** STRING_CHUNK
+** MEM_TYPE
+** EMAL_ERROR
+** EMAL_EXIT
+** EMAL_ALL
+** DEBUG_MODE
+** ---
+*/
+
+# ifdef FT_CONFIG
+#  include FT_CONFIG
+# endif
+
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE		192
+# endif
+# ifndef ARRAY_CHUNK
+#  define ARRAY_CHUNK	32
+# endif
+# ifndef TAB_CHUNK
+#  define TAB_CHUNK		32
+# endif
+# ifndef STRING_CHUNK
+#  define STRING_CHUNK	32
+# endif
+# ifndef MEM_TYPE
+#  define MEM_TYPE		unsigned long long int
+# endif
+# ifndef EMAL_ERROR
+#  define EMAL_ERROR	"Error: not enougth memory"
+# endif
+# ifndef EMAL_EXIT
+#  define EMAL_EXIT		1
+# endif
+
+/*
+** ========================================================================== **
+** ========================================================================== **
+** Macros
+*/
+
+# define EMAL(t,l)		((t*)ft_emalloc(sizeof(t) * (l)))
+# define EMAL1(t)		((t*)ft_emalloc(sizeof(t)))
+
+# ifdef EMAL_ALL
+#  define MAL			EMAL
+#  define MAL1			EMAL1
+# else
+#  define MAL(t,l)		((t*)malloc(sizeof(t) * (l)))
+#  define MAL1(t)		((t*)malloc(sizeof(t)))
+# endif
 
 # define S(t,l)			(sizeof(t) * (l))
 
 # define TG(t,b,i)		(*(t*)(((t_tab*)b)->data + (((t_tab*)b)->size * (i))))
 # define TI(b,i)		(((t_tab*)b)->data + (((t_tab*)b)->size * (i)))
 # define AG(t,a,i)		((t)(((t_array*)(a))->data[i]))
-
-# define BUFF_SIZE		192
 
 # define B(b)			((b)->data[(b)->i])
 # define BUFF(s,i,l)	((t_buff){(s), (i), (l), -1})
@@ -41,7 +97,7 @@
 # define RECT(x,y,w,h)	((t_rect){(x), (y), (w), (h)})
 
 # define C(c)			((t_color)(t_uint)(c))
-# define RGBA(r,g,b,a)	((t_rgb){(b), (g), (r), (a)})
+# define RGBA(r,g,b,a)	((t_color)((t_rgb){(b), (g), (r), (a)}))
 # define RGB(r,g,b)		RGBA(r, g, b, 255)
 # define INVI(c)		((c).u < 0x01000000)
 # define ALPHA(c)		((c).u < 0xFF000000)
@@ -62,48 +118,36 @@
 #  define TRACE
 # endif
 
-# ifndef TRUE
-#  define TRUE			1
-# endif
-# ifndef FALSE
-#  define FALSE			0
-# endif
-
 # ifndef NULL
 #  define NULL			((void*)0)
-# endif
-
-# ifndef ERROR
-#  define ERROR			-1
 # endif
 
 # ifndef EOF
 #  define EOF			-1
 # endif
 
-# define FTUCHAR		unsigned char
-# define FTUINT			unsigned int
-# define FTLONG			long long int
-# define FTULONG		unsigned long long int
-
 /*
-** t_big represent a decimal number
-** it's a t_long divide by 1000000
-** ==> 9 223 372 000 000.000 000
+** ========================================================================== **
+** ========================================================================== **
+** Types
 */
-typedef FTLONG	t_big;
 
-typedef char	t_bool;
-typedef FTUCHAR	t_byte;
-typedef FTUCHAR	t_uchar;
-typedef FTUINT	t_uint;
-typedef FTLONG	t_long;
-typedef FTULONG	t_ulong;
+# define TUCHAR			unsigned char
+# define TUINT			unsigned int
+# define TLONG			long long int
+# define TULONG			unsigned long long int
 
-# undef FTUCHAR
-# undef FTUINT
-# undef FTLONG
-# undef FTULONG
+typedef TUCHAR	t_byte;
+typedef TUCHAR	t_uchar;
+typedef TUINT	t_uint;
+typedef TLONG	t_long;
+typedef TULONG	t_ulong;
+typedef TLONG	t_big;
+
+# undef TUCHAR
+# undef TUINT
+# undef TLONG
+# undef TULONG
 
 typedef struct	s_list
 {
@@ -173,6 +217,7 @@ typedef union	u_color
 	t_rgb			b;
 	t_uint			u;
 	int				i;
+	t_uchar			t[4];
 }				t_color;
 
 typedef struct	s_pt
@@ -196,10 +241,23 @@ typedef struct	s_pos
 	double			z;
 }				t_pos;
 
+typedef enum	e_bool
+{
+	false = 0,
+	true = 1
+}				t_bool;
+
+/*
+** ========================================================================== **
+** ========================================================================== **
+** Prototypes
+*/
+
 /*
 ** Memory
 */
 inline void		ft_bzero(void *s, t_uint n);
+inline void		*ft_emalloc(t_uint size);
 t_ulong			*ft_memalign(void *mem, const void *data, t_uint *len);
 void			*ft_memset(void *b, int c, t_uint len);
 void			*ft_memcpy(void *dst, const void *src, t_uint len);
@@ -517,38 +575,16 @@ int				get_next_line(int const fd, t_buff *line);
 **    {meta_name}
 ** (list of meta in srcs/ft_printf/parse_meta.c)
 ** =============
-** =
-** =
 ** ft_printf
-** =============
+** ---
 ** Process the format sequence like printf and print the result to stdout
-** =============
+** ---
 ** Return the total of char printed.
-** =
-** =
-** ft_printf_fd
-** =============
-** Like ft_printf but the result is printed to the fd 'fd'
-** =============
-** Return the total of char printed.
-** =
-** =
-** ft_stringf
-** =============
-** Like ft_printf but the result return in a t_string
-** =============
-** A t_string containing the result.
-** =
-** =
-** ft_debug
-** =============
-** Print debug, used by macros DEBUG and TRACE
-** =============
-** A t_string containing the result.
 */
 int				ft_printf(const char *format, ...);
 int				ft_fdprintf(const int fd, const char *format, ...);
 t_string		*ft_stringf(const char *format, ...);
+
 void			ft_debug(const char *c, char *f, int l, const char *s, ...);
 
 #endif

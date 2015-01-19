@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_emalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 15:20:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/16 22:49:30 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/16 22:33:49 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/16 22:41:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-inline t_bool	ft_isdigit(char c)
+/*
+** Try to malloc 'size' bytes
+** If malloc fail, put EMAL_ERROR on stderr and exit with code EMAL_EXIT
+*/
+inline void		*ft_emalloc(t_uint size)
 {
-	if (c >= '0' && c <= '9')
-		return (true);
-	return (false);
+	void*			mem;
+
+	mem = malloc(size);
+	if (mem == NULL)
+	{
+		ft_putstr_fd(EMAL_ERROR, 2);
+		exit(EMAL_EXIT);
+	}
+	return (mem);
 }
