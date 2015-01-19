@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:44:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/19 10:23:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		handle_status(int status)
 		return ;
 	sign = WTERMSIG(status);
 	if (sign >= 0 && sign < 32 && g_signals[sign][0] != '\0')
-		ft_fdprintf(2, "ft_minishell1: %s: %d\n", g_signals[sign], sign);
+		ft_fdprintf(2, "ft_minishell2: %s: %d\n", g_signals[sign], sign);
 }
 
 static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
@@ -70,13 +70,13 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 	if (access_error(file))
 		return ;
 	if ((pid = fork()) < 0)
-		ft_fdprintf(2, "ft_minishell1: %s: cannot create process\n", file);
+		ft_fdprintf(2, "ft_minishell2: %s: cannot create process\n", file);
 	else if (pid == 0)
 	{
 		cmd->argv.data[cmd->argv.length] = NULL;
 		sh->env.data[sh->env.length] = NULL;
 		execve(file, (char**)(cmd->argv.data), (char**)(sh->env.data));
-		ft_fdprintf(2, "ft_minishell1: %s: cannot execute binary file\n", file);
+		ft_fdprintf(2, "ft_minishell2: %s: cannot execute binary file\n", file);
 		exit(0);
 	}
 	else
@@ -110,7 +110,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 		}
 		path += len + 1;
 	}
-	ft_fdprintf(2, "ft_minishell1: command not found: %s\n",
+	ft_fdprintf(2, "ft_minishell2: command not found: %s\n",
 		AG(char*, &(cmd->argv), 0));
 }
 

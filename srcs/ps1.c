@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 10:44:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/19 10:23:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			print_ps1(t_sh *sh, const char *ps1)
 			else if (*ps1 == 'w')
 				ft_putstr(get_env(sh, "PWD="));
 			else if (*ps1 == 'v')
-				ft_putstr("ft_minishell1");
+				ft_putstr("ft_minishell2");
 		}
 		else if (*ps1 == '\\')
 			ps1 += print_unescape(ps1 + 1);
@@ -76,6 +76,6 @@ void			print_motd(void)
 		"|__MM__MM__MM______MMMM____MMMMMM___________________________|\n"
 		"|__MM______MM_________MM___MM__MM___________________________|\n"
 		"|__MM______M\033[31mMini\033[0;0m__MMMMM____MM__MM__"
-			"\033[31m1\033[0;0m________________________|\n"
+			"\033[31m2\033[0;0m________________________|\n"
 		"+===========================================================+\n");
 }

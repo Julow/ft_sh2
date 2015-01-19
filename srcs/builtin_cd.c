@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 18:13:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/19 10:20:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void			builtin_cd(t_sh *sh, const t_cmd *cmd)
 	char			*dir;
 
 	if (cmd->argv.length >= 2)
+	{
 		dir = cmd->argv.data[1];
+		if (ft_strequ(dir, "-") && (dir = get_env(sh, "OLDPWD=")) == NULL)
+			ft_putstr_fd("cd: cannot find $OLDPWD variable.\n", 2);
+	}
 	else if ((dir = get_env(sh, "HOME=")) == NULL)
 		ft_putstr_fd("cd: cannot find $HOME variable.\n", 2);
 	if (dir != NULL && chdir(dir) != 0)

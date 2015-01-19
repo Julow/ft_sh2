@@ -6,11 +6,11 @@
 #    By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/03 13:05:11 by jaguillo          #+#    #+#              #
-#    Updated: 2015/01/08 08:32:41 by jaguillo         ###   ########.fr        #
+#    Updated: 2015/01/19 10:16:55 by jaguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_minishell1
+NAME = ft_minishell2
 
 H_DIR = h
 C_DIR = srcs
@@ -19,7 +19,7 @@ O_DIR = o
 LIBFT = libft/
 
 FLAGS = -Wall -Wextra -Werror -O2
-LINKS = -I$(H_DIR) -L$(LIBFT) -I$(LIBFT) -lft
+LINKS = -I$(H_DIR) -I$(LIBFT) -L$(LIBFT) -lft
 DEBUG = 0
 
 C_FILES = $(shell find $(C_DIR) -type f -print | grep "\.c")
@@ -48,21 +48,29 @@ $(O_DIR)/%.o: $(C_DIR)/%.c
 
 debug: _debug all
 
-clean:
-	@rm $(O_FILES) 2> /dev/null || echo "" > /dev/null
-	@rmdir $(O_DIRS) $(O_DIR) 2> /dev/null || echo "" > /dev/null
+clean: _clean
 	@make -C $(LIBFT) clean
 
-fclean: clean
-	@rm $(NAME) 2> /dev/null || echo "" > /dev/null
+fclean: _fclean
 	@make -C $(LIBFT) fclean
 
 re: fclean all
 
 rebug: fclean debug
 
+_clean:
+	@rm $(O_FILES) 2> /dev/null || echo "" > /dev/null
+	@rmdir $(O_DIRS) $(O_DIR) 2> /dev/null || echo "" > /dev/null
+
+_fclean: _clean
+	@rm $(NAME) 2> /dev/null || echo "" > /dev/null
+
+_re: _fclean all
+
+_rebug: _fclean debug
+
 _debug:
 	$(eval FLAGS = -Wall -Wextra -g -D DEBUG_MODE)
 	$(eval DEBUG = 1)
 
-.PHONY: all debug clean fclean re rebug _debug
+.PHONY: all debug clean fclean re rebug _clean _fclean _re _rebug _debug
