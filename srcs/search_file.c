@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:52:30 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/19 17:04:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include <dirent.h>
 #include <stdlib.h>
 
-char			*search_file(t_sub sub, const char *name)
+char			*search_file(t_buff sub, const char *name)
 {
 	DIR				*dir;
 	struct dirent	*ent;
 	t_string		file;
 
 	ft_stringini(&file);
-	ft_stringaddl(&file, sub.str, sub.length);
+	ft_stringaddl(&file, sub.data + sub.i, sub.length);
 	dir = opendir(file.content);
 	if (dir == NULL)
 		return (NULL);
