@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 11:57:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:33:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-void			builtin_help(t_sh *sh, const t_cmd *cmd)
+int				builtin_help(t_sh *sh, const t_cmd *cmd)
 {
 	print_motd();
 	ft_putstr("\nBuiltins:\n");
@@ -27,4 +27,5 @@ void			builtin_help(t_sh *sh, const t_cmd *cmd)
 		"\t\tRemove a env variable\n");
 	(void)sh;
 	(void)cmd;
+	return (0);
 }

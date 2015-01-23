@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:07:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:41:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ typedef struct	s_cmd
 typedef struct	s_sh
 {
 	t_array			env;
+	int				last_ret;
 }				t_sh;
 
 typedef struct	s_builtin
 {
 	char			*name;
-	void			(*func)(t_sh *sh, const t_cmd *cmd);
+	int				(*func)(t_sh *sh, const t_cmd *cmd);
 }				t_builtin;
 
 # define DEF_PS1		"%v$ "
@@ -82,16 +83,16 @@ void			print_motd(void);
 ** builtin*
 */
 t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd);
-void			builtin_cd(t_sh *sh, const t_cmd *cmd);
-void			builtin_exit(t_sh *sh, const t_cmd *cmd);
-void			builtin_env(t_sh *sh, const t_cmd *cmd);
-void			builtin_setenv(t_sh *sh, const t_cmd *cmd);
-void			builtin_unsetenv(t_sh *sh, const t_cmd *cmd);
-void			builtin_printenv(t_sh *sh, const t_cmd *cmd);
-void			builtin_help(t_sh *sh, const t_cmd *cmd);
-void			builtin_echo(t_sh *sh, const t_cmd *cmd);
-void			builtin_eval(t_sh *sh, const t_cmd *cmd);
-void			builtin_pwd(t_sh *sh, const t_cmd *cmd);
+int				builtin_cd(t_sh *sh, const t_cmd *cmd);
+int				builtin_exit(t_sh *sh, const t_cmd *cmd);
+int				builtin_env(t_sh *sh, const t_cmd *cmd);
+int				builtin_setenv(t_sh *sh, const t_cmd *cmd);
+int				builtin_unsetenv(t_sh *sh, const t_cmd *cmd);
+int				builtin_printenv(t_sh *sh, const t_cmd *cmd);
+int				builtin_help(t_sh *sh, const t_cmd *cmd);
+int				builtin_echo(t_sh *sh, const t_cmd *cmd);
+int				builtin_eval(t_sh *sh, const t_cmd *cmd);
+int				builtin_pwd(t_sh *sh, const t_cmd *cmd);
 
 /*
 ** utils.c

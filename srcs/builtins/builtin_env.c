@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 15:21:05 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:35:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ static void		print_env(t_sh *sh)
 		ft_putendl(sh->env.data[i]);
 }
 
-static void		illegal_option(char o)
+static int		illegal_option(char o)
 {
 	ft_putstr_fd("env: illegal option -- ", 2);
 	ft_putchar_fd(o, 2);
 	ft_putstr_fd("\nusage: env [-i] [name=value ...] ", 2);
 	ft_putstr_fd("[utility [argument ...]]\n", 2);
+	return (1);
 }
 
 static void		env_exec(t_sh *sh, const t_cmd *cmd, int i)
@@ -47,7 +48,7 @@ static void		env_exec(t_sh *sh, const t_cmd *cmd, int i)
 	free(line.content);
 }
 
-void			builtin_env(t_sh *sh, const t_cmd *cmd)
+int				builtin_env(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
 	t_sh			cpy;
@@ -71,4 +72,5 @@ void			builtin_env(t_sh *sh, const t_cmd *cmd)
 	else
 		print_env(&cpy);
 	free(cpy.env.data);
+	return (0);
 }

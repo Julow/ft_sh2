@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:04:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:40:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 ** TODO:
 ** false
 ** true
+** builtin
+** return
 ** sleep
 ** wait
+** printenv(arg)
 */
 
 const t_builtin	g_builtins[] = {
@@ -44,7 +47,7 @@ t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd)
 	{
 		if (ft_strcase(g_builtins[i].name, cmd->argv.data[0]))
 		{
-			g_builtins[i].func(sh, cmd);
+			sh->last_ret = g_builtins[i].func(sh, cmd);
 			return (true);
 		}
 	}

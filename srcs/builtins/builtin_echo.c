@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 10:31:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:04:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:40:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-void			builtin_echo(t_sh *sh, const t_cmd *cmd)
+int				builtin_echo(t_sh *sh, const t_cmd *cmd)
 {
 	int				i;
 	t_bool			flag_n;
@@ -32,4 +32,5 @@ void			builtin_echo(t_sh *sh, const t_cmd *cmd)
 	if (!flag_n)
 		ft_putchar('\n');
 	(void)sh;
+	return (0);
 }
