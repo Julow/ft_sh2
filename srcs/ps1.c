@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 10:44:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 10:23:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:03:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ const char		*g_escaped[] = {
 static t_bool	isps1(char c)
 {
 	if (c == 'u' || c == 'w' || c == 'v')
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 static int		print_unescape(const char *escaped)

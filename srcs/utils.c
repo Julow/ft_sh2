@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 17:24:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:03:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 inline t_bool	is_special(char c)
 {
 	if (ft_isspace(c) || c == ';' || c == '<' || c == '>' || c == '|')
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 inline t_bool	ft_buffis(t_buff *buff, char c)
 {
 	if (BG(buff) == c)
-		return (buff->i++, TRUE);
-	return (FALSE);
+		return (buff->i++, true);
+	return (false);
 }
 
 void			exit_err(const char *err)

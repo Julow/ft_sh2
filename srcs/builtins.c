@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 13:44:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:04:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ const t_builtin	g_builtins[] = {
 	{"help", &builtin_help},
 	{"echo", &builtin_echo},
 	{"eval", &builtin_eval},
+	{"pwd", &builtin_pwd},
 	{NULL, NULL}
 };
 
@@ -44,8 +45,8 @@ t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd)
 		if (ft_strcase(g_builtins[i].name, cmd->argv.data[0]))
 		{
 			g_builtins[i].func(sh, cmd);
-			return (TRUE);
+			return (true);
 		}
 	}
-	return (FALSE);
+	return (false);
 }

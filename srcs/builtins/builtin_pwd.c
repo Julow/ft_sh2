@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/19 10:31:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:04:33 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/23 17:56:51 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/01/23 18:09:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-void			builtin_echo(t_sh *sh, const t_cmd *cmd)
+void			builtin_pwd(t_sh *sh, const t_cmd *cmd)
 {
-	int				i;
-	t_bool			flag_n;
+	const char		*pwd = getcwd(NULL, 0);
 
-	i = 1;
-	if (i < cmd->argv.length && ft_strequ(cmd->argv.data[i], "-n") && ++i)
-		flag_n = true;
+	if (cmd->argv.length > 1)
+		ft_putstr_fd("pwd: too many arguments", 2);
+	else if (pwd == NULL)
+		ft_putstr_fd("pwd: cannot find pwd.\n", 2);
 	else
-		flag_n = false;
-	while (i < cmd->argv.length)
 	{
-		ft_putstr(cmd->argv.data[i]);
-		i++;
-		if (i < cmd->argv.length)
-			ft_putchar(' ');
+		ft_putendl(pwd);
+		free(pwd);
 	}
-	if (!flag_n)
-		ft_putchar('\n');
 	(void)sh;
 }

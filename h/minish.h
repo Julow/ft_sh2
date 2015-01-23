@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 17:25:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:07:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void			builtin_printenv(t_sh *sh, const t_cmd *cmd);
 void			builtin_help(t_sh *sh, const t_cmd *cmd);
 void			builtin_echo(t_sh *sh, const t_cmd *cmd);
 void			builtin_eval(t_sh *sh, const t_cmd *cmd);
+void			builtin_pwd(t_sh *sh, const t_cmd *cmd);
 
 /*
 ** utils.c

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 17:32:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/23 18:11:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 	str = '\0';
 	while (line->i < line->length)
 	{
-		esc = (str != '\'' && BG(line) == '\\' && ++line->i) ? TRUE : FALSE;
+		esc = (str != '\'' && BG(line) == '\\' && ++line->i) ? true : false;
 		if (!esc && BG(line) == '\'' && (str == '\'' || str == '\0'))
 			str = (str == '\0') ? BG(line) : '\0';
 		else if (!esc && BG(line) == '"' && (str == '"' || str == '\0'))
@@ -85,7 +85,7 @@ static void		parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd)
 		ft_parsespace(line);
 		if (is_special(BG(line)))
 		{
-			if (ft_buffis(line, '|') && cmd->pipe = MAL1(t_cmd) != NULL)
+			if (ft_buffis(line, '|') && (cmd->pipe = MAL1(t_cmd)) != NULL)
 				parse_cmd(sh, line, cmd->pipe);
 			else if (BG(line) == '<' || BG(line) == '>')
 				parse_redir(sh, line, cmd);
