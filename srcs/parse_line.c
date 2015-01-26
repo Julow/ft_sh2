@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:11:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 21:45:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 
 static void		parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
-	t_string		file;
+	//t_string		file;
 
 	if (ft_buffis(line, '<'))
 	{
@@ -75,6 +75,7 @@ static void		parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
 	}
 	else
 		return ;
+	(void)sh;
 }
 
 static void		parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd)

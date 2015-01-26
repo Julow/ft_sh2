@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 17:14:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 21:46:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,24 @@
 #include <stdlib.h>
 #include <signal.h>
 
+static t_sh		*save_sh(t_sh *sh)
+{
+	static t_sh		*save;
+
+	if (sh != NULL)
+		save = sh;
+	return (save);
+}
+
 static void		handle_signal(int sign)
 {
+	t_sh			*sh;
+
 	(void)sign;
+	sh = save_sh(NULL);
+	ft_putchar('\n');
+	update_sh(sh);
+	sh->last_ret = 1;
 }
 
 static void		update_shlvl(t_sh *sh)
@@ -43,6 +58,7 @@ int				main(int argc, char **argv)
 	signal(SIGINT, &handle_signal);
 	print_motd();
 	sh = init_sh();
+	save_sh(sh);
 	update_shlvl(sh);
 	start_sh(sh);
 	ft_putstr("exit\n");

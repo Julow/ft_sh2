@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:40:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 21:22:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 /*
 ** TODO:
-** false
-** true
 ** builtin
 ** return
 ** sleep
@@ -35,6 +33,8 @@ const t_builtin	g_builtins[] = {
 	{"echo", &builtin_echo},
 	{"eval", &builtin_eval},
 	{"pwd", &builtin_pwd},
+	{"true", &builtin_true},
+	{"false", &builtin_false},
 	{NULL, NULL}
 };
 

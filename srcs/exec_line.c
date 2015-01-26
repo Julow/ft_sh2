@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 17:03:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 21:44:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 	ft_fdprintf(2, "ft_minishell2: command not found: %s\n",
 		AG(char*, &(cmd->argv), 0));
 }
-
+/*
 static void		print_cmd(const t_cmd *cmd, int tab)
 {
 	int				i;
@@ -128,7 +128,7 @@ static void		print_cmd(const t_cmd *cmd, int tab)
 		print_cmd(cmd->pipe, tab + 4);
 	}
 }
-
+*/
 void			exec_line(t_sh *sh, t_buff *line)
 {
 	t_tab			cmds;

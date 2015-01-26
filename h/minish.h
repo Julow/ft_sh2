@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:41:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 21:22:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int				builtin_help(t_sh *sh, const t_cmd *cmd);
 int				builtin_echo(t_sh *sh, const t_cmd *cmd);
 int				builtin_eval(t_sh *sh, const t_cmd *cmd);
 int				builtin_pwd(t_sh *sh, const t_cmd *cmd);
+int				builtin_true(t_sh *sh, const t_cmd *cmd);
+int				builtin_false(t_sh *sh, const t_cmd *cmd);
 
 /*
 ** utils.c
