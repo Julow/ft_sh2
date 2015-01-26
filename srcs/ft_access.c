@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 11:19:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:04:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 23:13:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ int				ft_access(const char *file)
 		return (ACCESS_DIR);
 	if (!(stat.st_mode & (1 << (9 - 3))))
 		return (ACCESS_RIGHT);
-	return (0);
+	return (ACCESS_OK);
 }

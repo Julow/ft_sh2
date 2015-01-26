@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 21:22:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 23:35:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,21 @@
 
 # define REDIR_NONE		0
 # define REDIR_IN		1
-# define REDIR_IN2		2
-# define REDIR_OUT		3
-# define REDIR_OUT2		4
+# define REDIR_PIPE		2
+# define REDIR_FILE		3
+# define REDIR_APPEND	4
 
 typedef struct	s_redir
 {
 	int				fd;
 	int				type;
+	t_bool			opened;
+	struct s_cmd	*next;
 }				t_redir;
 
 typedef struct	s_cmd
 {
 	t_array			argv;
-	struct s_cmd	*pipe;
 	t_redir			redir;
 }				t_cmd;
 
@@ -48,9 +49,19 @@ typedef struct	s_builtin
 	int				(*func)(t_sh *sh, const t_cmd *cmd);
 }				t_builtin;
 
+typedef struct	s_sub
+{
+	char			*str;
+	int				pos;
+	int				length;
+}				t_sub;
+
+# define SUB(s,i,l)		((t_sub){(s), (i), (l)})
+
 # define DEF_PS1		"%v$ "
 # define DEF_PATH		"/bin:/usr/bin"
 
+# define ACCESS_OK		0
 # define ACCESS_NO		1
 # define ACCESS_DIR		2
 # define ACCESS_RIGHT	3
@@ -118,9 +129,9 @@ void			cmd_init(t_cmd *cmd);
 void			cmd_kill(t_cmd *cmd);
 
 /*
-** search_file.c
+** path.c
 */
-char			*search_file(t_buff sub, const char *name);
+char			*search_path(t_sh *sh, const char *cmd);
 
 /*
 ** parse_line.c

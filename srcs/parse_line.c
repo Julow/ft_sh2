@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 21:45:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 23:32:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,18 @@ static void		parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
 
 	if (ft_buffis(line, '<'))
 	{
-		cmd->redir.type = (ft_buffis(line, '<')) ? REDIR_IN2 : REDIR_IN;
+		// TODO: heredoc
+		cmd->redir.type = REDIR_IN;
 		// TODO
 	}
 	else if (ft_buffis(line, '>'))
 	{
-		cmd->redir.type = (ft_buffis(line, '>')) ? REDIR_OUT2 : REDIR_OUT;
+		cmd->redir.type = (ft_buffis(line, '>')) ? REDIR_APPEND : REDIR_FILE;
 /* TODO
 		ft_parsespace(line);
 		file = ft_parsesubnotf(line, &is_special);
 		cmd->redir.fd = open(file.content,
-			(cmd->redir.type == REDIR_OUT) ? );
+			(cmd->redir.type == REDIR_FILE) ? );
 */
 	}
 	else
@@ -86,8 +87,8 @@ static void		parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd)
 		ft_parsespace(line);
 		if (is_special(BG(line)))
 		{
-			if (ft_buffis(line, '|') && (cmd->pipe = MAL1(t_cmd)) != NULL)
-				parse_cmd(sh, line, cmd->pipe);
+			if (ft_buffis(line, '|') && (cmd->redir.next = MAL1(t_cmd)) != NULL)
+				parse_cmd(sh, line, cmd->redir.next);
 			else if (BG(line) == '<' || BG(line) == '>')
 				parse_redir(sh, line, cmd);
 			return ;

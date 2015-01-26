@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 21:44:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 23:28:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,18 @@ static void		exec_bin(t_sh *sh, const char *file, const t_cmd *cmd)
 
 static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 {
-	char			*path;
 	char			*tmp;
-	int				len;
 
 	if (cmd->argv.length == 0 || exec_builtin(sh, cmd))
 		return ;
 	if (ft_strrchr(AG(char*, &(cmd->argv), 0), '/') != NULL)
 		return (exec_bin(sh, AG(char*, &(cmd->argv), 0), cmd));
-	if ((path = get_env(sh, "PATH=")) == NULL)
-		set_env(sh, "PATH=", (path = DEF_PATH));
-	while (*path != '\0')
+	tmp = search_path(sh, cmd->argv.data[0]);
+	if (tmp != NULL)
 	{
-		len = ft_strcskipe(path, ":");
-		tmp = search_file(BUFF(path, 0, len), AG(char*, &(cmd->argv), 0));
-		if (tmp != NULL)
-		{
-			exec_bin(sh, tmp, cmd);
-			free(tmp);
-			return ;
-		}
-		path += len + 1;
+		exec_bin(sh, tmp, cmd);
+		free(tmp);
+		return ;
 	}
 	ft_fdprintf(2, "ft_minishell2: command not found: %s\n",
 		AG(char*, &(cmd->argv), 0));

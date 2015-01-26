@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   search_file.c                                      :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:52:30 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 17:04:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/26 23:35:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <dirent.h>
 #include <stdlib.h>
 
-char			*search_file(t_buff sub, const char *name)
+char			*search_path(t_sh *sh, const char *cmd)
 {
-	DIR				*dir;
-	struct dirent	*ent;
-	t_string		file;
+	char			*path;
+	int				len;
+	t_string		tmp;
 
-	ft_stringini(&file);
-	ft_stringaddl(&file, sub.data + sub.i, sub.length);
-	dir = opendir(file.content);
-	if (dir == NULL)
-		return (NULL);
-	while ((ent = readdir(dir)) != NULL)
-		if (ft_strcase(ent->d_name, name))
-		{
-			ft_stringaddc(&file, '/');
-			ft_stringadd(&file, ent->d_name);
-			return (closedir(dir), file.content);
-		}
-	return (free(file.content), closedir(dir), NULL);
+	if ((path = get_env(sh, "PATH=")) == NULL)
+		set_env(sh, "PATH=", (path = DEF_PATH));
+	ft_stringini(&tmp);
+	while (*path != '\0')
+	{
+		len = ft_strcskipe(path, ":");
+		ft_stringclr(&tmp);
+		ft_stringaddl(&tmp, path, len);
+		ft_stringaddc(&tmp, '/');
+		ft_stringadd(&tmp, cmd);
+		if (ft_access(tmp.content) == ACCESS_OK)
+			return (tmp.content);
+		path += len + 1;
+	}
+	free(tmp.content);
+	return (NULL);
 }
