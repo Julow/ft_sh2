@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 23:32:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 18:17:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 
 	ft_stringini(&arg);
 	str = '\0';
-	while (line->i < line->length)
+	while (BI(*line))
 	{
 		esc = (str != '\'' && BG(line) == '\\' && ++line->i) ? true : false;
 		if (!esc && BG(line) == '\'' && (str == '\'' || str == '\0'))
@@ -54,15 +54,27 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 		free(arg.content);
 }
 
+static void		parse_special(t_sh *sh, t_buff *line, t_cmd *cmd)
+{
+	if (ft_buffis(line, '|') && (cmd->redir.next = MAL1(t_cmd)) != NULL)
+		parse_cmd(sh, line, cmd->redir.next);
+	else if (BG(line) == '<' || BG(line) == '>')
+		parse_redir(sh, line, cmd);
+}
+
 static void		parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	//t_string		file;
 
 	if (ft_buffis(line, '<'))
 	{
-		// TODO: heredoc
-		cmd->redir.type = REDIR_IN;
-		// TODO
+		if (ft_buffis(line, '<'))
+			parse_heredoc(sh, line, cmd);
+		else
+		{
+			cmd->redir.type = REDIR_IN;
+			// TODO
+		}
 	}
 	else if (ft_buffis(line, '>'))
 	{
@@ -82,15 +94,12 @@ static void		parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
 static void		parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	cmd_init(cmd);
-	while (line->i < line->length)
+	while (BI(*line))
 	{
 		ft_parsespace(line);
 		if (is_special(BG(line)))
 		{
-			if (ft_buffis(line, '|') && (cmd->redir.next = MAL1(t_cmd)) != NULL)
-				parse_cmd(sh, line, cmd->redir.next);
-			else if (BG(line) == '<' || BG(line) == '>')
-				parse_redir(sh, line, cmd);
+			parse_special(sh, line, cmd);
 			return ;
 		}
 		parse_arg(sh, line, cmd);
@@ -102,7 +111,7 @@ void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line)
 {
 	t_cmd			*cmd;
 
-	while (line->i < line->length)
+	while (BI(*line))
 	{
 		cmd = (t_cmd*)ft_tabadd0(cmds);
 		parse_cmd(sh, line, cmd);

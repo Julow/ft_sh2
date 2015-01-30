@@ -6,35 +6,25 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 23:35:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 18:16:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
 
-# include "libft.h"
-
-# define BG				ft_buffget
-
-# define REDIR_NONE		0
-# define REDIR_IN		1
-# define REDIR_PIPE		2
-# define REDIR_FILE		3
-# define REDIR_APPEND	4
-
 typedef struct	s_redir
 {
-	int				fd;
+	int				fd[2];
 	int				type;
-	t_bool			opened;
-	struct s_cmd	*next;
+	t_string		data;
+	struct s_cmd	*cmd;
 }				t_redir;
 
 typedef struct	s_cmd
 {
 	t_array			argv;
-	t_redir			redir;
+	t_tab			redirs;
 }				t_cmd;
 
 typedef struct	s_sh
@@ -65,6 +55,18 @@ typedef struct	s_sub
 # define ACCESS_NO		1
 # define ACCESS_DIR		2
 # define ACCESS_RIGHT	3
+
+# include "libft.h"
+
+# define BG				ft_buffget
+# define BI(b)			((b).i < (b).length)
+
+# define REDIR_NONE		0
+# define REDIR_IN		1
+# define REDIR_PIPE		2
+# define REDIR_FILE		3
+# define REDIR_APPEND	4
+# define REDIR_HEREDOC	5
 
 /*
 ** sh.c
@@ -113,7 +115,7 @@ int				builtin_false(t_sh *sh, const t_cmd *cmd);
 inline t_bool	is_special(char c);
 inline t_bool	ft_buffis(t_buff *buff, char c);
 void			exit_err(const char *err);
-t_string		ft_parsesubnotf(t_buff *buff, t_bool (*f)(char c));
+t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c));
 
 /*
 ** env_utils.c
@@ -137,5 +139,10 @@ char			*search_path(t_sh *sh, const char *cmd);
 ** parse_line.c
 */
 void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line);
+
+/*
+** heredoc.c
+*/
+void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 #endif

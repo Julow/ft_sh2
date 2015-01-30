@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 23:28:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 16:31:05 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 	ft_fdprintf(2, "ft_minishell2: command not found: %s\n",
 		AG(char*, &(cmd->argv), 0));
 }
-/*
+
 static void		print_cmd(const t_cmd *cmd, int tab)
 {
 	int				i;
@@ -113,13 +113,22 @@ static void		print_cmd(const t_cmd *cmd, int tab)
 	while (++i < cmd->argv.length)
 		ft_printf("%s ", cmd->argv.data[i]);
 	ft_putchar('\n');
-	if (cmd->pipe != NULL)
+	i = -1;
+	while (++i < cmd->redirs.length)
 	{
-		ft_printf("% *c| ", tab + 4, ' ');
-		print_cmd(cmd->pipe, tab + 4);
+		if (cmd->redir.type == REDIR_IN)
+			ft_printf("% *c< ", tab + 4, ' ');
+		else if (cmd->redir.type == REDIR_PIPE)
+			ft_printf("% *c| ", tab + 4, ' ');
+		else if (cmd->redir.type == REDIR_FILE)
+			ft_printf("% *c> ", tab + 4, ' ');
+		else if (cmd->redir.type == REDIR_APPEND)
+			ft_printf("% *c>> ", tab + 4, ' ');
+		if (cmd->redir.type != REDIR_NONE)
+			print_cmd(cmd->redir.next, tab + 4);
 	}
 }
-*/
+
 void			exec_line(t_sh *sh, t_buff *line)
 {
 	t_tab			cmds;
@@ -130,12 +139,9 @@ void			exec_line(t_sh *sh, t_buff *line)
 	i = -1;
 	while (++i < cmds.length)
 	{
-#ifdef DEBUG_MODE
 		ft_printf("DEBUG_MODE\n");
 		print_cmd(&TG(t_cmd, &cmds, i), 4);
-#else
-		exec_cmd(sh, &TG(t_cmd, &cmds, i));
-#endif
+//		exec_cmd(sh, &TG(t_cmd, &cmds, i));
 		cmd_kill(&TG(t_cmd, &cmds, i));
 	}
 	free(cmds.data);

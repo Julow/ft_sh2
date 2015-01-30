@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:50:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 23:31:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 18:05:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@
 void			cmd_init(t_cmd *cmd)
 {
 	ft_arrayini(&(cmd->argv));
-	cmd->redir = (t_redir){-1, REDIR_NONE, false, NULL};
+	ft_tabini(&(cmd->redirs));
 }
 
 void			cmd_kill(t_cmd *cmd)
 {
+	int				i;
+
 	if (cmd == NULL)
 		return ;
-	cmd_kill(cmd->redir.next);
+	i = -1;
+	while (++i < cmd->redirs.length)
+	{
+		if (cmd->redirs.data[i].type == REDIR_PIPE)
+			cmd_kill(cmd->redirs.data[i].cmd);
+	}
+	free(cmd->redirs.data);
 	ft_arrayclr(&(cmd->argv), &free);
 	free(cmd->argv.data);
 }

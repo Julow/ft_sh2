@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:03:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 18:10:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			exit_err(const char *err)
 	exit(1);
 }
 
-t_string		ft_parsesubnotf(t_buff *buff, t_bool (*f)(char c))
+t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c))
 {
 	char			c;
 	t_string		sub;
