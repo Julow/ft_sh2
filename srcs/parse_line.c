@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:50:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:48:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 22:25:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,22 @@ static void		parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd)
 		free(arg.content);
 }
 
-void			parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd)
+t_cmd			*parse_line(t_sh *sh, t_buff *line)
 {
+	t_cmd			*cmd;
+
+	cmd = MAL1(t_cmd);
 	cmd_init(cmd);
 	while (BI(*line))
 	{
 		ft_parsespace(line);
 		if (is_special(BG(line)))
 		{
-			if (BG(line) == '<')
-				parse_redir_in(sh, line, cmd);
-			else if (BG(line) == '>')
-				parse_redir_out(sh, line, cmd);
-			else if (BG(line) == '|')
-				parse_redir_pipe(sh, line, cmd);
-			return ;
+			parse_redir(sh, line, cmd);
+			break ;
 		}
 		parse_arg(sh, line, cmd);
 		ft_parsespace(line);
 	}
-}
-
-void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line)
-{
-	t_cmd			*cmd;
-
-	while (BI(*line))
-	{
-		cmd = (t_cmd*)ft_tabadd0(cmds);
-		parse_cmd(sh, line, cmd);
-		ft_parse(line, ";"); // TODO: move semi colon to redir
-	}
+	return (cmd);
 }

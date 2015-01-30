@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/30 21:37:47 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:53:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 22:29:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-void			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd)
+static void		parse_redir_colon(t_sh *sh, t_buff *line, t_cmd *cmd)
+{
+	t_redir			*tmp;
+
+	if (ft_buffis(line, ';'))
+	{
+		tmp = ft_tabadd0(&(cmd->redirs));
+		ft_bzero(tmp, sizeof(t_redir)); // to remove
+		tmp->type = REDIR_COLON;
+		tmp->cmd = parse_line(sh, line);
+	}
+}
+
+static void		parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	t_redir			*tmp;
 
@@ -22,12 +35,12 @@ void			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd)
 	{
 		tmp = ft_tabadd0(&(cmd->redirs));
 		ft_bzero(tmp, sizeof(t_redir)); // to remove
-		tmp->cmd = MAL1(t_cmd);
-		parse_cmd(sh, line, tmp->cmd);
+		tmp->type = REDIR_PIPE;
+		tmp->cmd = parse_line(sh, line);
 	}
 }
 
-void			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd)
+static void		parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	t_redir			*tmp;
 
@@ -40,12 +53,15 @@ void			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd)
 			tmp = ft_tabadd0(&(cmd->redirs));
 			ft_bzero(tmp, sizeof(t_redir)); // to remove
 			tmp->type = REDIR_IN;
-			// TODO
+			ft_parsespace(line);
+			tmp->data = ft_parsesubnf(line, &is_special);
+			tmp->fd[0] = open(tmp->data.content, O_RDONLY);
+			// TODO: error
 		}
 	}
 }
 
-void			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd)
+static void		parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	t_redir			*tmp;
 
@@ -56,9 +72,27 @@ void			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd)
 		tmp->type = (ft_buffis(line, '>')) ? REDIR_APPEND : REDIR_FILE;
 		ft_parsespace(line);
 		tmp->data = ft_parsesubnf(line, &is_special);
-		ft_parsespace(line);
 		tmp->fd[0] = open(tmp->data.content, O_WRONLY | O_CREAT
 			| (tmp->type == REDIR_APPEND) ? O_APPEND : O_TRUNC);
+		// TODO: error
 	}
 	(void)sh;
+}
+
+void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd)
+{
+	while (BI(*line))
+	{
+		if (BG(line) == '<')
+			parse_redir_in(sh, line, cmd);
+		else if (BG(line) == '>')
+			parse_redir_out(sh, line, cmd);
+		else if (BG(line) == '|')
+			parse_redir_pipe(sh, line, cmd);
+		else if (BG(line) == ';')
+			parse_redir_colon(sh, line, cmd);
+		else
+			return ; // TODO: syntax error
+		ft_parsespace(line);
+	}
 }

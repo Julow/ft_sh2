@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:47:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 22:27:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct	s_sub
 # define REDIR_FILE		3
 # define REDIR_APPEND	4
 # define REDIR_HEREDOC	5
+# define REDIR_COLON	6
 
 /*
 ** sh.c
@@ -138,8 +139,7 @@ char			*search_path(t_sh *sh, const char *cmd);
 /*
 ** parse_line.c
 */
-void			parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd);
-void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line);
+t_cmd			*parse_line(t_sh *sh, t_buff *line);
 
 /*
 ** heredoc.c
@@ -149,8 +149,6 @@ void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
 /*
 ** parse_redir.c
 */
-void			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
-void			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd);
-void			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd);
+void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 #endif

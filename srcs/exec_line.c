@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:50:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 22:24:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
+/*
 const char		*g_signals[] = {
 	"",
 	"Hangup",
@@ -104,46 +104,46 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 	ft_fdprintf(2, "ft_minishell2: command not found: %s\n",
 		AG(char*, &(cmd->argv), 0));
 }
+*/
 
-static void		print_cmd(const t_cmd *cmd, int tab)
+static void		print_cmd(t_cmd *cmd)
 {
 	int				i;
+	t_redir			*tmp;
 
 	i = -1;
 	while (++i < cmd->argv.length)
-		ft_printf("%s ", cmd->argv.data[i]);
-	ft_putchar('\n');
+		ft_printf("%s ", AG(char*, &(cmd->argv), i));
 	i = -1;
 	while (++i < cmd->redirs.length)
 	{
-		if (TG(t_redir, &(cmd->redirs), i).type == REDIR_IN)
-			ft_printf("% *c< %s\n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
-		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_PIPE)
+		tmp = &TG(t_redir, &(cmd->redirs), i);
+		if (tmp->type == REDIR_IN)
+			ft_printf("{green}< {dark}%s{eoc} ", tmp->data.content);
+		else if (tmp->type == REDIR_PIPE || tmp->type == REDIR_COLON)
 		{
-			ft_printf("% *c| ", tab + 4, ' ');
-			print_cmd(TG(t_redir, &(cmd->redirs), i).cmd, tab + 4);
+			ft_printf("{green}%c{eoc} ", (tmp->type == REDIR_PIPE) ? '|' : ';');
+			print_cmd(tmp->cmd);
+			ft_printf("{bg red}");
 		}
-		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_FILE)
-			ft_printf("% *c> %s \n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
-		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_APPEND)
-			ft_printf("% *c>> %s \n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
+		else if (tmp->type == REDIR_FILE)
+			ft_printf("{green}> {dark}%s{eoc} ", tmp->data.content);
+		else if (tmp->type == REDIR_APPEND)
+			ft_printf("{green}>> {dark}%s{eoc} ", tmp->data.content);
+		else if (tmp->type == REDIR_HEREDOC)
+			ft_printf("{green}<< {dark}%s{eoc} ", tmp->data.content);
+		else
+			ft_printf("{orange}lol{eoc} ");
 	}
 }
 
 void			exec_line(t_sh *sh, t_buff *line)
 {
-	t_tab			cmds;
-	int				i;
+	t_cmd			*cmd;
 
-	ft_tabini(&cmds, sizeof(t_cmd));
-	parse_line(sh, &cmds, line);
-	i = -1;
-	while (++i < cmds.length)
-	{
-		ft_printf("DEBUG_MODE\n");
-		print_cmd(&TG(t_cmd, &cmds, i), 4);
-//		exec_cmd(sh, &TG(t_cmd, &cmds, i));
-		cmd_kill(&TG(t_cmd, &cmds, i));
-	}
-	free(cmds.data);
+	cmd = parse_line(sh, line);
+//	exec_cmd(sh, cmd);
+	print_cmd(cmd);
+	ft_printf("{reset}\n");
+	cmd_kill(cmd);
 }
