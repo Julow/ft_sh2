@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 16:31:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 21:50:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,17 @@ static void		print_cmd(const t_cmd *cmd, int tab)
 	i = -1;
 	while (++i < cmd->redirs.length)
 	{
-		if (cmd->redir.type == REDIR_IN)
-			ft_printf("% *c< ", tab + 4, ' ');
-		else if (cmd->redir.type == REDIR_PIPE)
+		if (TG(t_redir, &(cmd->redirs), i).type == REDIR_IN)
+			ft_printf("% *c< %s\n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
+		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_PIPE)
+		{
 			ft_printf("% *c| ", tab + 4, ' ');
-		else if (cmd->redir.type == REDIR_FILE)
-			ft_printf("% *c> ", tab + 4, ' ');
-		else if (cmd->redir.type == REDIR_APPEND)
-			ft_printf("% *c>> ", tab + 4, ' ');
-		if (cmd->redir.type != REDIR_NONE)
-			print_cmd(cmd->redir.next, tab + 4);
+			print_cmd(TG(t_redir, &(cmd->redirs), i).cmd, tab + 4);
+		}
+		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_FILE)
+			ft_printf("% *c> %s \n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
+		else if (TG(t_redir, &(cmd->redirs), i).type == REDIR_APPEND)
+			ft_printf("% *c>> %s \n", tab + 4, ' ', TG(t_redir, &(cmd->redirs), i).data.content);
 	}
 }
 

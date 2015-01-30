@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 18:16:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/01/30 21:47:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
+
+# include "libft.h"
 
 typedef struct	s_redir
 {
@@ -55,8 +57,6 @@ typedef struct	s_sub
 # define ACCESS_NO		1
 # define ACCESS_DIR		2
 # define ACCESS_RIGHT	3
-
-# include "libft.h"
 
 # define BG				ft_buffget
 # define BI(b)			((b).i < (b).length)
@@ -138,11 +138,19 @@ char			*search_path(t_sh *sh, const char *cmd);
 /*
 ** parse_line.c
 */
+void			parse_cmd(t_sh *sh, t_buff *line, t_cmd *cmd);
 void			parse_line(t_sh *sh, t_tab *cmds, t_buff *line);
 
 /*
 ** heredoc.c
 */
 void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+/*
+** parse_redir.c
+*/
+void			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
+void			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd);
+void			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 #endif
