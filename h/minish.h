@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 22:27:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/01 23:31:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_sub
 # define SUB(s,i,l)		((t_sub){(s), (i), (l)})
 
 # define DEF_PS1		"%v$ "
+# define DEF_PS2		"> "
 # define DEF_PATH		"/bin:/usr/bin"
 
 # define ACCESS_OK		0
@@ -90,7 +91,8 @@ int				ft_access(const char *file);
 /*
 ** ps1.c
 */
-void			print_ps1(t_sh *sh, const char *ps1);
+void			print_ps1(t_sh *sh);
+void			print_ps2(t_sh *sh);
 void			print_motd(void);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 13:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/19 16:21:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/01 23:27:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_sh			*init_sh(void)
 
 void			update_sh(t_sh *sh)
 {
-	const char		*ps1 = get_env(sh, "PS1=");
 	char			*pwd;
 	char			*tmp;
 
@@ -42,10 +41,7 @@ void			update_sh(t_sh *sh)
 		}
 		free(pwd);
 	}
-	if (ps1 == NULL)
-		print_ps1(sh, DEF_PS1);
-	else
-		print_ps1(sh, ps1);
+	print_ps1(sh);
 }
 
 void			start_sh(t_sh *sh)
