@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/01 23:31:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/02 12:17:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,11 @@ char			*search_path(t_sh *sh, const char *cmd);
 ** parse_line.c
 */
 t_cmd			*parse_line(t_sh *sh, t_buff *line);
+
+/*
+** parse_arg.c
+*/
+void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 /*
 ** heredoc.c
