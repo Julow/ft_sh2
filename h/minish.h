@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/02 12:17:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/03 14:11:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int				builtin_false(t_sh *sh, const t_cmd *cmd);
 ** utils.c
 */
 inline t_bool	is_special(char c);
+inline t_bool	ft_isword(char c);
 inline t_bool	ft_buffis(t_buff *buff, char c);
 void			exit_err(const char *err);
 t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c));
@@ -141,12 +142,19 @@ char			*search_path(t_sh *sh, const char *cmd);
 /*
 ** parse_line.c
 */
+void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str);
 t_cmd			*parse_line(t_sh *sh, t_buff *line);
 
 /*
 ** parse_arg.c
 */
 void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+/*
+** lex_arg.c
+*/
+t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg);
+t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
 
 /*
 ** heredoc.c
