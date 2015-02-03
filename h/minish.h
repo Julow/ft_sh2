@@ -6,12 +6,45 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 17:36:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/03 18:38:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
+
+/*
+** TODO
+** -
+** argv:
+**  [-v] [file $1 $2...]
+**  [-c "cmd" $0 $1 $2...]
+** -
+** builtins:
+**  builtin
+**  return
+**  sleep
+**  wait
+**  printenv [arg]
+** -
+** exec lines
+** -
+** parse redirs:
+**  &&
+**  ||
+**  fd<
+**  <&fd
+**  fd<&fd
+**  fd<file
+**  fd<<heredoc
+**  &>
+**  fd>
+**  &>&fd
+**  &>file
+**  fd>&fd
+**  fd>file
+**  fd>>file
+*/
 
 # include "libft.h"
 
@@ -33,6 +66,7 @@ typedef struct	s_sh
 {
 	t_array			env;
 	int				last_ret;
+	int				flags;
 }				t_sh;
 
 typedef struct	s_builtin
@@ -95,6 +129,8 @@ t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
 void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+void			parse_fd(t_sh *sh, t_buff *line, t_redir *redir, int oflags);
 
 /*
 ** Exec

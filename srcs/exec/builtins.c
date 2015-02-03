@@ -6,20 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:19:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 21:22:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:51:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-
-/*
-** TODO:
-** builtin
-** return
-** sleep
-** wait
-** printenv(arg)
-*/
 
 const t_builtin	g_builtins[] = {
 	{"cd", &builtin_cd},
