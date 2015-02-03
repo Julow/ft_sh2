@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 14:11:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:36:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,43 @@ typedef struct	s_sub
 # define REDIR_COLON	6
 
 /*
-** sh.c
+** init.c
 */
 t_sh			*init_sh(void);
-void			update_sh(t_sh *sh);
 void			start_sh(t_sh *sh);
 
 /*
-** cmd.c
+** signals.c
+*/
+void			handle_signals(t_sh *sh);
+
+/*
+** Parser
+*/
+void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str);
+t_cmd			*parse_line(t_sh *sh, t_buff *line);
+
+void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg);
+t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
+
+void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+/*
+** Exec
 */
 void			exec_line(t_sh *sh, t_buff *line);
 
-/*
-** ft_access.c
-*/
-t_bool			access_error(const char *file);
-int				ft_access(const char *file);
+char			*search_path(t_sh *sh, const char *cmd);
 
-/*
-** ps1.c
-*/
-void			print_ps1(t_sh *sh);
-void			print_ps2(t_sh *sh);
-void			print_motd(void);
-
-/*
-** builtin*
-*/
 t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd);
+
+/*
+** Builtins
+*/
 int				builtin_cd(t_sh *sh, const t_cmd *cmd);
 int				builtin_exit(t_sh *sh, const t_cmd *cmd);
 int				builtin_env(t_sh *sh, const t_cmd *cmd);
@@ -113,57 +122,27 @@ int				builtin_true(t_sh *sh, const t_cmd *cmd);
 int				builtin_false(t_sh *sh, const t_cmd *cmd);
 
 /*
-** utils.c
+** Utils
 */
+
 inline t_bool	is_special(char c);
 inline t_bool	ft_isword(char c);
 inline t_bool	ft_buffis(t_buff *buff, char c);
 void			exit_err(const char *err);
 t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c));
 
-/*
-** env_utils.c
-*/
 char			*get_env(t_sh *sh, const char *key);
 void			set_env_line(t_sh *sh, const char *line);
 void			set_env(t_sh *sh, const char *key, const char *value);
 
-/*
-** cmd_utils.c
-*/
 void			cmd_init(t_cmd *cmd);
+void			redir_kill(t_redir *redir);
 void			cmd_kill(t_cmd *cmd);
 
-/*
-** path.c
-*/
-char			*search_path(t_sh *sh, const char *cmd);
+t_bool			access_error(const char *file);
+int				ft_access(const char *file);
 
-/*
-** parse_line.c
-*/
-void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str);
-t_cmd			*parse_line(t_sh *sh, t_buff *line);
-
-/*
-** parse_arg.c
-*/
-void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
-
-/*
-** lex_arg.c
-*/
-t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg);
-t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
-
-/*
-** heredoc.c
-*/
-void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
-
-/*
-** parse_redir.c
-*/
-void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd);
+void			print_ps1(t_sh *sh);
+void			print_ps2(t_sh *sh);
 
 #endif

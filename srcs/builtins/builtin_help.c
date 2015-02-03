@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 11:57:12 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/23 18:33:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:23:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int				builtin_help(t_sh *sh, const t_cmd *cmd)
 {
-	print_motd();
 	ft_putstr("\nBuiltins:\n");
 	ft_putstr("\tcd [dir]\n\t\tChange working directory\n");
 	ft_putstr("\tenv [-i] [name=value ...] [utility [argument ...]]\n"

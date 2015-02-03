@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh.c                                               :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/10 13:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/01 23:27:38 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/03 17:30:46 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/03 17:34:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-t_sh			*init_sh(void)
+static void		update_shlvl(t_sh *sh)
 {
-	extern char		**environ;
-	t_sh			*sh;
+	const char		*shlvl = get_env(sh, "SHLVL=");
+	char			*lvl;
 
-	sh = MAL1(t_sh);
-	ft_arrayini(&(sh->env));
-	while (*environ != NULL)
-		ft_arrayadd(&(sh->env), ft_strdup(*(environ++)));
-	return (sh);
+	if (shlvl == NULL)
+	{
+		set_env(sh, "SHLVL=", "1");
+		return ;
+	}
+	lvl = ft_itoa(ft_atoi(shlvl) + 1);
+	if (lvl == NULL)
+		return ;
+	set_env(sh, "SHLVL=", lvl);
+	free(lvl);
 }
 
-void			update_sh(t_sh *sh)
+static void		update_sh(t_sh *sh)
 {
 	char			*pwd;
 	char			*tmp;
@@ -42,6 +47,19 @@ void			update_sh(t_sh *sh)
 		free(pwd);
 	}
 	print_ps1(sh);
+}
+
+t_sh			*init_sh(void)
+{
+	extern char		**environ;
+	t_sh			*sh;
+
+	sh = MAL1(t_sh);
+	ft_arrayini(&(sh->env));
+	while (*environ != NULL)
+		ft_arrayadd(&(sh->env), ft_strdup(*(environ++)));
+	update_shlvl(sh);
+	return (sh);
 }
 
 void			start_sh(t_sh *sh)
