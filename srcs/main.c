@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:55:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 17:34:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 20:23:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ int				main(int argc, char **argv)
 {
 	t_sh			*sh;
 
-	sh = init_sh();
+	sh = init_sh(argc, argv);
 	handle_signals(sh);
 	print_motd();
 	start_sh(sh);
 	ft_putstr("exit\n");
-	(void)argc;
-	(void)argv;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/30 21:37:47 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 18:39:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 21:52:43 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ static void		parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd)
 	{
 		tmp = ft_tabadd0(&(cmd->redirs));
 		ft_bzero(tmp, sizeof(t_redir)); // to remove
-		tmp->type = (ft_buffis(line, '>')) ? REDIR_APPEND : REDIR_FILE;
+		tmp->type = (ft_buffis(line, '>')) ? REDIR_APPEND : REDIR_OUT;
 		ft_parsespace(line);
-		parse_fd(sh, line, tmp, O_WRONLY | O_CREAT
-			| (tmp->type == REDIR_APPEND) ? O_APPEND : O_TRUNC);
+		if (tmp->type == REDIR_APPEND)
+			parse_fd(sh, line, tmp, REDIR_APPEND_O);
+		else
+			parse_fd(sh, line, tmp, REDIR_OUT_O);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 22:24:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 21:49:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,19 @@ static void		print_cmd(t_cmd *cmd)
 	{
 		tmp = &TG(t_redir, &(cmd->redirs), i);
 		if (tmp->type == REDIR_IN)
-			ft_printf("{green}< {dark}%s{eoc} ", tmp->data.content);
+			ft_printf("{green}%d< {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
 		else if (tmp->type == REDIR_PIPE || tmp->type == REDIR_COLON)
 		{
 			ft_printf("{green}%c{eoc} ", (tmp->type == REDIR_PIPE) ? '|' : ';');
 			print_cmd(tmp->cmd);
 			ft_printf("{bg red}");
 		}
-		else if (tmp->type == REDIR_FILE)
-			ft_printf("{green}> {dark}%s{eoc} ", tmp->data.content);
+		else if (tmp->type == REDIR_OUT)
+			ft_printf("{green}%d>&%d {dark}%s{eoc} ", tmp->fd[0], tmp->fd[1], tmp->data.content);
 		else if (tmp->type == REDIR_APPEND)
-			ft_printf("{green}>> {dark}%s{eoc} ", tmp->data.content);
+			ft_printf("{green}%d>>&%d {dark}%s{eoc} ", tmp->fd[0], tmp->fd[1], tmp->data.content);
 		else if (tmp->type == REDIR_HEREDOC)
-			ft_printf("{green}<< {dark}%s{eoc} ", tmp->data.content);
+			ft_printf("{green}%d<< {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
 		else
 			ft_printf("{orange}lol{eoc} ");
 	}

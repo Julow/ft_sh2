@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 17:30:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 17:34:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 20:24:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static void		update_sh(t_sh *sh)
 	print_ps1(sh);
 }
 
-t_sh			*init_sh(void)
+t_sh			*init_sh(int argc, char **argv)
 {
 	extern char		**environ;
 	t_sh			*sh;
 
 	sh = MAL1(t_sh);
+	sh->argc = argc;
+	sh->argv = argv;
 	ft_arrayini(&(sh->env));
 	while (*environ != NULL)
 		ft_arrayadd(&(sh->env), ft_strdup(*(environ++)));

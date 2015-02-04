@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 18:32:20 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 18:40:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 21:53:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			parse_fd(t_sh *sh, t_buff *line, t_redir *redir, int oflags)
 	else
 	{
 		redir->data = ft_parsesubnf(line, &is_special);
-		redir->fd[1] = open(redir->data.content, oflags);
+		redir->fd[1] = open(redir->data.content, oflags, REDIR_O_MODE);
 		// TODO: ft_access errors
 	}
 	(void)sh;

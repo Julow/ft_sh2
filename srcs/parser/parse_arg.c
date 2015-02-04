@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/02 12:13:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 16:15:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 20:15:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_bool	prompt_next(t_sh *sh, t_buff *line, t_string *arg, char *str)
 	if (get_next_line(0, line) <= 0)
 		return (false);
 	parse_string(sh, line, arg, str);
-	return (false);
+	return (true);
 }
 
 void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str)

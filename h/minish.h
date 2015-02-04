@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 18:38:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/04 21:53:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct	s_sh
 	t_array			env;
 	int				last_ret;
 	int				flags;
+	int				argc;
+	char			**argv;
 }				t_sh;
 
 typedef struct	s_builtin
@@ -96,10 +98,14 @@ typedef struct	s_sub
 # define BG				ft_buffget
 # define BI(b)			((b).i < (b).length)
 
+# define REDIR_OUT_O	O_WRONLY | O_CREAT | O_TRUNC
+# define REDIR_APPEND_O	O_WRONLY | O_CREAT | O_APPEND
+# define REDIR_O_MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH
+
 # define REDIR_NONE		0
 # define REDIR_IN		1
 # define REDIR_PIPE		2
-# define REDIR_FILE		3
+# define REDIR_OUT		3
 # define REDIR_APPEND	4
 # define REDIR_HEREDOC	5
 # define REDIR_COLON	6
@@ -107,7 +113,7 @@ typedef struct	s_sub
 /*
 ** init.c
 */
-t_sh			*init_sh(void);
+t_sh			*init_sh(int argc, char **argv);
 void			start_sh(t_sh *sh);
 
 /*
