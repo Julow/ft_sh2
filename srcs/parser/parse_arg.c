@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/02 12:13:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/04 20:15:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/05 17:23:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str)
 	t_bool			esc;
 
 	esc = false;
-	while (BI(*line))
+	while (BI(line))
 	{
-		esc = (*str != '\'' && ft_buffis(line, '\\')) ? true : false;
-		if (!BI(*line) && !(esc = false) && !prompt_next(sh, line, arg, str))
+		esc = (*str != '\'' && BIS(line, '\\')) ? true : false;
+		if (!BI(line) && !(esc = false) && !prompt_next(sh, line, arg, str))
 			return ;
 		if (!esc && BG(line) == '\'' && (*str == '\'' || *str == '\0'))
 			*str = (*str == '\0') ? BG(line) : '\0';

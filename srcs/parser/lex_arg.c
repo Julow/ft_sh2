@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 12:04:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/04 21:35:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/05 16:42:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg)
 {
 	char			*tmp;
 
-	if (!ft_buffis(line, '~'))
+	if (!BIS(line, '~'))
 		return (false);
-	if ((BG(line) == '/' || !BI(*line)) && (tmp = get_env(sh, "HOME=")) != NULL)
+	if ((BG(line) == '/' || !BI(line)) && (tmp = get_env(sh, "HOME=")) != NULL)
 	{
 		ft_stringadd(arg, tmp);
 		return (true);
@@ -43,9 +43,9 @@ t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg)
 	char			*tmp;
 	t_string		var;
 
-	if (!ft_buffis(line, '$'))
+	if (!BIS(line, '$'))
 		return (false);
-	if (ft_buffis(line, '?'))
+	if (BIS(line, '?'))
 	{
 		ft_stringaddi(arg, sh->last_ret);
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/04 21:53:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/05 17:23:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 **  fd>&fd
 **  fd>file
 **  fd>>file
+** cmd->next (instead of redir for | || &&)
 */
 
 # include "libft.h"
@@ -77,14 +78,7 @@ typedef struct	s_builtin
 	int				(*func)(t_sh *sh, const t_cmd *cmd);
 }				t_builtin;
 
-typedef struct	s_sub
-{
-	char			*str;
-	int				pos;
-	int				length;
-}				t_sub;
-
-# define SUB(s,i,l)		((t_sub){(s), (i), (l)})
+# define SH				"ft_minishell2"
 
 # define DEF_PS1		"%v$ "
 # define DEF_PS2		"> "
@@ -96,7 +90,8 @@ typedef struct	s_sub
 # define ACCESS_RIGHT	3
 
 # define BG				ft_buffget
-# define BI(b)			((b).i < (b).length)
+# define BI(b)			((b)->i < (b)->length)
+# define BIS			ft_buffis
 
 # define REDIR_OUT_O	O_WRONLY | O_CREAT | O_TRUNC
 # define REDIR_APPEND_O	O_WRONLY | O_CREAT | O_APPEND
@@ -125,6 +120,7 @@ void			handle_signals(t_sh *sh);
 ** Parser
 */
 void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str);
+
 t_cmd			*parse_line(t_sh *sh, t_buff *line);
 
 void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
@@ -132,11 +128,11 @@ void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
 t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg);
 t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
 
-void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd);
 
-void			parse_redir(t_sh *sh, t_buff *line, t_cmd *cmd);
-
-void			parse_fd(t_sh *sh, t_buff *line, t_redir *redir, int oflags);
+t_bool			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_redir_colon(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 /*
 ** Exec

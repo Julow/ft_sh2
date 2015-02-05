@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   parse_redir_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/30 17:55:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 17:14:02 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/05 16:45:24 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/05 17:28:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd)
+static t_bool	parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
 	t_buff			tmp;
 	t_redir			*redir;
@@ -36,4 +36,18 @@ void			parse_heredoc(t_sh *sh, t_buff *line, t_cmd *cmd)
 		print_ps2(sh);
 	}
 	free(stop.content);
+	return (true);
+}
+
+t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd)
+{
+	t_redir			*tmp;
+
+	if (BIS(line, '<'))
+		return (parse_heredoc(sh, line, cmd));
+	tmp = ft_tabadd0(&(cmd->redirs));
+	ft_bzero(tmp, sizeof(t_redir)); // to remove
+	tmp->type = REDIR_IN;
+	// TODO: parse file or fd
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/04 17:36:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/03 12:55:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/05 17:21:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 inline t_bool	is_special(char c)
 {
-	if (ft_isspace(c) || c == ';' || c == '<' || c == '>' || c == '|')
+	if (c == ';' || c == '<' || c == '>' || c == '|' || c == '&')
 		return (true);
-	return (false);
+	return (ft_isspace(c));
 }
 
 inline t_bool	ft_isword(char c)
