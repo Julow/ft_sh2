@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/05 17:23:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/06 17:18:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,21 @@ typedef struct	s_redir
 	int				fd[2];
 	int				type;
 	t_string		data;
-	struct s_cmd	*cmd;
 }				t_redir;
+
+typedef struct	s_next
+{
+	int				fd[2];
+	int				type;
+	struct s_cmd	*cmd;
+}				t_next;
 
 typedef struct	s_cmd
 {
 	t_array			argv;
 	t_tab			redirs;
+	t_bool			async;
+	t_next			next;
 }				t_cmd;
 
 typedef struct	s_sh
@@ -99,11 +107,15 @@ typedef struct	s_builtin
 
 # define REDIR_NONE		0
 # define REDIR_IN		1
-# define REDIR_PIPE		2
-# define REDIR_OUT		3
-# define REDIR_APPEND	4
-# define REDIR_HEREDOC	5
-# define REDIR_COLON	6
+# define REDIR_OUT		2
+# define REDIR_APPEND	3
+# define REDIR_HEREDOC	4
+
+# define NEXT_NONE		0
+# define NEXT_COLON		1
+# define NEXT_PIPE		2
+# define NEXT_AND		3
+# define NEXT_OR		4
 
 /*
 ** init.c
@@ -131,8 +143,10 @@ t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
 t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 t_bool			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd);
-t_bool			parse_redir_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
-t_bool			parse_redir_colon(t_sh *sh, t_buff *line, t_cmd *cmd);
+
+t_bool			parse_next_colon(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_next_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_next_and(t_sh *sh, t_buff *line, t_cmd *cmd);
 
 /*
 ** Exec

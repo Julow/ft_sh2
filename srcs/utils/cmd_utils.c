@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:50:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/04 21:49:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/06 17:22:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,7 @@ void			cmd_init(t_cmd *cmd)
 
 void			redir_kill(t_redir *redir)
 {
-	if (redir->type == REDIR_PIPE)
-		cmd_kill(redir->cmd);
-	if (redir->type == REDIR_OUT || redir->type == REDIR_APPEND
-		|| redir->type == REDIR_HEREDOC || redir->type == REDIR_IN)
-		free(redir->data.content);
-	if (redir->type == REDIR_OUT || redir->type == REDIR_APPEND)
-		close(redir->fd[0]);
+	free(redir->data.content);
 }
 
 void			cmd_kill(t_cmd *cmd)
@@ -43,4 +37,7 @@ void			cmd_kill(t_cmd *cmd)
 	free(cmd->redirs.data);
 	ft_arrayclr(&(cmd->argv), &free);
 	free(cmd->argv.data);
+	if (cmd->next.cmd != NULL)
+		cmd_kill(cmd->next.cmd);
+	free(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/05 16:45:24 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/05 17:28:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/06 16:16:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd)
 	tmp = ft_tabadd0(&(cmd->redirs));
 	ft_bzero(tmp, sizeof(t_redir)); // to remove
 	tmp->type = REDIR_IN;
-	// TODO: parse file or fd
+	ft_parsespace(line);
+	tmp->data = ft_parsesubnf(line, &is_special);
 	return (true);
 }

@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   parse_redir_out.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/03 17:28:29 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/06 15:50:46 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/30 21:37:47 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/06 16:21:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <signal.h>
+#include <stdlib.h>
+#include <fcntl.h>
 
-static t_sh		*save_sh(t_sh *sh)
+t_bool			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd)
 {
-	static t_sh		*save;
+	t_redir			*tmp;
 
-	if (sh != NULL)
-		save = sh;
-	return (save);
-}
-
-static void		signals_handler(int sign)
-{
-	t_sh			*sh;
-
-	(void)sign;
-	sh = save_sh(NULL);
-	ft_putchar('\n');
-	print_ps1(sh);
-	sh->last_ret = 1;
-}
-
-void			handle_signals(t_sh *sh)
-{
-	save_sh(sh);
-	signal(SIGINT, &signals_handler);
-	signal(SIGQUIT, &signals_handler);
+	tmp = ft_tabadd0(&(cmd->redirs));
+	ft_bzero(tmp, sizeof(t_redir)); // to remove
+	tmp->type = (BIS(line, '>')) ? REDIR_APPEND : REDIR_OUT;
+	ft_parsespace(line);
+	tmp->data = ft_parsesubnf(line, &is_special);
+	(void)sh;
+	return (true);
 }

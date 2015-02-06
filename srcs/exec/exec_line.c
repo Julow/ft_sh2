@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/04 21:49:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/06 17:20:05 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,27 +113,35 @@ static void		print_cmd(t_cmd *cmd)
 
 	i = -1;
 	while (++i < cmd->argv.length)
-		ft_printf("%s ", AG(char*, &(cmd->argv), i));
+		ft_printf("{dark}\"{eoc}%s{dark}\"{eoc} ", AG(char*, &(cmd->argv), i));
 	i = -1;
 	while (++i < cmd->redirs.length)
 	{
 		tmp = &TG(t_redir, &(cmd->redirs), i);
 		if (tmp->type == REDIR_IN)
 			ft_printf("{green}%d< {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
-		else if (tmp->type == REDIR_PIPE || tmp->type == REDIR_COLON)
-		{
-			ft_printf("{green}%c{eoc} ", (tmp->type == REDIR_PIPE) ? '|' : ';');
-			print_cmd(tmp->cmd);
-			ft_printf("{bg red}");
-		}
 		else if (tmp->type == REDIR_OUT)
-			ft_printf("{green}%d>&%d {dark}%s{eoc} ", tmp->fd[0], tmp->fd[1], tmp->data.content);
+			ft_printf("{green}%d> {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
 		else if (tmp->type == REDIR_APPEND)
-			ft_printf("{green}%d>>&%d {dark}%s{eoc} ", tmp->fd[0], tmp->fd[1], tmp->data.content);
+			ft_printf("{green}%d>> {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
 		else if (tmp->type == REDIR_HEREDOC)
-			ft_printf("{green}%d<< {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
+			ft_printf("{green}%d<< {dark}\"{eoc}%s{dark}\"{eoc} ", tmp->fd[0], tmp->data.content);
 		else
 			ft_printf("{orange}lol{eoc} ");
+	}
+	if (cmd->async)
+		ft_printf("{green}&{eoc} ");
+	if (cmd->next.type != NEXT_NONE)
+	{
+		if (cmd->next.type == NEXT_PIPE)
+			ft_printf("{green}|{eoc} ");
+		if (cmd->next.type == NEXT_COLON)
+			ft_printf("{green};{eoc} ");
+		if (cmd->next.type == NEXT_AND)
+			ft_printf("{green}&&{eoc} ");
+		if (cmd->next.type == NEXT_OR)
+			ft_printf("{green}||{eoc} ");
+		print_cmd(cmd->next.cmd);
 	}
 }
 
@@ -143,7 +151,9 @@ void			exec_line(t_sh *sh, t_buff *line)
 
 	cmd = parse_line(sh, line);
 //	exec_cmd(sh, cmd);
+	if (cmd == NULL)
+		return ;
 	print_cmd(cmd);
-	ft_printf("{reset}\n");
+	ft_printf("\n");
 	cmd_kill(cmd);
 }
