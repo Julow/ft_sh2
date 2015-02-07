@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/06 17:18:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/07 15:47:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 ** exec lines
 ** -
 ** parse redirs:
-**  &&
-**  ||
 **  fd<
 **  <&fd
 **  fd<&fd
@@ -44,7 +42,6 @@
 **  fd>&fd
 **  fd>file
 **  fd>>file
-** cmd->next (instead of redir for | || &&)
 */
 
 # include "libft.h"
@@ -68,6 +65,8 @@ typedef struct	s_cmd
 	t_array			argv;
 	t_tab			redirs;
 	t_bool			async;
+	t_bool			builtin;
+	int				ret;
 	t_next			next;
 }				t_cmd;
 
@@ -153,8 +152,9 @@ t_bool			parse_next_and(t_sh *sh, t_buff *line, t_cmd *cmd);
 */
 void			exec_line(t_sh *sh, t_buff *line);
 
-char			*search_path(t_sh *sh, const char *cmd);
+t_bool			lex_cmd(t_sh *sh, t_cmd *cmd);
 
+t_bool			is_builtin(const char *name);
 t_bool			exec_builtin(t_sh *sh, const t_cmd *cmd);
 
 /*
@@ -184,6 +184,7 @@ void			exit_err(const char *err);
 t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c));
 
 char			*get_env(t_sh *sh, const char *key);
+char			*get_env_def(t_sh *sh, const char *key, const char *def);
 void			set_env_line(t_sh *sh, const char *line);
 void			set_env(t_sh *sh, const char *key, const char *value);
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:50:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/06 17:22:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/07 16:04:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void			cmd_init(t_cmd *cmd)
 {
+	ft_bzero(cmd, sizeof(t_cmd));
 	ft_arrayini(&(cmd->argv));
 	ft_tabini(&(cmd->redirs), sizeof(t_redir));
 }

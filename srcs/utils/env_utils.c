@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:48:41 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/14 11:37:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/07 15:28:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ char			*get_env(t_sh *sh, const char *key)
 			return (AG(char*, &(sh->env), i) + len);
 	}
 	return (NULL);
+}
+
+char			*get_env_def(t_sh *sh, const char *key, const char *def)
+{
+	char			*value;
+
+	value = get_env(sh, key);
+	if (value == NULL)
+	{
+		set_env(sh, key, def);
+		return (get_env(sh, key));
+	}
+	return (value);
 }
 
 void			set_env_line(t_sh *sh, const char *line)

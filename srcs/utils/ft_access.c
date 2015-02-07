@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 11:19:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/26 23:13:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/07 15:38:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_bool			access_error(const char *file)
 	if (error == 0)
 		return (false);
 	else if (error == ACCESS_NO)
-		ft_fdprintf(2, "ft_minishell2: %s: No such file or directory\n", file);
+		ft_fdprintf(2, SH ": %s: No such file or directory\n", file);
 	else if (error == ACCESS_DIR)
-		ft_fdprintf(2, "ft_minishell2: %s: Is a directory\n", file);
+		ft_fdprintf(2, SH ": %s: Is a directory\n", file);
 	else if (error == ACCESS_RIGHT)
-		ft_fdprintf(2, "ft_minishell2: %s: Permission denied\n", file);
+		ft_fdprintf(2, SH ": %s: Permission denied\n", file);
 	else
-		ft_fdprintf(2, "ft_minishell2: %s: Cannot access\n", file);
+		ft_fdprintf(2, SH ": %s: Cannot access\n", file);
 	return (true);
 }
 
