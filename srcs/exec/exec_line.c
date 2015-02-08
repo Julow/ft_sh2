@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/07 16:06:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/08 16:36:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ static void		print_cmd(t_sh *sh, t_cmd *cmd)
 	}
 	else
 		cmd->ret = 1;
-	if (cmd->next.type != NEXT_NONE)
+	if (cmd->next.type != NEXT_NONE && cmd->next.cmd != NULL)
 	{
 		if (cmd->next.type == NEXT_PIPE)
 			ft_printf("{green}|{eoc} ");
@@ -159,6 +159,8 @@ void			exec_line(t_sh *sh, t_buff *line)
 	t_cmd			*cmd;
 
 	cmd = parse_line(sh, line);
+	if (cmd == NULL)
+		return ;
 //	exec_cmd(sh, cmd);
 	print_cmd(sh, cmd);
 	ft_printf("\n");

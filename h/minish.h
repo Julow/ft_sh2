@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/07 15:47:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/08 16:40:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,12 @@
 ** exec lines
 ** -
 ** parse redirs:
-**  fd<
 **  <&fd
 **  fd<&fd
-**  fd<file
-**  fd<<heredoc
 **  &>
-**  fd>
 **  &>&fd
 **  &>file
 **  fd>&fd
-**  fd>file
-**  fd>>file
 */
 
 # include "libft.h"
@@ -130,7 +124,7 @@ void			handle_signals(t_sh *sh);
 /*
 ** Parser
 */
-void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char *str);
+void			parse_string(t_sh *sh, t_buff *line, t_string *arg, char str);
 
 t_cmd			*parse_line(t_sh *sh, t_buff *line);
 
@@ -139,9 +133,9 @@ void			parse_arg(t_sh *sh, t_buff *line, t_cmd *cmd);
 t_bool			lex_home(t_sh *sh, t_buff *line, t_string *arg);
 t_bool			lex_var(t_sh *sh, t_buff *line, t_string *arg);
 
-t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_redir_in(t_sh *sh, t_buff *line, t_cmd *cmd, int fd);
 
-t_bool			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd);
+t_bool			parse_redir_out(t_sh *sh, t_buff *line, t_cmd *cmd, int fd);
 
 t_bool			parse_next_colon(t_sh *sh, t_buff *line, t_cmd *cmd);
 t_bool			parse_next_pipe(t_sh *sh, t_buff *line, t_cmd *cmd);
