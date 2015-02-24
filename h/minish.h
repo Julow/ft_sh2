@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 13:19:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/08 16:40:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/25 00:14:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,6 @@ typedef struct	s_builtin
 # define ACCESS_DIR		2
 # define ACCESS_RIGHT	3
 
-# define BG				ft_buffget
-# define BI(b)			((b)->i < (b)->length)
-# define BIS			ft_buffis
-
 # define REDIR_OUT_O	O_WRONLY | O_CREAT | O_TRUNC
 # define REDIR_APPEND_O	O_WRONLY | O_CREAT | O_APPEND
 # define REDIR_O_MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH
@@ -171,11 +167,8 @@ int				builtin_false(t_sh *sh, const t_cmd *cmd);
 ** Utils
 */
 
-inline t_bool	is_special(char c);
-inline t_bool	ft_isword(char c);
-inline t_bool	ft_buffis(t_buff *buff, char c);
+inline t_bool	is_special(int c);
 void			exit_err(const char *err);
-t_string		ft_parsesubnf(t_buff *buff, t_bool (*f)(char c));
 
 char			*get_env(t_sh *sh, const char *key);
 char			*get_env_def(t_sh *sh, const char *key, const char *def);

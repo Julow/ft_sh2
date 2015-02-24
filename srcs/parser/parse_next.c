@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/06 14:40:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/06 17:16:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/25 00:13:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_bool			parse_next_and(t_sh *sh, t_buff *line, t_cmd *cmd)
 	}
 	cmd->async = true;
 	ft_parsespace(line);
-	BIS(line, ';');
-	ft_parsespace(line);
+	if (BIS(line, ';'))
+		ft_parsespace(line);
 	if (is_special(BG(line)))
 		return (ft_fdprintf(2, SH
 			": syntax error near unexpected token `%c'\n", BG(line)), false);

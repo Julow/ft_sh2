@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/08 16:36:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/25 00:11:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void		print_cmd(t_sh *sh, t_cmd *cmd)
 		i = -1;
 		while (++i < cmd->redirs.length)
 		{
-			tmp = &TG(t_redir, &(cmd->redirs), i);
+			tmp = TG(t_redir, cmd->redirs, i);
 			if (tmp->type == REDIR_IN)
 				ft_printf("{green}%d< {dark}%s{eoc} ", tmp->fd[0], tmp->data.content);
 			else if (tmp->type == REDIR_OUT)

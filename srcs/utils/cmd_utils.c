@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 14:50:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/07 16:04:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/02/25 00:12:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			cmd_kill(t_cmd *cmd)
 		return ;
 	i = -1;
 	while (++i < cmd->redirs.length)
-		redir_kill(&TG(t_redir, &(cmd->redirs.data), i));
+		redir_kill(TG(t_redir, cmd->redirs.data, i));
 	free(cmd->redirs.data);
 	ft_arrayclr(&(cmd->argv), &free);
 	free(cmd->argv.data);
