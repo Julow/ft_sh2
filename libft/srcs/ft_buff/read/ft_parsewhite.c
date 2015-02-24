@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parseint.c                                      :+:      :+:    :+:   */
+/*   ft_parsewhite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/11 17:32:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/16 22:49:54 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/13 15:29:27 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 10:34:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				ft_parseint(t_buff *buff)
+void			ft_parsewhite(t_buff *buff)
 {
-	int				nb;
-	t_bool			negatif;
-
-	negatif = false;
-	nb = 0;
-	if ((ft_buffget(buff) == '-' && (negatif = true))
-		|| ft_buffget(buff) == '+')
+	while (ft_iswhite(BG(buff)))
 		buff->i++;
-	while (ft_isdigit(ft_buffget(buff)))
-		nb = nb * 10 + (ft_readbuff(buff) - '0');
-	return (negatif ? -nb : nb);
 }

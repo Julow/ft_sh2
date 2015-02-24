@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_buffis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/11 17:32:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/13 15:33:55 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/01 10:26:53 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 10:27:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_parse(t_buff *buff, const char *parse)
+inline t_bool	ft_buffis(t_buff *buff, char c)
 {
-	char			c;
-
-	c = ft_buffget(buff);
-	while (c != '\0')
-	{
-		if (ft_strchr(parse, (c = ft_buffget(buff))) == NULL)
-			break ;
-		buff->i++;
-	}
+	if (BG(buff) == c)
+		return (buff->i++, true);
+	return (false);
 }

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsenot.c                                      :+:      :+:    :+:   */
+/*   ft_writebase.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/11 19:04:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/13 15:32:20 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/11 21:23:06 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/11 22:07:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_internal.h"
 
-void			ft_parsenot(t_buff *buff, const char *parse)
+void			ft_writebase(t_buff *buff, t_ulong n, const char *base)
 {
-	char			c;
+	const t_uint	base_len = ft_strlen(base);
+	char			nb[PUTBASE_BUFF];
+	t_uint			i;
 
-	c = '\0';
-	while (c != '\0')
+	i = PUTBASE_BUFF;
+	while (n != 0)
 	{
-		if (ft_strchr(parse, (c = ft_buffget(buff))) != NULL && c != '\0')
-			break ;
-		buff->i++;
+		nb[--i] = base[(n % base_len)];
+		n /= base_len;
 	}
+	ft_write(buff, nb + i, PUTBASE_BUFF - i);
 }

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabadd0.c                                       :+:      :+:    :+:   */
+/*   ft_parselong.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/18 08:10:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:12:22 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/11 17:35:29 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 10:35:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_tabadd0(t_tab *tab)
+t_long			ft_parselong(t_buff *buff)
 {
-	void			*pos;
+	t_long			nb;
+	t_bool			negatif;
 
-	if (!ft_tabext(tab, 1))
-		return (NULL);
-	pos = tab->data + tab->bytes;
-	tab->length++;
-	tab->bytes += tab->size;
-	ft_bzero(pos, tab->size);
-	return (pos);
+	negatif = false;
+	nb = 0;
+	if ((BG(buff) == '-' && (negatif = true))
+		|| BG(buff) == '+')
+		buff->i++;
+	while (ft_isdigit(BG(buff)))
+		nb = nb * 10 + (BR(buff) - '0');
+	return (negatif ? -nb : nb);
 }

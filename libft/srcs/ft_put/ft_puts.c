@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsesub.c                                      :+:      :+:    :+:   */
+/*   ft_puts.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/11 17:32:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/13 15:32:10 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/01 00:16:06 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 00:16:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_string		ft_parsesub(t_buff *buff, const char *parse)
+inline int		ft_puts(const char *s)
 {
-	char			c;
-	t_string		sub;
-
-	ft_stringini(&sub);
-	c = ft_buffget(buff);
-	while (c != '\0')
-	{
-		if (ft_strchr(parse, (c = ft_buffget(buff))) == NULL)
-			break ;
-		ft_stringaddc(&sub, c);
-		buff->i++;
-	}
-	return (sub);
+	return (ft_putendl(s));
 }
