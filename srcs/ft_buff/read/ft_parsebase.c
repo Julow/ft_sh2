@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabadd0.c                                       :+:      :+:    :+:   */
+/*   ft_parsebase.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/18 08:10:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:12:22 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/11 21:55:25 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/11 22:07:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_tabadd0(t_tab *tab)
+t_ulong			ft_parsebase(t_buff *buff, const char *base)
 {
-	void			*pos;
+	const t_uint	base_len = ft_strlen(base);
+	t_ulong			nb;
+	int				tmp;
 
-	if (!ft_tabext(tab, 1))
-		return (NULL);
-	pos = tab->data + tab->bytes;
-	tab->length++;
-	tab->bytes += tab->size;
-	ft_bzero(pos, tab->size);
-	return (pos);
+	nb = 0;
+	while ((tmp = ft_strchri(base, BG(buff))) != -1)
+		nb = nb * base_len + tmp;
+	return (nb);
 }

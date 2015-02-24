@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabadd0.c                                       :+:      :+:    :+:   */
+/*   ft_writeint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/18 08:10:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:12:22 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/11 21:23:06 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/11 22:06:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_internal.h"
 
-void			*ft_tabadd0(t_tab *tab)
+void			ft_writeint(t_buff *buff, int n)
 {
-	void			*pos;
+	char			nb[PUTNBR_BUFF];
+	t_uint			i;
 
-	if (!ft_tabext(tab, 1))
-		return (NULL);
-	pos = tab->data + tab->bytes;
-	tab->length++;
-	tab->bytes += tab->size;
-	ft_bzero(pos, tab->size);
-	return (pos);
+	i = PUTNBR_BUFF;
+	nb[0] = (n < 0) ? '-' : '+';
+	if (n <= 0)
+	{
+		nb[--i] = '0' - (n % 10);
+		n /= -10;
+	}
+	while (n != 0)
+	{
+		nb[--i] = '0' + (n % 10);
+		n /= 10;
+	}
+	if (nb[0] == '-')
+		nb[--i] = '-';
+	ft_write(buff, nb + i, PUTNBR_BUFF - i);
 }

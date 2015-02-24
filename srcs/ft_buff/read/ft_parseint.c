@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsesubf.c                                     :+:      :+:    :+:   */
+/*   ft_parseint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/13 15:28:31 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/13 16:11:41 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/11 17:32:54 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 10:35:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_string		ft_parsesubf(t_buff *buff, t_bool (*f)(char c))
+int				ft_parseint(t_buff *buff)
 {
-	char			c;
-	t_string		sub;
+	int				nb;
+	t_bool			negatif;
 
-	ft_stringini(&sub);
-	c = ft_buffget(buff);
-	while (c != '\0')
-	{
-		if (!f((c = ft_buffget(buff))))
-			break ;
-		ft_stringaddc(&sub, c);
+	negatif = false;
+	nb = 0;
+	if ((BG(buff) == '-' && (negatif = true))
+		|| BG(buff) == '+')
 		buff->i++;
-	}
-	return (sub);
+	while (ft_isdigit(BG(buff)))
+		nb = nb * 10 + (BR(buff) - '0');
+	return (negatif ? -nb : nb);
 }

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabadd0.c                                       :+:      :+:    :+:   */
+/*   ft_setout.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/18 08:10:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:12:22 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/02/12 20:33:28 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/12 20:34:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_tabadd0(t_tab *tab)
+void			ft_setout(int fd)
 {
-	void			*pos;
+	t_buff			*buff;
 
-	if (!ft_tabext(tab, 1))
-		return (NULL);
-	pos = tab->data + tab->bytes;
-	tab->length++;
-	tab->bytes += tab->size;
-	ft_bzero(pos, tab->size);
-	return (pos);
+	buff = FTOUT;
+	if (buff->fd != fd)
+	{
+		ft_flush(buff);
+		buff->fd = fd;
+	}
 }

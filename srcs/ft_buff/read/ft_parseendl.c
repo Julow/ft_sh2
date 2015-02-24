@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabadd0.c                                       :+:      :+:    :+:   */
+/*   ft_parseendl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/18 08:10:39 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/01/30 21:12:22 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/01/13 15:27:51 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/02/01 10:35:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_tabadd0(t_tab *tab)
+void			ft_parseendl(t_buff *buff)
 {
-	void			*pos;
+	char			c;
 
-	if (!ft_tabext(tab, 1))
-		return (NULL);
-	pos = tab->data + tab->bytes;
-	tab->length++;
-	tab->bytes += tab->size;
-	ft_bzero(pos, tab->size);
-	return (pos);
+	c = '\0';
+	while ((c = BG(buff)) != '\n' && c != '\0')
+		buff->i++;
+	if (c == '\n')
+		buff->i++;
 }
