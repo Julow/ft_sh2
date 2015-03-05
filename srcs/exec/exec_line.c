@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/03 14:59:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/02/25 00:11:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/03/05 16:59:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,58 @@ static void		exec_cmd(t_sh *sh, const t_cmd *cmd)
 }
 */
 
+static t_bool	dup_redir(t_redir *redir)
+{
+	if (redir->type == REDIR_IN)
+	{
+	}
+	else if (redir->type == REDIR_OUT)
+	{
+	}
+	else if (redir->type == REDIR_APPEND)
+	{
+
+	}
+	else if (redir->type == REDIR_HEREDOC)
+		ft_fdprintf("Heredoc exec not implented");
+	return (false);
+}
+
+static void		close_redir(t_redir *redir)
+{
+	if (redir->type == REDIR_IN)
+		close(redir->fd[0]);
+	else if (redir->type == REDIR_OUT)
+		close(redir->fd[0]);
+	else if (redir->type == REDIR_APPEND)
+		close(redir->fd[0]);
+	else if (redir->type == REDIR_HEREDOC)
+		ft_fdprintf("Heredoc close not implented");
+}
+
+static t_bool	dup_redirs(t_sh *sh, t_cmd *cmd)
+{
+	int				i;
+
+	i = -1;
+	while (++i < cmd->redirs.length)
+		if (!dup->redir(TG(t_redir, cmd->redirs, i)))
+		{
+			while (--i >= 0)
+				close_redir(TG(t_redir, cmd->redirs, i));
+			return (false);
+		}
+	return (true);
+}
+
+static void		exec_cmd(t_sh *sh, t_cmd *cmd)
+{
+	dup_redirs(sh, cmd);
+}
+
+// ls | cat > /dev/null
+
+/*
 static void		print_cmd(t_sh *sh, t_cmd *cmd)
 {
 	int				i;
@@ -153,6 +205,7 @@ static void		print_cmd(t_sh *sh, t_cmd *cmd)
 		print_cmd(sh, cmd->next.cmd);
 	}
 }
+*/
 
 void			exec_line(t_sh *sh, t_buff *line)
 {
@@ -161,8 +214,8 @@ void			exec_line(t_sh *sh, t_buff *line)
 	cmd = parse_line(sh, line);
 	if (cmd == NULL)
 		return ;
-//	exec_cmd(sh, cmd);
-	print_cmd(sh, cmd);
+	exec_cmd(sh, cmd);
+//	print_cmd(sh, cmd);
 	ft_printf("\n");
 	cmd_kill(cmd);
 }
