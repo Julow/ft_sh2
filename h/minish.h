@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/21 20:12:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/22 19:37:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,37 @@
 
 /*
 ** ========================================================================== **
+** TODO
+** ----
+** |
+** < file
+** <<
+** > file
+** >> file
+** ;
+** &&
+** ||
+** 0< file
+** <&1
+** 0<&1
+** 0<<
+** 0> file
+** &> file
+** >&0
+** 1>&0
+** 0>> file
+** &>> file
+** ----
+*/
+
+/*
+** ========================================================================== **
 ** Base
 */
+
+typedef char	t_bp[64];
+
+# define BP		((t_bp){[0 ... 63] = 0})
 
 typedef struct	s_msh
 {
@@ -36,12 +65,12 @@ typedef enum	e_next_type
 	NEXT_COLON,
 	NEXT_AND,
 	NEXT_OR,
-	NEXT_PIPE
+	NEXT_PIPE,
+	NEXT_NOPE
 }				t_next_type;
 
 typedef struct	s_cmd
 {
-	char			*name;
 	t_array			argv;
 	t_next_type		next_t;
 	struct s_cmd	*next;
@@ -52,5 +81,8 @@ typedef struct	s_builtin
 	char			*name;
 	int				(*f)(t_sh *sh, const t_cmd *cmd);
 }				t_builtin;
+
+t_cmd			cmd_new(void);
+void			cmd_destroy(t_cmd *cmd);
 
 #endif
