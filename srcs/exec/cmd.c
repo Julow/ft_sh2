@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/22 19:18:35 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:11:13 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/04/22 19:23:45 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/04/23 18:06:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "exec.h"
+#include <stdlib.h>
 
-t_bool			is_special(char c)
+t_cmd			*cmd_new(void)
 {
-	if (c == '|' || c == '>' || c == '<' || c == ';' || c == '&')
-		return (true);
-	return (false);
+	t_cmd			*cmd;
+
+	cmd = MAL1(t_cmd);
+	ft_arrayini(&(cmd->argv));
+	ft_tabini(&(cmd->redirs), sizeof(t_redir));
+	cmd->next_t = NEXT_NOPE;
+	cmd->next = NULL;
+	return (cmd);
 }
 
-t_bool			is_redir(char c)
+void			cmd_destroy(t_cmd *cmd)
 {
-	if (c == '<' || c == '>')
-		return (true);
-	return (false);
-}
-
-t_bool			is_next(char c)
-{
-	if (c == ';' || c == '&' || c == '|')
-		return (true);
-	return (false);
+	if (cmd->next != NULL)
+		cmd_destroy(cmd);
+	ft_arrayclr(&(cmd->argv), &free);
+	free(cmd->argv.data);
+	free(cmd->redirs.data);
 }

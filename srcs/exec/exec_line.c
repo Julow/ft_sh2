@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   exec_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/22 19:23:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 13:15:00 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/04/23 17:41:52 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/04/23 18:07:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
-#include <stdlib.h>
+#include "parser.h"
 
-t_cmd			cmd_new(void)
+void			exec_line(t_msh *sh, t_sub *line)
 {
 	t_cmd			*cmd;
 
-	cmd = MAL1(t_cmd);
-	ft_arrayini(&(cmd->argv));
-	ft_tabini(&(cmd->redirs));
-	cmd->next_t = NEXT_NOPE;
-	cmd->next = NULL;
-	return (cmd);
-}
-
-void			cmd_destroy(t_cmd *cmd)
-{
-	if (cmd->next != NULL)
-		cmd_destroy(cmd);
-	ft_arrayclr(&(cmd->argv), &free);
-	free(cmd->argv.data);
-	free(cmd->redirs.data);
+	if ((cmd = parse_cmd(sh, line)) == NULL)
+		return ;
+	exec_cmd(sh, cmd);
+	cmd_destroy(cmd);
 }

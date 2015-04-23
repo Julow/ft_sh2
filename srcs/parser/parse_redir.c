@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 13:05:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 13:08:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 18:15:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void			parse_redir(t_parser *p, t_cmd *cmd)
 {
+	BR(p->buff);
 	(void)p;
 	(void)cmd;
 }

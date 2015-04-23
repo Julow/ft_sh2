@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:19:26 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/22 19:36:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 18:10:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd			*parse_cmd(t_msh *msh, t_sub *line)
 
 	buff = SBUFF(line->str, line->length);
 	ft_stringini(&tmp_string);
-	parse = (t_parser){msh, &buff, &tmp_string, BP};
+	parse = (t_parser){msh, &buff, &tmp_string, {0}};
 	cmd = cmd_new();
 	TRY(parse.bp)
 		parse_next_cmd(&parse, cmd);
