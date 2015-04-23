@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 19:23:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/22 19:36:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 13:15:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <stdlib.h>
 
 t_cmd			cmd_new(void)
 {
@@ -18,6 +19,7 @@ t_cmd			cmd_new(void)
 
 	cmd = MAL1(t_cmd);
 	ft_arrayini(&(cmd->argv));
+	ft_tabini(&(cmd->redirs));
 	cmd->next_t = NEXT_NOPE;
 	cmd->next = NULL;
 	return (cmd);
@@ -27,5 +29,7 @@ void			cmd_destroy(t_cmd *cmd)
 {
 	if (cmd->next != NULL)
 		cmd_destroy(cmd);
-	ft_arraykillf(&(cmd->argv));
+	ft_arrayclr(&(cmd->argv), &free);
+	free(cmd->argv.data);
+	free(cmd->redirs.data);
 }

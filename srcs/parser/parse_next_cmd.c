@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:38:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/22 19:44:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 13:41:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void			parse_next_cmd(t_parser *p, t_cmd *cmd)
 			parse_redir(p, cmd);
 		else if (is_next(BG(p->buff)))
 			return (parse_next(p, cmd));
+		else
+			parse_arg(p, cmd, false);
 	}
 }

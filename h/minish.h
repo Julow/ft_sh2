@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/22 19:37:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 13:17:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@
 ** 1>&0
 ** 0>> file
 ** &>> file
+** ----
+** ""
+** ''
+** ""''
 ** ----
 */
 
@@ -69,9 +73,26 @@ typedef enum	e_next_type
 	NEXT_NOPE
 }				t_next_type;
 
+typedef enum	e_redir_type
+{
+	REDIR_LEFT,
+	REDIR_HEREDOC,
+	REDIR_RIGHT,
+	REDIR_APPEND,
+	REDIR_NOPE
+}				t_redir_type;
+
+typedef struct	s_redir
+{
+	int				fd[2];
+	char			*data;
+	t_redir_type	redir_t;
+}				t_redir;
+
 typedef struct	s_cmd
 {
 	t_array			argv;
+	t_tab			redirs;
 	t_next_type		next_t;
 	struct s_cmd	*next;
 }				t_cmd;
