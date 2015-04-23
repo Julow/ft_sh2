@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:19:26 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:10:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/24 01:06:22 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ t_cmd			*parse_cmd(t_msh *msh, t_sub *line)
 	cmd = cmd_new();
 	TRY(parse.bp)
 		parse_next_cmd(&parse, cmd);
-	CATCH
+	CATCH(parse.bp)
 	{
+		ft_fdprintf(2, "Error detected while parsing.\n");
 		cmd_destroy(cmd);
 		return (NULL);
 	}
+	ft_fdprintf(2, "parsing end\n");
 	return (cmd);
 }

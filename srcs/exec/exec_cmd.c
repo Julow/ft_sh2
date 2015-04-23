@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:25:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 22:42:42 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ static void		print_redir(t_redir *redir)
 	PC(' ');
 	PI(redir->fd[0]);
 	if (redir->redir_t == REDIR_LEFT)
-		PS("< ");
+		PS("<");
 	else if (redir->redir_t == REDIR_HEREDOC)
-		PS("<< ");
+		PS("<<");
 	else if (redir->redir_t == REDIR_RIGHT)
-		PS("> ");
+		PS(">");
 	else if (redir->redir_t == REDIR_APPEND)
-		PS(">> ");
-	PC(' ');
+		PS(">>");
 	if (redir->data == NULL)
 		PI(redir->fd[1]);
 	else
 		PS(redir->data);
+	PC(' ');
 }
 
 void			exec_cmd(t_msh *sh, t_cmd *cmd)

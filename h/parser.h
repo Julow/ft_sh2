@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:19:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:11:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/04/23 22:41:17 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@ t_cmd			*parse_cmd(t_msh *msh, t_sub *line);
 ** Internal
 */
 void			parse_next_cmd(t_parser *p, t_cmd *cmd);
-void			parse_redir(t_parser *p, t_cmd *cmd);
+
+void			parse_redir(t_parser *p, t_cmd *cmd, int fd);
+void			parse_heredoc(t_parser *p, t_redir *redir);
+
 void			parse_arg(t_parser *p, t_cmd *cmd, t_bool tmp);
 void			parse_arg_numeric(t_parser *p, t_cmd *cmd);
 
-/*
-** Utils
-*/
-t_bool			is_special(char c);
-t_bool			is_redir(char c);
-t_bool			is_next(char c);
+void			parse_error(t_parser *p, char const *msg);
+void			parse_error_expect(t_parser *p, char const *expect);
+
+t_bool			is_special(int c);
+t_bool			is_redir(int c);
+t_bool			is_next(int c);
 
 #endif

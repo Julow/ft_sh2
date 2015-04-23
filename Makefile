@@ -6,12 +6,28 @@ H_DIRS := h
 O_DIR := o
 LIBS := libft
 CC := clang
-FLAGS := -Wall -Wextra -Werror -O2
+FLAGS := -Wall -Wextra -Werror -g
 LINKS := -Llibft -lft
 HEADS := -Ilibft -Ih 
 
 all: $(NAME)
 
+o/parser/parse_arg_numeric.c.o: srcs/parser/parse_arg_numeric.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_error.c.o: srcs/parser/parse_error.c h/parser.h
+	@$(COMPILE)
+o/parser/utils.c.o: srcs/parser/utils.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_cmd.c.o: srcs/parser/parse_cmd.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_next_cmd.c.o: srcs/parser/parse_next_cmd.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_arg.c.o: srcs/parser/parse_arg.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_redir.c.o: srcs/parser/parse_redir.c h/parser.h
+	@$(COMPILE)
+o/parser/parse_heredoc.c.o: srcs/parser/parse_heredoc.c h/parser.h
+	@$(COMPILE)
 o/exec/cmd.c.o: srcs/exec/cmd.c h/exec.h
 	@$(COMPILE)
 o/exec/exec_cmd.c.o: srcs/exec/exec_cmd.c h/exec.h
@@ -19,18 +35,6 @@ o/exec/exec_cmd.c.o: srcs/exec/exec_cmd.c h/exec.h
 o/exec/exec_line.c.o: srcs/exec/exec_line.c h/parser.h
 	@$(COMPILE)
 o/main.c.o: srcs/main.c h/minish.h h/exec.h
-	@$(COMPILE)
-o/parser/parse_arg.c.o: srcs/parser/parse_arg.c h/parser.h
-	@$(COMPILE)
-o/parser/parse_arg_numeric.c.o: srcs/parser/parse_arg_numeric.c h/parser.h
-	@$(COMPILE)
-o/parser/parse_cmd.c.o: srcs/parser/parse_cmd.c h/parser.h
-	@$(COMPILE)
-o/parser/parse_next_cmd.c.o: srcs/parser/parse_next_cmd.c h/parser.h
-	@$(COMPILE)
-o/parser/parse_redir.c.o: srcs/parser/parse_redir.c h/parser.h
-	@$(COMPILE)
-o/parser/utils.c.o: srcs/parser/utils.c h/parser.h
 	@$(COMPILE)
 libft:
 	@make -C libft
@@ -41,16 +45,18 @@ MSG_1 := printf '\033[0;31m%-31.31s\033[0;0m\n'
 
 COMPILE = $(MSG_0) $< ; $(CC) $(FLAGS) $(HEADS) -c -o $@ $< || $(MSG_1) $<
 
-O_FILES := o/exec/cmd.c.o \
-		o/exec/exec_cmd.c.o \
-		o/exec/exec_line.c.o \
-		o/main.c.o \
-		o/parser/parse_arg.c.o \
-		o/parser/parse_arg_numeric.c.o \
+O_FILES := o/parser/parse_arg_numeric.c.o \
+		o/parser/parse_error.c.o \
+		o/parser/utils.c.o \
 		o/parser/parse_cmd.c.o \
 		o/parser/parse_next_cmd.c.o \
+		o/parser/parse_arg.c.o \
 		o/parser/parse_redir.c.o \
-		o/parser/utils.c.o
+		o/parser/parse_heredoc.c.o \
+		o/exec/cmd.c.o \
+		o/exec/exec_cmd.c.o \
+		o/exec/exec_line.c.o \
+		o/main.c.o
 
 $(NAME): o/ o/exec/ o/parser/ $(LIBS) $(O_FILES)
 	@$(MSG_0) $@ ; $(CC) $(FLAGS) -o $@ $(O_FILES) $(LINKS) && echo || $(MSG_1) $@
