@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrconv.c                                      :+:      :+:    :+:   */
+/*   ft_issort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/09 11:37:41 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/27 15:33:41 by juloo            ###   ########.fr       */
+/*   Created: 2015/04/27 15:01:01 by juloo             #+#    #+#             */
+/*   Updated: 2015/04/27 15:31:56 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				ft_wstrconv(char *buff, wchar_t *wstr)
+t_bool			ft_issort(void **tab, int length, int (*cmp)())
 {
-	int				i;
-	int				len;
-
-	len = 0;
-	i = -1;
-	while (wstr[++i] != 0)
-		len += ft_widetoa(buff + len, wstr[i]);
-	return (len);
+	while (--length > 0)
+		if (cmp(tab[length - 1], tab[length]) > 0)
+			return (false);
+	return (true);
 }

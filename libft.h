@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 11:52:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/06 17:46:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/04 02:14:42 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# include <wchar.h>
 
 /*
 ** ========================================================================== **
@@ -344,10 +346,20 @@ void			ft_strupper(char *str);
 ** W String
 */
 
-t_uint			ft_wstrlen(int *wstr);
-int				ft_wstrconv(char *buff, int *wstr);
-int				ft_wstrnconv(char *buff, int *wstr, int n);
+t_uint			ft_wstrlen(wchar_t *wstr);
+int				ft_wstrconv(char *buff, wchar_t *wstr);
+int				ft_wstrnconv(char *buff, wchar_t *wstr, int n);
 int				ft_widetoa(char *buff, int w);
+
+/*
+** ========================================================================== **
+** Clock
+** (use clock_gettime() from time.h)
+*/
+
+# define FT_CPS			1000000000
+
+t_ulong			ft_clock(t_ulong start);
 
 /*
 ** ========================================================================== **
@@ -420,14 +432,47 @@ int				ft_matchint(const char *str);
 
 /*
 ** ========================================================================== **
-** Try/Catch
+** Sort
 */
 
-# define TRY(t)			if (ft_try(t) == 0)
-# define CATCH			else
+void			ft_simplesort(void **tab, int length, int (*cmp)());
+void			ft_mergesort(void **tab, int length, int (*cmp)());
+void			ft_bubblesort(void **tab, int length, int (*cmp)());
+void			ft_insertsort(void **tab, int length, int (*cmp)());
+void			ft_quicksort(void **tab, int length, int (*cmp)());
 
-int				ft_try(void *t);
-void			ft_throw(void *t);
+t_bool			ft_issort(void **tab, int length, int (*cmp)());
+
+/*
+** ========================================================================== **
+** HMap
+** Store data using string as index (key)
+** The key is hashed to speedup operations
+** - Can store pointers and/or data
+** - The alloc_size and the hash function must be not modified
+** - Each key is unique, dupplicate keys will be overwritten
+** - Copied datas are always 0-terminated
+** - Datas are not ordered nor continuous
+**   (simple iteration and sort are impossible)
+*/
+
+typedef struct	s_hmap
+{
+	int				size;
+	int				alloc_size;
+	struct s_h		**data;
+	int				(*hash)(char const *key, int len);
+}				t_hmap;
+
+void			ft_hmapini(t_hmap *map, int size, int (*h)(char const*, int));
+void			*ft_hmapget(t_hmap *map, char const *key);
+void			ft_hmapputp(t_hmap *map, char const *key, void *data);
+void			*ft_hmapput(t_hmap *map, char const *key, void const *data, int size);
+void			*ft_hmapput0(t_hmap *map, char const *key, int size);
+void			ft_hmaprem(t_hmap *map, char const *key, void (*f)(void*));
+void			ft_hmapdestroy(t_hmap *map, void (*f)(void*));
+int				ft_hmapdatas(t_hmap *map, void **dst);
+int				ft_hmapkeys(t_hmap *map, char **dst);
 
 /*
 ** ========================================================================== **
@@ -624,12 +669,12 @@ void			ft_pairsort(t_array *array);
 # define BF_EOF			20
 # define BF_STR			21
 
-# define BEOF(b)		FLAG((b)->fd, BF_EOF)
+# define BEOF(b)		(FLAG((b)->fd, BF_EOF) || (BSTR(b) && !BI(b)))
 # define BSTR(b)		FLAG((b)->fd, BF_STR)
 # define BFD(b)			((b)->fd & 0xFF)
 
 # define BUFF(f,b,l)	((t_buff){(b), 0, 0, (l), (f) & 0xFF})
-# define SBUFF(s,l)		((t_buff){(s), 0, (l), (l), -1 & 0xFF | BF_STR})
+# define SBUFF(s,l)		((t_buff){(s), 0, (l), (l), -1 & 0xFF | BIT(BF_STR)})
 
 typedef struct	s_buff
 {
