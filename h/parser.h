@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:19:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 18:28:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/04 20:12:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ t_bool			parse_heredoc(t_parser *p, t_redir *redir);
 
 t_bool			parse_arg(t_parser *p, t_cmd *cmd, t_bool tmp);
 t_bool			parse_arg_numeric(t_parser *p, t_cmd *cmd);
+
+t_bool			parse_string(t_parser *p, char quote);
+t_bool			parse_string_var(t_parser *p);
+t_bool			parse_string_repeat(t_parser *p);
+t_bool			parse_string_escape(t_parser *p, char quote);
+t_bool			parse_string_newline(t_parser *p, char quote);
 
 t_bool			parse_error(t_parser *p, char const *msg);
 t_bool			parse_error_expect(t_parser *p, char const *expect);

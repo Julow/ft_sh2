@@ -16,6 +16,8 @@ LIBS := libft
 THREADS := 1
 # C compiler
 C_CC := clang
+#
+LD_CC := clang
 # Clang flags
 C_FLAGS := -Wall -Wextra -Werror -g
 # Linking flags
@@ -24,8 +26,6 @@ LD_FLAGS := -Llibft -lft
 C_HEADS := -Ih -Ilibft
 
 all: $(NAME)
-
-LD_CC := clang
 
 srcs/exec/cmd.o: srcs/exec/cmd.c o/exec h/exec.h
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
@@ -60,6 +60,21 @@ srcs/parser/parse_next_cmd.o: srcs/parser/parse_next_cmd.c o/parser h/parser.h
 srcs/parser/parse_redir.o: srcs/parser/parse_redir.c o/parser h/parser.h
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
+srcs/parser/parse_string.o: srcs/parser/parse_string.c o/parser h/parser.h
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+srcs/parser/parse_string_escape.o: srcs/parser/parse_string_escape.c o/parser h/parser.h
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+srcs/parser/parse_string_newline.o: srcs/parser/parse_string_newline.c o/parser h/parser.h
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+srcs/parser/parse_string_repeat.o: srcs/parser/parse_string_repeat.c o/parser h/parser.h
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+srcs/parser/parse_string_var.o: srcs/parser/parse_string_var.c o/parser h/parser.h
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
 srcs/parser/utils.o: srcs/parser/utils.c o/parser h/parser.h
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -67,8 +82,8 @@ libft:
 	@make -C libft
 .PHONY: libft
 
-MSG_0 := printf '\033[0;32m%-31.31s\033[0;0m\r'
-MSG_1 := printf '\033[0;31m%-31.31s\033[0;0m\n'
+MSG_0 := printf '\033[0;32m%-34.34s\033[0;0m\r'
+MSG_1 := printf '\033[0;31m%-34.34s\033[0;0m\n'
 
 O_FILES :=	srcs/exec/cmd.o \
 			srcs/exec/exec_cmd.o \
@@ -81,6 +96,11 @@ O_FILES :=	srcs/exec/cmd.o \
 			srcs/parser/parse_heredoc.o \
 			srcs/parser/parse_next_cmd.o \
 			srcs/parser/parse_redir.o \
+			srcs/parser/parse_string.o \
+			srcs/parser/parse_string_escape.o \
+			srcs/parser/parse_string_newline.o \
+			srcs/parser/parse_string_repeat.o \
+			srcs/parser/parse_string_var.o \
 			srcs/parser/utils.o
 
 $(NAME): $(LIBS) $(O_FILES)

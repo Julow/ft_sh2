@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arg.c                                        :+:      :+:    :+:   */
+/*   parse_string_repeat.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/23 13:07:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 20:12:39 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/05/04 20:08:59 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/05/04 20:09:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_bool			parse_arg(t_parser *p, t_cmd *cmd, t_bool tmp)
+t_bool			parse_string_repeat(t_parser *p)
 {
-	if (!tmp)
-		ft_stringclr(p->tmp);
-	parse_string(p, '\0');
-	ft_arrayadd(&(cmd->argv), ft_strndup(p->tmp->content, p->tmp->length));
+	ft_stringaddc(p->tmp, BR(p->buff));
 	return (true);
 }

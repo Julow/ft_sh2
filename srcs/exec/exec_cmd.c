@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 22:42:42 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/04 18:54:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ void			exec_cmd(t_msh *sh, t_cmd *cmd)
 		PS(" && ");
 	else if (cmd->next_t == NEXT_AND)
 		PS(" || ");
-	else
+	else if (cmd->next_t == NEXT_COLON)
 		PS(" ; ");
+	else
+		PS(" ?? ");
 	if (cmd->next != NULL)
 		exec_cmd(sh, cmd);
 	NL;

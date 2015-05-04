@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arg.c                                        :+:      :+:    :+:   */
+/*   parse_string_escape.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/23 13:07:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 20:12:39 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/05/04 20:08:01 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/05/04 20:20:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_bool			parse_arg(t_parser *p, t_cmd *cmd, t_bool tmp)
+t_bool			parse_string_escape(t_parser *p, char quote)
 {
-	if (!tmp)
-		ft_stringclr(p->tmp);
-	parse_string(p, '\0');
-	ft_arrayadd(&(cmd->argv), ft_strndup(p->tmp->content, p->tmp->length));
+	if (BEOF(p->buff))
+		return (parse_string_newline(p, quote));
+	if (BG(p->buff) != '$' && BG(p->buff) != quote
+		&& !is_special(BG(p->buff)))
+		ft_stringaddc(p->tmp, '\\');
+	ft_stringaddc(p->tmp, BG(p->buff));
 	return (true);
 }

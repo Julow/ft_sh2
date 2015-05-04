@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 18:28:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/04 19:29:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,18 @@
 ** ""
 ** ''
 ** ""''
+** "$
+** '$
+** \$
+** {,}
+** {...}
+** ~
 ** ----
 ** env
 ** setenv
 ** unsetenv
 ** cd
+** chdir
 ** help
 ** export
 ** echo
@@ -55,10 +62,11 @@
 ** true
 ** pwd
 ** printenv [arg]
-** alias
 ** builtin
 ** return
 ** sleep
+** sortw
+** rand
 ** ----
 ** [-v] [file [$1 ...]]
 ** [-c "cmd" [$0 $1 ...]]
