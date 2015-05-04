@@ -6,13 +6,13 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 22:22:57 by juloo             #+#    #+#             */
-/*   Updated: 2015/04/24 01:00:58 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/04 18:35:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void			parse_heredoc(t_parser *p, t_redir *redir)
+t_bool			parse_heredoc(t_parser *p, t_redir *redir)
 {
 	char			*label;
 	t_sub			line;
@@ -21,7 +21,7 @@ void			parse_heredoc(t_parser *p, t_redir *redir)
 	redir->redir_t = REDIR_HEREDOC;
 	ft_stringclr(p->tmp);
 	if (!ft_parsesubnf(p->buff, p->tmp, &is_special))
-		parse_error_expect(p, "heredoc label");
+		return (parse_error_expect(p, "heredoc label"));
 	label = ft_strndup(p->tmp->content, p->tmp->length);
 	ft_stringclr(p->tmp);
 	while (true)
@@ -38,4 +38,5 @@ void			parse_heredoc(t_parser *p, t_redir *redir)
 		ft_stringaddc(p->tmp, '\n');
 	}
 	redir->data = ft_strndup(p->tmp->content, p->tmp->length);
+	return (true);
 }

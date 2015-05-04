@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/24 01:06:51 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/04 18:28:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,28 @@
 ** ''
 ** ""''
 ** ----
+** env
+** setenv
+** unsetenv
+** cd
+** help
+** export
+** echo
+** exit
+** eval
+** false
+** true
+** pwd
+** printenv [arg]
+** alias
+** builtin
+** return
+** sleep
+** ----
+** [-v] [file [$1 ...]]
+** [-c "cmd" [$0 $1 ...]]
+** ----
 */
-
-typedef char	t_bp[65];
 
 typedef struct	s_msh
 {

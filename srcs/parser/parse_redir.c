@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 13:05:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 22:41:29 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/04 18:33:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void		parse_redir_file(t_parser *p, t_redir *redir)
+static t_bool	parse_redir_file(t_parser *p, t_redir *redir)
 {
 	int				fd;
 
@@ -20,17 +20,18 @@ static void		parse_redir_file(t_parser *p, t_redir *redir)
 	if (BIS(p->buff, '&'))
 	{
 		if (!ft_parseint(p->buff, &fd))
-			parse_error_expect(p, "fd");
+			return (parse_error_expect(p, "fd"));
 		redir->fd[1] = fd;
-		return ;
+		return (true);
 	}
 	ft_stringclr(p->tmp);
 	if (!ft_parsesubf(p->buff, p->tmp, &ft_isword)) // TODO parse quotes + vars
-		parse_error_expect(p, "file name");
+		return (parse_error_expect(p, "file name"));
 	redir->data = ft_strndup(p->tmp->content, p->tmp->length);
+	return (true);
 }
 
-void			parse_redir(t_parser *p, t_cmd *cmd, int fd)
+t_bool			parse_redir(t_parser *p, t_cmd *cmd, int fd)
 {
 	t_redir			*redir;
 
@@ -50,5 +51,5 @@ void			parse_redir(t_parser *p, t_cmd *cmd, int fd)
 		else
 			redir->redir_t = REDIR_LEFT;
 	}
-	parse_redir_file(p, redir);
+	return (parse_redir_file(p, redir));
 }

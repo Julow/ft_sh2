@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:38:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 22:24:35 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/04 18:35:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void		parse_next(t_parser *p, t_cmd *cmd)
+static t_cmd	*parse_next(t_parser *p, t_cmd *cmd)
 {
 	if (BIS(p->buff, '|'))
 	{
@@ -26,21 +26,28 @@ static void		parse_next(t_parser *p, t_cmd *cmd)
 	else
 		cmd->next_t = NEXT_COLON;
 	cmd->next = cmd_new();
-	parse_next_cmd(p, cmd->next);
+	return (cmd->next);
 }
 
-void			parse_next_cmd(t_parser *p, t_cmd *cmd)
+t_bool			parse_next_cmd(t_parser *p, t_cmd *cmd)
 {
 	while (!BEOF(p->buff))
 	{
 		ft_parsespace(p->buff);
 		if (ft_isdigit(BG(p->buff)))
-			parse_arg_numeric(p, cmd);
+		{
+			if (!parse_arg_numeric(p, cmd))
+				return (false);
+		}
 		else if (is_redir(BG(p->buff)))
-			parse_redir(p, cmd, DEF_REDIR_FD);
+		{
+			if (!parse_redir(p, cmd, DEF_REDIR_FD))
+				return (false);
+		}
 		else if (is_next(BG(p->buff)))
-			return (parse_next(p, cmd));
-		else
-			parse_arg(p, cmd, false);
+			cmd = parse_next(p, cmd);
+		else if (!parse_arg(p, cmd, false))
+			return (false);
 	}
+	return (true);
 }
