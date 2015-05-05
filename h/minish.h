@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 19:29:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:55:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ typedef struct	s_msh
 # define SH				"ft_msh2"
 
 # define DEF_REDIR_FD	0
+
+char const		*get_env(t_msh *sh, char const *key);
+void			set_env(t_msh *sh, char const *key, char const *value);
 
 #endif

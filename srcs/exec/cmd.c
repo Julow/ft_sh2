@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 19:23:45 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:06:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:30:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ t_cmd			*cmd_new(void)
 
 void			cmd_destroy(t_cmd *cmd)
 {
-	if (cmd->next != NULL)
-		cmd_destroy(cmd);
 	ft_arrayclr(&(cmd->argv), &free);
 	free(cmd->argv.data);
 	free(cmd->redirs.data);
+	if (cmd->next != NULL)
+		cmd_destroy(cmd->next);
+	free(cmd);
 }

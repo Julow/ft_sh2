@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 18:54:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:33:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ void			exec_cmd(t_msh *sh, t_cmd *cmd)
 	i = -1;
 	while (++i < cmd->redirs.length)
 		print_redir(TG(t_redir, cmd->redirs, i));
+	if (cmd->next == NULL)
+		return (NL, (void)0);
 	if (cmd->next_t == NEXT_PIPE)
 		PS(" | ");
 	else if (cmd->next_t == NEXT_AND)
 		PS(" && ");
-	else if (cmd->next_t == NEXT_AND)
+	else if (cmd->next_t == NEXT_OR)
 		PS(" || ");
 	else if (cmd->next_t == NEXT_COLON)
 		PS(" ; ");
 	else
 		PS(" ?? ");
-	if (cmd->next != NULL)
-		exec_cmd(sh, cmd);
-	NL;
+	exec_cmd(sh, cmd->next);
 }

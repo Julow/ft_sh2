@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:38:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 18:50:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:21:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static t_cmd	*parse_next(t_parser *p, t_cmd *cmd)
 
 t_bool			parse_next_cmd(t_parser *p, t_cmd *cmd)
 {
+	ft_parsespace(p->buff);
 	while (!BEOF(p->buff))
 	{
-		ft_parsespace(p->buff);
 		if (ft_isdigit(BG(p->buff)))
 		{
 			if (!parse_arg_numeric(p, cmd))

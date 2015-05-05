@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/04 19:15:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 20:18:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:39:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_bool	parse_string_char(t_parser *p, char *quote)
 {
 	if (BIS(p->buff, '\\'))
-		parse_string_escape(p, *quote);
+		return (parse_string_escape(p, *quote));
 	else if (*quote != '\0' && BIS(p->buff, *quote))
 		*quote = '\0';
 	else if (*quote == '\0' && (BG(p->buff) == '\'' || BG(p->buff) == '"'))

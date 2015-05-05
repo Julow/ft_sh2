@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/04/23 18:06:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 13:55:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void			exec_line(t_msh *sh, t_sub *line);
 */
 void			exec_cmd(t_msh *sh, t_cmd *cmd);
 
+/*
+** Utils
+*/
 t_cmd			*cmd_new(void);
 void			cmd_destroy(t_cmd *cmd);
 
