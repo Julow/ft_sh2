@@ -6,56 +6,47 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 13:33:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 16:44:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-static void		print_redir(t_redir *redir)
+static t_bool	exec_pipe(t_msh *sh, t_cmd *cmd)
 {
-	PC(' ');
-	PI(redir->fd[0]);
-	if (redir->redir_t == REDIR_LEFT)
-		PS("<");
-	else if (redir->redir_t == REDIR_HEREDOC)
-		PS("<<");
-	else if (redir->redir_t == REDIR_RIGHT)
-		PS(">");
-	else if (redir->redir_t == REDIR_APPEND)
-		PS(">>");
-	if (redir->data == NULL)
-		PI(redir->fd[1]);
-	else
-		PS(redir->data);
-	PC(' ');
+	int				fds[2];
+
+	if (pipe(fds) < 0)
+		return (ft_fdprintf(2, SH ": Cannot pipe\n"), false);
+	if (!exec_cmd(sh, cmd->next, PIPE_OUT(fds)))
+		return (false);
+	dup2(PIPE_IN(fds), 0);
+	return (true);
 }
 
-void			exec_cmd(t_msh *sh, t_cmd *cmd)
+t_bool			exec_cmd(t_msh *sh, t_cmd *cmd, int output)
 {
-	int				i;
+	pid_t			pid;
+	int				status;
 
-	i = -1;
-	while (++i < cmd->argv.length)
+	if ((pid = fork()) < 0)
+		return (ft_fdprintf(2, SH ": Cannot fork\n"), false);
+	else if (pid == 0)
 	{
-		if (i > 0)
-			PC(' ');
-		PS(AG(char*, &(cmd->argv), i));
+		if (cmd->next_t == NEXT_PIPE && !exec_pipe(sh, cmd))
+			exit(1);
+		if (output >= 0)
+			dup2(1, output);
+		execve((char*)cmd->argv.data[0], (char**)cmd->argv.data, (char**)sh->env.data);
+		ft_fdprintf(2, SH ": %s: Cannot exec\n", cmd->argv.data[0]);
+		exit(127);
 	}
-	i = -1;
-	while (++i < cmd->redirs.length)
-		print_redir(TG(t_redir, cmd->redirs, i));
-	if (cmd->next == NULL)
-		return (NL, (void)0);
-	if (cmd->next_t == NEXT_PIPE)
-		PS(" | ");
-	else if (cmd->next_t == NEXT_AND)
-		PS(" && ");
-	else if (cmd->next_t == NEXT_OR)
-		PS(" || ");
-	else if (cmd->next_t == NEXT_COLON)
-		PS(" ; ");
-	else
-		PS(" ?? ");
-	exec_cmd(sh, cmd->next);
+	status = 0;
+	if (output < 0)
+		waitpid(pid, &status, 0);
+	ft_printf(SH ": Process %s end: %d\n", cmd->argv.data[0], status);
+	// && || ;
+	return (true);
 }

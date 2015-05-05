@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 13:55:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/05 16:14:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct	s_builtin
 	int				(*f)(t_msh *sh, const t_cmd *cmd);
 }				t_builtin;
 
+# define PIPE_IN(p)		(p[1])
+# define PIPE_OUT(p)	(p[0])
+
 /*
 ** Public
 */
@@ -65,7 +68,8 @@ void			exec_line(t_msh *sh, t_sub *line);
 /*
 ** Internal
 */
-void			exec_cmd(t_msh *sh, t_cmd *cmd);
+t_bool			exec_cmd(t_msh *sh, t_cmd *cmd, int output);
+void			print_cmd(t_cmd *cmd);
 
 /*
 ** Utils
