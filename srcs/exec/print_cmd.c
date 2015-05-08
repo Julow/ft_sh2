@@ -6,15 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 15:57:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 15:58:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/08 15:19:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "ft_colors.h"
 
 static void		print_redir(t_redir *redir)
 {
 	PC(' ');
+	PS(C_GREEN);
 	PI(redir->fd[0]);
 	if (redir->redir_t == REDIR_LEFT)
 		PS("<");
@@ -28,6 +30,7 @@ static void		print_redir(t_redir *redir)
 		PI(redir->fd[1]);
 	else
 		PS(redir->data);
+	PS(C_RESET);
 	PC(' ');
 }
 
@@ -49,6 +52,7 @@ void			print_cmd(t_cmd *cmd)
 		print_redir(TG(t_redir, cmd->redirs, i));
 	if (cmd->next == NULL)
 		return (NL, (void)0);
+	PS(C_RED);
 	if (cmd->next_t == NEXT_PIPE)
 		PS(" | ");
 	else if (cmd->next_t == NEXT_AND)
@@ -59,5 +63,6 @@ void			print_cmd(t_cmd *cmd)
 		PS(" ; ");
 	else
 		PS(" ?? ");
+	PS(C_RESET);
 	print_cmd(cmd->next);
 }

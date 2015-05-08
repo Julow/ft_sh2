@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 16:14:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/08 15:32:26 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct	s_builtin
 # define PIPE_IN(p)		(p[1])
 # define PIPE_OUT(p)	(p[0])
 
+# define RSTATUS(s)		((WIFEXITED(s) && WEXITSTATUS(s) == 0) ? true : false)
+
 /*
 ** Public
 */
@@ -68,7 +70,7 @@ void			exec_line(t_msh *sh, t_sub *line);
 /*
 ** Internal
 */
-t_bool			exec_cmd(t_msh *sh, t_cmd *cmd, int output);
+t_bool			exec_cmd(t_msh *sh, t_cmd *cmd);
 void			print_cmd(t_cmd *cmd);
 
 /*
