@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_error.c                                      :+:      :+:    :+:   */
+/*   msg.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/23 22:07:08 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 01:04:05 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/10 01:04:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include "msg.h"
+#ifndef MSG_H
+# define MSG_H
 
-t_bool			parse_error(t_parser *p, char const *msg)
-{
-	ft_fdprintf(2, E_PARSE, msg);
-	(void)p;
-	return (false);
-}
+# define SH				"ft_msh2"
+# define ENDL			"\n"
 
-t_bool			parse_error_expect(t_parser *p, char const *expect)
-{
-	char			c;
+# define E_EXEC			SH ": %s: Cannot exec" ENDL
+# define E_FORK			SH ": Cannot create process" ENDL
 
-	ft_parsespace(p->buff);
-	c = BG(p->buff);
-	ft_fdprintf(2, E_PARSE_EXP, expect, 1, &c);
-	return (false);
-}
+# define E_PARSE		SH ": Parse error: %s" ENDL
+# define E_PARSE_EXP	SH ": Syntax error: Expect %s before %.*r" ENDL
+
+#endif

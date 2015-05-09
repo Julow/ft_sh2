@@ -109,7 +109,7 @@ o/srcs/parser/parse_string_newline.o: srcs/parser/parse_string_newline.c h/parse
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/exec/exec_cmd.o: srcs/exec/exec_cmd.c h/exec.h
+o/srcs/exec/exec_cmd.o: srcs/exec/exec_cmd.c h/exec.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -161,7 +161,7 @@ o/srcs/parser/ft_parsesubn.o: srcs/parser/ft_parsesubn.c h/parser.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/parser/parse_error.o: srcs/parser/parse_error.c h/parser.h
+o/srcs/parser/parse_error.o: srcs/parser/parse_error.c h/parser.h h/msg.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:45:52 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 00:59:51 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ typedef struct	s_msh
 	t_array			env;
 	int				last_status;
 }				t_msh;
-
-# define SH				"ft_msh2"
 
 # define DEFAULT_PATH	"/bin:/usr/bin"
 

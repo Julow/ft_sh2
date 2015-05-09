@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:35:11 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 01:03:15 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "msg.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -36,7 +37,7 @@ t_bool			exec_cmd(t_msh *sh, t_cmd *cmd)
 	char			*cmd_name;
 
 	if ((pid = fork()) < 0)
-		return (ft_fdprintf(2, SH ": Cannot fork\n"), false);
+		return (ft_fdprintf(2, E_FORK), false);
 	else if (pid == 0)
 	{
 		if (!exec_redirs(sh, cmd))
@@ -44,7 +45,7 @@ t_bool			exec_cmd(t_msh *sh, t_cmd *cmd)
 		if ((cmd_name = search_cmd(sh, cmd)) == NULL)
 			exit(1);
 		execve(cmd_name, (char**)cmd->argv.data, (char**)sh->env.data);
-		ft_fdprintf(2, SH ": %s: Cannot exec\n", cmd->argv.data[0]);
+		ft_fdprintf(2, E_EXEC, cmd_name);
 		exit(127);
 	}
 	waitpid(pid, &status, 0);
