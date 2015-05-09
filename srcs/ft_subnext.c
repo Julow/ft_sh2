@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_line.c                                        :+:      :+:    :+:   */
+/*   ft_subnext.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/23 17:41:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:53:59 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/10 00:41:01 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/10 00:45:42 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "exec.h"
 
-void			exec_line(t_msh *sh, t_sub *line)
+int				ft_subnext(t_sub *sub, char c)
 {
-	t_cmd			*cmd;
-
-	if ((cmd = parse_cmd(sh, line)) == NULL)
-		return ;
-	print_cmd(cmd);
-	if (cmd->argv.length > 0)
-		exec_cmd(sh, cmd);
-	cmd_destroy(cmd);
+	sub->str += sub->length;
+	sub->length = 0;
+	while (*(sub->str) == c)
+		sub->str++;
+	while (sub->str[sub->length] != c && sub->str[sub->length] != '\0')
+		sub->length++;
+	return (sub->length);
 }

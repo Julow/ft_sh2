@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/08 15:32:26 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 00:50:47 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void			exec_line(t_msh *sh, t_sub *line);
 */
 t_bool			exec_cmd(t_msh *sh, t_cmd *cmd);
 void			print_cmd(t_cmd *cmd);
+
+t_bool			exec_redirs(t_msh *sh, t_cmd *cmd);
+t_bool			exec_status_signal(t_msh *sh, t_cmd *cmd, int status);
+
+char			*search_cmd(t_msh *sh, t_cmd *cmd);
 
 /*
 ** Utils

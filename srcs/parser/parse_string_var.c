@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/04 20:08:34 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 13:56:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/10 00:49:50 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool			parse_string_var(t_parser *p)
 		ft_stringaddc(p->tmp, '$');
 	else
 	{
-		tmp = get_env(p->msh, var_name.content);
+		tmp = get_env(p->msh, var_name.content, NULL);
 		if (tmp != NULL)
 			ft_stringadd(p->tmp, tmp);
 	}

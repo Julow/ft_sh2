@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 13:42:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 13:58:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/10 00:36:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_bool	key_equal(char const *line, char const *key)
 	return (false);
 }
 
-char const		*get_env(t_msh *sh, char const *key)
+char const		*get_env(t_msh *sh, char const *key, char const *def)
 {
 	int				i;
 
@@ -33,7 +33,7 @@ char const		*get_env(t_msh *sh, char const *key)
 	while (++i < sh->env.length)
 		if (key_equal(AG(char*, &(sh->env), i), key))
 			return (AG(char*, &(sh->env), i) + ft_strlen(key) + 1);
-	return (NULL);
+	return (def);
 }
 
 void			set_env(t_msh *sh, char const *key, char const *value)

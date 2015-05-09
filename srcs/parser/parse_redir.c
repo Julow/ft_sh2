@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 13:05:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/04 18:33:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/10 00:50:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bool			parse_redir(t_parser *p, t_cmd *cmd, int fd)
 	t_redir			*redir;
 
 	redir = ft_tabadd0(&(cmd->redirs));
-	*redir = (t_redir){{fd, DEF_REDIR_FD}, NULL, REDIR_NOPE};
+	*redir = (t_redir){{fd, 0}, NULL, REDIR_NOPE};
 	if (BIS(p->buff, '>'))
 	{
 		if (BIS(p->buff, '>'))

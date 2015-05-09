@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:38:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 13:21:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/09 21:49:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool			parse_next_cmd(t_parser *p, t_cmd *cmd)
 		}
 		else if (is_redir(BG(p->buff)))
 		{
-			if (!parse_redir(p, cmd, DEF_REDIR_FD))
+			if (!parse_redir(p, cmd, 1))
 				return (false);
 		}
 		else if (is_next(BG(p->buff)))

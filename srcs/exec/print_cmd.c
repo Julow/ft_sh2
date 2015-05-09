@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 15:57:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/08 15:19:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/09 21:47:21 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		print_redir(t_redir *redir)
 	if (redir->data == NULL)
 		PI(redir->fd[1]);
 	else
-		PS(redir->data);
+		PC('"'), PS(redir->data), PC('"');
 	PS(C_RESET);
 	PC(' ');
 }
