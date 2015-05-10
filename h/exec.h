@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:50:47 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 18:56:20 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef enum	e_redir_type
 
 typedef struct	s_redir
 {
-	int				fd[2];
+	int				fd_left;
+	int				fd_right;
 	char			*data;
 	t_redir_type	redir_t;
 }				t_redir;
@@ -61,6 +62,11 @@ typedef struct	s_builtin
 # define PIPE_OUT(p)	(p[0])
 
 # define RSTATUS(s)		((WIFEXITED(s) && WEXITSTATUS(s) == 0) ? true : false)
+
+# define READ_O			O_WRONLY
+# define CREATE_O		O_WRONLY | O_CREAT | O_TRUNC
+# define APPEND_O		O_WRONLY | O_CREAT | O_APPEND
+# define MODE_O			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH
 
 /*
 ** Public

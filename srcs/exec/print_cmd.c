@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 15:57:36 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/09 21:47:21 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 19:11:45 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		print_redir(t_redir *redir)
 {
 	PC(' ');
 	PS(C_GREEN);
-	PI(redir->fd[0]);
+	PI(redir->fd_left);
 	if (redir->redir_t == REDIR_LEFT)
 		PS("<");
 	else if (redir->redir_t == REDIR_HEREDOC)
@@ -27,7 +27,7 @@ static void		print_redir(t_redir *redir)
 	else if (redir->redir_t == REDIR_APPEND)
 		PS(">>");
 	if (redir->data == NULL)
-		PI(redir->fd[1]);
+		PI(redir->fd_right);
 	else
 		PC('"'), PS(redir->data), PC('"');
 	PS(C_RESET);

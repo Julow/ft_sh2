@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:59:51 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 17:30:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ char const		*get_env(t_msh *sh, char const *key, char const *def);
 void			set_env(t_msh *sh, char const *key, char const *value);
 
 int				ft_subnext(t_sub *sub, char c);
+
+t_bool			ft_tabiter(t_tab *tab, t_bool (*f)(), void *data);
 
 #endif

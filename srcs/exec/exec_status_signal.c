@@ -6,11 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:21:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 00:21:43 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 11:50:19 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "msg.h"
 #include <sys/wait.h>
 
 const char		*g_signals[] = {
@@ -56,13 +57,13 @@ t_bool			exec_status_signal(t_msh *sh, t_cmd *cmd, int status)
 	s = WTERMSIG(status);
 	if (s >= 0 && s < 32)
 	{
-		P(SH ": %s: ", cmd->argv.data[0]);
+		P(W_SIGNAL, cmd->argv.data[0]);
 		if (g_signals[s][0] == '\0')
-			P("Kill by signal %d", s);
+			P(W_SIGNAL_NO, s);
 		else
-			P("%s", g_signals[s], s);
+			PS(g_signals[s]);
 		if (WCOREDUMP(status))
-			PS(" (core dump)");
+			PS(W_COREDUMP);
 		NL;
 	}
 	return (false);

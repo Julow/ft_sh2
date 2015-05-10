@@ -42,7 +42,8 @@ C_HEADS := -Ih -Ilibft
 # Internal
 #
 
-O_FILES := o/srcs/parser/parse_string_var.o \
+O_FILES := o/srcs/ft_tabiter.o \
+	o/srcs/parser/parse_string_var.o \
 	o/srcs/exec/cmd.o \
 	o/srcs/exec/print_cmd.o \
 	o/srcs/parser/parse_next_cmd.o \
@@ -76,6 +77,10 @@ all: $(LIBS) $(NAME)
 
 $(NAME): $(O_FILES)
 	@$(MSG_0) $@ ; $(LD_CC) -o $@ $(O_FILES) $(LD_FLAGS) && echo || $(MSG_1) $@
+
+o/srcs/ft_tabiter.o: srcs/ft_tabiter.c h/minish.h
+	@mkdir -p o/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/parser/parse_string_var.o: srcs/parser/parse_string_var.c h/parser.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
@@ -137,7 +142,7 @@ o/srcs/exec/search_cmd.o: srcs/exec/search_cmd.c h/exec.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/exec/exec_status_signal.o: srcs/exec/exec_status_signal.c h/exec.h
+o/srcs/exec/exec_status_signal.o: srcs/exec/exec_status_signal.c h/exec.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -145,7 +150,7 @@ o/srcs/env.o: srcs/env.c h/minish.h
 	@mkdir -p o/srcs 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/exec/exec_redirs.o: srcs/exec/exec_redirs.c h/exec.h
+o/srcs/exec/exec_redirs.o: srcs/exec/exec_redirs.c h/exec.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
