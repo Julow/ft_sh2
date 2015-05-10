@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/22 18:19:26 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:57:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 11:50:59 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <stdlib.h>
 
 t_cmd			*parse_cmd(t_msh *msh, t_sub *line)
 {

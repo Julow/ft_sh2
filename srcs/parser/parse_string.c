@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/04 19:15:10 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/05 15:30:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/05/10 20:48:23 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static t_bool	parse_string_char(t_parser *p, char *quote)
 {
 	if (BIS(p->buff, '\\'))
-		return (parse_string_escape(p, *quote));
+	{
+		if (!parse_string_escape(p, *quote))
+			return (false);
+	}
 	else if (*quote != '\0' && BIS(p->buff, *quote))
 		*quote = '\0';
 	else if (*quote == '\0' && (BG(p->buff) == '\'' || BG(p->buff) == '"'))
@@ -29,12 +32,17 @@ static t_bool	parse_string_char(t_parser *p, char *quote)
 
 t_bool			parse_string(t_parser *p, char quote)
 {
-	while (!BEOF(p->buff))
-		if (quote == '\0' && is_special(BG(p->buff)))
+	while (true)
+	{
+		while (!BEOF(p->buff))
+			if (quote == '\0' && is_special(BG(p->buff)))
+				break ;
+			else if (!parse_string_char(p, &quote))
+				return (false);
+		if (quote == '\0')
 			break ;
-		else if (!parse_string_char(p, &quote))
+		if (!parse_string_newline(p, quote))
 			return (false);
-	if (quote != '\0')
-		return (parse_string_newline(p, quote));
+	}
 	return (true);
 }
