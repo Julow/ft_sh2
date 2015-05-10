@@ -47,6 +47,7 @@ O_FILES := o/srcs/ft_tabiter.o \
 	o/srcs/exec/cmd.o \
 	o/srcs/exec/print_cmd.o \
 	o/srcs/parser/parse_next_cmd.o \
+	o/srcs/ft_access.o \
 	o/srcs/parser/utils.o \
 	o/srcs/parser/parse_redir.o \
 	o/srcs/main.o \
@@ -98,6 +99,10 @@ o/srcs/parser/parse_next_cmd.o: srcs/parser/parse_next_cmd.c h/parser.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
+o/srcs/ft_access.o: srcs/ft_access.c h/minish.h
+	@mkdir -p o/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
 o/srcs/parser/utils.o: srcs/parser/utils.c h/parser.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
@@ -138,7 +143,7 @@ o/srcs/parser/parse_string_escape.o: srcs/parser/parse_string_escape.c h/parser.
 	@mkdir -p o/srcs/parser 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/exec/search_cmd.o: srcs/exec/search_cmd.c h/exec.h
+o/srcs/exec/search_cmd.o: srcs/exec/search_cmd.c h/exec.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 

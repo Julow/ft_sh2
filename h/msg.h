@@ -6,26 +6,38 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 17:58:46 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 23:58:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSG_H
 # define MSG_H
 
+# include "ft_colors.h"
+
 # define SH				"ft_msh2"
 # define ENDL			"\n"
 
-# define E_EXEC			SH ": %s: Cannot exec" ENDL
-# define E_FORK			SH ": Cannot create process" ENDL
-# define E_DUP2			SH ": %d: Cannot dup" ENDL
-# define E_FILE			SH ": %s: Cannot open file" ENDL
+# define E_EXEC			C_RED SH ": %s: Cannot exec" C_RESET ENDL
+# define E_FORK			C_RED SH ": Cannot create process" C_RESET ENDL
+# define E_DUP2			C_RED SH ": %d: Cannot dup" C_RESET ENDL
+# define E_FILE			C_RED SH ": %s: Cannot open file" C_RESET ENDL
 
-# define E_PARSE		SH ": Parse error: %s" ENDL
-# define E_PARSE_EXP	SH ": Syntax error: Expect %s before %.*r" ENDL
+# define W_PATH_E		C_YELLOW SH ": Warning: %s: %s" C_RESET ENDL
+# define E_PATH_NO		C_LRED SH ": %s: Command not found" C_RESET ENDL
 
-# define W_SIGNAL		SH ": %s: "
+# define E_PARSE		C_LRED SH ": Parse error: %s" C_RESET ENDL
+# define _E_PARSE_EXP	"Expect %s before %.*r" C_RESET ENDL
+# define E_PARSE_EXP	C_LRED SH ": Syntax error: " _E_PARSE_EXP
+
+# define W_SIGNAL		C_LRED SH ": %s: "
 # define W_SIGNAL_NO	"Kill by signal %d"
 # define W_COREDUMP		" (core dump)"
+# define W_SIGNAL_END	C_RESET ENDL
+
+# define M_RIGHT		"Permission denied"
+# define M_ISDIR		"Is a directory"
+# define M_NOEXISTS		"No such file or directory"
+# define M_ERR			"Unexpected error"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:21:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 11:50:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 23:59:08 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_bool			exec_status_signal(t_msh *sh, t_cmd *cmd, int status)
 			PS(g_signals[s]);
 		if (WCOREDUMP(status))
 			PS(W_COREDUMP);
-		NL;
+		PS(W_SIGNAL_END);
+		FL;
 	}
 	return (false);
 	(void)sh;

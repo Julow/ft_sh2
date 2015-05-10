@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 17:30:04 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/10 23:59:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct	s_msh
 	int				last_status;
 }				t_msh;
 
+typedef enum	e_error
+{
+	OK = 0,
+	E_RIGHT,
+	E_ISDIR,
+	E_NOEXISTS
+}				t_error;
+
 # define DEFAULT_PATH	"/bin:/usr/bin"
 
 # define STR(s)			#s
@@ -88,6 +96,8 @@ typedef struct	s_msh
 
 char const		*get_env(t_msh *sh, char const *key, char const *def);
 void			set_env(t_msh *sh, char const *key, char const *value);
+
+t_error			ft_access(char const *file);
 
 int				ft_subnext(t_sub *sub, char c);
 
