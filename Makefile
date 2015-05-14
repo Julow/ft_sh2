@@ -65,6 +65,7 @@ O_FILES := o/srcs/ft_tabiter.o \
 	o/srcs/parser/parse_cmd.o \
 	o/srcs/parser/parse_string.o \
 	o/srcs/parser/ft_parsesubn.o \
+	o/srcs/exec/exec_open.o \
 	o/srcs/parser/parse_error.o \
 	o/srcs/exec/exec_line.o
 
@@ -169,6 +170,10 @@ o/srcs/parser/parse_string.o: srcs/parser/parse_string.c h/parser.h
 
 o/srcs/parser/ft_parsesubn.o: srcs/parser/ft_parsesubn.c h/parser.h
 	@mkdir -p o/srcs/parser 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/exec/exec_open.o: srcs/exec/exec_open.c h/exec.h h/msg.h
+	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/parser/parse_error.o: srcs/parser/parse_error.c h/parser.h h/msg.h

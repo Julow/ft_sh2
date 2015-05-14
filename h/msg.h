@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 23:58:58 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/14 17:08:08 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define E_EXEC			C_RED SH ": %s: Cannot exec" C_RESET ENDL
 # define E_FORK			C_RED SH ": Cannot create process" C_RESET ENDL
 # define E_DUP2			C_RED SH ": %d: Cannot dup" C_RESET ENDL
-# define E_FILE			C_RED SH ": %s: Cannot open file" C_RESET ENDL
+# define E_FILE			C_RED SH ": %s: %s" C_RESET ENDL
 
 # define W_PATH_E		C_YELLOW SH ": Warning: %s: %s" C_RESET ENDL
 # define E_PATH_NO		C_LRED SH ": %s: Command not found" C_RESET ENDL
@@ -38,6 +38,6 @@
 # define M_RIGHT		"Permission denied"
 # define M_ISDIR		"Is a directory"
 # define M_NOEXISTS		"No such file or directory"
-# define M_ERR			"Unexpected error"
+# define M_ERR			"Cannot open"
 
 #endif

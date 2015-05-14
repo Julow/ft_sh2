@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:29:15 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/11 00:01:57 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/14 17:13:45 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*search_cmd(t_msh *sh, t_cmd *cmd)
 		ft_stringaddl(&tmp, sub.str, sub.length);
 		ft_stringaddc(&tmp, '/');
 		ft_stringadd(&tmp, cmd->argv.data[0]);
-		if ((accss = ft_access(tmp.content)) == OK)
+		if ((accss = ft_access(tmp.content, true)) == OK)
 			return (tmp.content);
 		search_error(tmp.content, accss);
 	}

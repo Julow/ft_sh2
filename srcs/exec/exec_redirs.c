@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:22:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/10 20:53:25 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/14 17:05:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static t_bool	exec_redir_right(t_redir *redir)
 	if (redir->data == NULL)
 		fd_dst = redir->fd_right;
 	else if (redir->redir_t == REDIR_APPEND)
-		fd_dst = open(redir->data, APPEND_O, MODE_O);
+		fd_dst = exec_open(redir->data, APPEND_O);
 	else
-		fd_dst = open(redir->data, CREATE_O, MODE_O);
+		fd_dst = exec_open(redir->data, CREATE_O);
 	if (fd_dst < 0)
-		return (ft_fdprintf(2, E_FILE, redir->data), false);
+		return (false);
 	if (dup2(fd_dst, fd_src) < 0)
 		return (ft_fdprintf(2, E_DUP2, fd_dst), false);
 	return (true);
@@ -43,9 +43,9 @@ static t_bool	exec_redir_left(t_redir *redir)
 	if (redir->data == NULL)
 		fd_src = redir->fd_right;
 	else
-		fd_src = open(redir->data, READ_O);
+		fd_src = exec_open(redir->data, READ_O);
 	if (fd_src < 0)
-		return (ft_fdprintf(2, E_FILE, redir->data), false);
+		return (false);
 	if (dup2(fd_dst, fd_src) < 0)
 		return (ft_fdprintf(2, E_DUP2, fd_dst), false);
 	return (true);
