@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 01:03:15 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/15 23:05:42 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "builtin.h"
 #include "msg.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -42,6 +43,7 @@ t_bool			exec_cmd(t_msh *sh, t_cmd *cmd)
 	{
 		if (!exec_redirs(sh, cmd))
 			exit(127);
+		exec_builtin(sh, cmd);
 		if ((cmd_name = search_cmd(sh, cmd)) == NULL)
 			exit(1);
 		execve(cmd_name, (char**)cmd->argv.data, (char**)sh->env.data);

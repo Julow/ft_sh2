@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/14 17:01:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/15 23:01:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ typedef struct	s_cmd
 	t_next_type		next_t;
 	struct s_cmd	*next;
 }				t_cmd;
-
-typedef struct	s_builtin
-{
-	char			*name;
-	int				(*f)(t_msh *sh, const t_cmd *cmd);
-}				t_builtin;
 
 # define PIPE_IN(p)		(p[1])
 # define PIPE_OUT(p)	(p[0])
