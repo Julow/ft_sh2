@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:14:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/15 23:41:37 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int				builtin_builtin(t_msh *sh, int argc, char **argv)
 {
+	extern const t_builtin	g_builtins[];
+	int						i;
+
+	i = -1;
+	while (g_builtins[++i].name != NULL)
+		PS(g_builtins[i].name), PC('\n');
+	FL;
 	return (0);
 	(void)sh;
 	(void)argc;

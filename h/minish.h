@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/14 20:57:27 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 00:13:46 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ void			set_env(t_msh *sh, char const *key, char const *value);
 t_error			ft_access(char const *file, t_bool exec);
 
 int				ft_subnext(t_sub *sub, char c);
+int				ft_subnextf(t_sub *sub, t_bool (*f)(int c));
+
+int				ft_countwords(char const *str);
 
 t_bool			ft_tabiter(t_tab *tab, t_bool (*f)(), void *data);
 

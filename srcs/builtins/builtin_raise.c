@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   builtin_raise.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:38:10 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/16 00:08:09 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/16 00:10:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include <signal.h>
 
-int				builtin_pwd(t_msh *sh, int argc, char **argv)
+int				builtin_raise(t_msh *sh, int argc, char **argv)
 {
-	char			*path;
-
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-		return (1);
-	PS(path);
-	NL;
-	free(path);
+	if (argc > 1)
+	{
+		if (!ft_sisint(argv[1]))
+		{
+			ft_fdprintf(2, "%s: Error: '%s' is not a valid int\n",
+				argv[0], argv[1]);
+			return (1);
+		}
+		raise(ft_atoi(argv[1]));
+	}
 	return (0);
 	(void)sh;
-	(void)argc;
-	(void)argv;
 }

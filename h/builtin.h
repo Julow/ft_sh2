@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 22:54:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:16:20 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 00:07:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int				builtin_false(t_msh *sh, int argc, char **argv);
 int				builtin_true(t_msh *sh, int argc, char **argv);
 int				builtin_return(t_msh *sh, int argc, char **argv);
 int				builtin_sleep(t_msh *sh, int argc, char **argv);
-
-// TODO
-int				builtin_sortw(t_msh *sh, int argc, char **argv);
-int				builtin_rand(t_msh *sh, int argc, char **argv);
-int				builtin_builtin(t_msh *sh, int argc, char **argv);
 int				builtin_printenv(t_msh *sh, int argc, char **argv);
 int				builtin_pwd(t_msh *sh, int argc, char **argv);
+int				builtin_builtin(t_msh *sh, int argc, char **argv);
+int				builtin_sortw(t_msh *sh, int argc, char **argv);
+int				builtin_raise(t_msh *sh, int argc, char **argv);
+
+// TODO
+int				builtin_rand(t_msh *sh, int argc, char **argv);
 int				builtin_eval(t_msh *sh, int argc, char **argv);
 int				builtin_exit(t_msh *sh, int argc, char **argv);
 int				builtin_export(t_msh *sh, int argc, char **argv);

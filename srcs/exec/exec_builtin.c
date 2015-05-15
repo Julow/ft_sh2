@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 22:52:02 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:19:48 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 00:10:32 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ const t_builtin	g_builtins[] = {
 	{"return", &builtin_return},
 	{"sleep", &builtin_sleep},
 	{"sortw", &builtin_sortw},
+	{"raise", &builtin_raise},
 	{"rand", &builtin_rand},
 	{"builtin", &builtin_builtin},
 	{"printenv", &builtin_printenv},

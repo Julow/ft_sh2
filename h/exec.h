@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/15 23:01:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/15 23:49:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_cmd
 
 # define RSTATUS(s)		((WIFEXITED(s) && WEXITSTATUS(s) == 0) ? true : false)
 
-# define READ_O			O_WRONLY
+# define READ_O			O_RDONLY
 # define CREATE_O		O_WRONLY | O_CREAT | O_TRUNC
 # define APPEND_O		O_WRONLY | O_CREAT | O_APPEND
 # define MODE_O			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH

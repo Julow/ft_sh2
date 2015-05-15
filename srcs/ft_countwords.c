@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_countwords.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:38:10 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/16 00:02:08 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/16 00:13:43 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include "minish.h"
 
-int				builtin_pwd(t_msh *sh, int argc, char **argv)
+int				ft_countwords(char const *str)
 {
-	char			*path;
+	int				count;
 
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-		return (1);
-	PS(path);
-	NL;
-	free(path);
-	return (0);
-	(void)sh;
-	(void)argc;
-	(void)argv;
+	while (ft_iswhite(*str))
+		str++;
+	count = 0;
+	while (*str != '\0')
+	{
+		count++;
+		while (!ft_iswhite(*str) && *str != '\0')
+			str++;
+		while (ft_iswhite(*str))
+			str++;
+	}
+	return (count);
 }

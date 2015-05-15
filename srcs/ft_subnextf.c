@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_subnextf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/15 23:38:10 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/15 23:59:25 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/16 00:03:56 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include "exec.h"
 
-int				builtin_pwd(t_msh *sh, int argc, char **argv)
+int				ft_subnextf(t_sub *sub, t_bool (*f)(int c))
 {
-	char			*path;
-
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-		return (1);
-	PS(path);
-	NL;
-	free(path);
-	return (0);
-	(void)sh;
-	(void)argc;
-	(void)argv;
+	sub->str += sub->length;
+	sub->length = 0;
+	while (f(*(sub->str)))
+		sub->str++;
+	while (!f(sub->str[sub->length]) && sub->str[sub->length] != '\0')
+		sub->length++;
+	return (sub->length);
 }
