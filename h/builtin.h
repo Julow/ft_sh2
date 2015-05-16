@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 22:54:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 18:52:24 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 19:08:14 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int				builtinb_cd(t_msh *sh, int argc, char **argv);
 int				builtinb_unsetenv(t_msh *sh, int argc, char **argv);
 int				builtinb_setenv(t_msh *sh, int argc, char **argv);
 int				builtinb_export(t_msh *sh, int argc, char **argv);
+int				builtinb_exit(t_msh *sh, int argc, char **argv);
 
 // TODO
 int				builtin_rand(t_msh *sh, int argc, char **argv);

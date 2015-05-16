@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/16 17:57:06 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 18:42:44 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 19:04:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ const t_blt		g_builtinsb[] = {
 	{"setenv", &builtinb_setenv},
 	{"export", &builtinb_export},
 	{"chdir", &builtinb_cd},
+	{"exit", &builtinb_exit},
 	{NULL, NULL}
 };
 
