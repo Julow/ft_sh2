@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:50:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/15 23:05:42 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 18:09:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_bool			exec_cmd(t_msh *sh, t_cmd *cmd)
 		ft_fdprintf(2, E_EXEC, cmd_name);
 		exit(127);
 	}
+	exec_builtin_nofork(sh, cmd);
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
 		return (exec_status_signal(sh, cmd, status));

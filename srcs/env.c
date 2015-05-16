@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 13:42:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/10 00:36:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 18:48:37 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ void			set_env(t_msh *sh, char const *key, char const *value)
 	int				i;
 	char			*line;
 
-	line = MAL(char, key_len + value_len + 1);
+	line = MAL(char, key_len + value_len + 2);
 	ft_memcpy(line, key, key_len);
-	ft_memcpy(line + key_len, value, value_len + 1);
+	line[key_len] = '=';
+	ft_memcpy(line + key_len + 1, value, value_len + 1);
 	i = -1;
 	while (++i < sh->env.length)
 		if (key_equal(AG(char*, &(sh->env), i), key))
@@ -55,4 +56,18 @@ void			set_env(t_msh *sh, char const *key, char const *value)
 			return ;
 		}
 	ft_arrayadd(&(sh->env), line);
+}
+
+void			unset_env(t_msh *sh, char const *key)
+{
+	int				i;
+
+	i = -1;
+	while (++i < sh->env.length)
+		if (key_equal(AG(char*, &(sh->env), i), key))
+		{
+			free(sh->env.data[i]);
+			ft_arrayrem(&(sh->env), i);
+			break ;
+		}
 }

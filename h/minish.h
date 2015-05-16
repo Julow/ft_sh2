@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/16 00:13:46 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 18:25:03 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef enum	e_error
 
 char const		*get_env(t_msh *sh, char const *key, char const *def);
 void			set_env(t_msh *sh, char const *key, char const *value);
+void			unset_env(t_msh *sh, char const *key);
 
 t_error			ft_access(char const *file, t_bool exec);
 

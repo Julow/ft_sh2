@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 22:54:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 00:07:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 18:52:24 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 /*
 ** Types
 */
-typedef struct	s_builtin
+typedef struct	s_blt
 {
 	char const		*name;
 	int				(*f)(t_msh *sh, int argc, char **argv);
-}				t_builtin;
+}				t_blt;
 
 /*
 ** Public
 */
 void			exec_builtin(t_msh *sh, t_cmd *cmd);
+void			exec_builtin_nofork(t_msh *sh, t_cmd *cmd);
 
 /*
 ** Internal
@@ -42,17 +43,21 @@ int				builtin_pwd(t_msh *sh, int argc, char **argv);
 int				builtin_builtin(t_msh *sh, int argc, char **argv);
 int				builtin_sortw(t_msh *sh, int argc, char **argv);
 int				builtin_raise(t_msh *sh, int argc, char **argv);
+int				builtin_cd(t_msh *sh, int argc, char **argv);
+int				builtin_export(t_msh *sh, int argc, char **argv);
+int				builtin_unsetenv(t_msh *sh, int argc, char **argv);
+int				builtin_setenv(t_msh *sh, int argc, char **argv);
+
+int				builtinb_cd(t_msh *sh, int argc, char **argv);
+int				builtinb_unsetenv(t_msh *sh, int argc, char **argv);
+int				builtinb_setenv(t_msh *sh, int argc, char **argv);
+int				builtinb_export(t_msh *sh, int argc, char **argv);
 
 // TODO
 int				builtin_rand(t_msh *sh, int argc, char **argv);
 int				builtin_eval(t_msh *sh, int argc, char **argv);
 int				builtin_exit(t_msh *sh, int argc, char **argv);
-int				builtin_export(t_msh *sh, int argc, char **argv);
 int				builtin_help(t_msh *sh, int argc, char **argv);
-int				builtin_chdir(t_msh *sh, int argc, char **argv);
-int				builtin_cd(t_msh *sh, int argc, char **argv);
-int				builtin_unsetenv(t_msh *sh, int argc, char **argv);
-int				builtin_setenv(t_msh *sh, int argc, char **argv);
 int				builtin_env(t_msh *sh, int argc, char **argv);
 
 #endif

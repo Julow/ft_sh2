@@ -6,14 +6,14 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 22:52:02 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 00:10:32 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/16 18:05:50 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include <stdlib.h>
 
-const t_builtin	g_builtins[] = {
+const t_blt		g_builtins[] = {
 	{"echo", &builtin_echo},
 	{"false", &builtin_false},
 	{"true", &builtin_true},
@@ -29,7 +29,7 @@ const t_builtin	g_builtins[] = {
 	{"exit", &builtin_exit},
 	{"export", &builtin_export},
 	{"help", &builtin_help},
-	{"chdir", &builtin_chdir},
+	{"chdir", &builtin_cd},
 	{"cd", &builtin_cd},
 	{"unsetenv", &builtin_unsetenv},
 	{"setenv", &builtin_setenv},

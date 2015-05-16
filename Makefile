@@ -47,7 +47,6 @@ O_FILES := o/srcs/builtins/builtin_export.o \
 	o/srcs/builtins/builtin_env.o \
 	o/srcs/builtins/builtin_builtin.o \
 	o/srcs/ft_tabiter.o \
-	o/srcs/builtins/builtin_chdir.o \
 	o/srcs/parser/parse_string_var.o \
 	o/srcs/exec/cmd.o \
 	o/srcs/builtins/builtin_printenv.o \
@@ -59,6 +58,7 @@ O_FILES := o/srcs/builtins/builtin_export.o \
 	o/srcs/parser/parse_redir.o \
 	o/srcs/builtins/builtin_echo.o \
 	o/srcs/main.o \
+	o/srcs/exec/exec_builtin_nofork.o \
 	o/srcs/exec/exec_cmd.o \
 	o/srcs/parser/parse_string_newline.o \
 	o/srcs/ft_subnextf.o \
@@ -107,7 +107,7 @@ o/srcs/builtins/builtin_export.o: srcs/builtins/builtin_export.c h/builtin.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/builtins/builtin_setenv.o: srcs/builtins/builtin_setenv.c h/builtin.h
+o/srcs/builtins/builtin_setenv.o: srcs/builtins/builtin_setenv.c h/builtin.h h/msg.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -121,10 +121,6 @@ o/srcs/builtins/builtin_builtin.o: srcs/builtins/builtin_builtin.c h/builtin.h
 
 o/srcs/ft_tabiter.o: srcs/ft_tabiter.c h/minish.h
 	@mkdir -p o/srcs 2> /dev/null || true
-	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
-
-o/srcs/builtins/builtin_chdir.o: srcs/builtins/builtin_chdir.c h/builtin.h
-	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/parser/parse_string_var.o: srcs/parser/parse_string_var.c h/parser.h
@@ -171,6 +167,10 @@ o/srcs/main.o: srcs/main.c h/minish.h h/exec.h
 	@mkdir -p o/srcs 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
+o/srcs/exec/exec_builtin_nofork.o: srcs/exec/exec_builtin_nofork.c h/builtin.h
+	@mkdir -p o/srcs/exec 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
 o/srcs/exec/exec_cmd.o: srcs/exec/exec_cmd.c h/exec.h h/builtin.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
@@ -183,7 +183,7 @@ o/srcs/ft_subnextf.o: srcs/ft_subnextf.c h/exec.h
 	@mkdir -p o/srcs 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/builtins/builtin_cd.o: srcs/builtins/builtin_cd.c h/builtin.h
+o/srcs/builtins/builtin_cd.o: srcs/builtins/builtin_cd.c h/builtin.h h/msg.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -215,7 +215,7 @@ o/srcs/builtins/builtin_exit.o: srcs/builtins/builtin_exit.c h/builtin.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/builtins/builtin_sleep.o: srcs/builtins/builtin_sleep.c h/builtin.h
+o/srcs/builtins/builtin_sleep.o: srcs/builtins/builtin_sleep.c h/builtin.h h/msg.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
@@ -251,7 +251,7 @@ o/srcs/exec/exec_redirs.o: srcs/exec/exec_redirs.c h/exec.h h/msg.h
 	@mkdir -p o/srcs/exec 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/builtins/builtin_raise.o: srcs/builtins/builtin_raise.c h/builtin.h
+o/srcs/builtins/builtin_raise.o: srcs/builtins/builtin_raise.c h/builtin.h h/msg.h
 	@mkdir -p o/srcs/builtins 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 

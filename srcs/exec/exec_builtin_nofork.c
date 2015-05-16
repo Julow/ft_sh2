@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unsetenv.c                                 :+:      :+:    :+:   */
+/*   exec_builtin_nofork.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 18:33:47 by juloo            ###   ########.fr       */
+/*   Created: 2015/05/16 17:57:06 by juloo             #+#    #+#             */
+/*   Updated: 2015/05/16 18:42:44 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int				builtin_unsetenv(t_msh *sh, int argc, char **argv)
-{
-	return (builtinb_unsetenv(sh, argc, argv));
-}
+const t_blt		g_builtinsb[] = {
+	{"cd", &builtinb_cd},
+	{"unsetenv", &builtinb_unsetenv},
+	{"setenv", &builtinb_setenv},
+	{"export", &builtinb_export},
+	{"chdir", &builtinb_cd},
+	{NULL, NULL}
+};
 
-int				builtinb_unsetenv(t_msh *sh, int argc, char **argv)
+void			exec_builtin_nofork(t_msh *sh, t_cmd *cmd)
 {
 	int				i;
 
-	i = 0;
-	while (++i < argc)
-		unset_env(sh, argv[i]);
-	return (0);
+	i = -1;
+	while (g_builtinsb[++i].name != NULL)
+		if (ft_strequ(g_builtinsb[i].name, cmd->argv.data[0]))
+		{
+			g_builtinsb[i].f(sh, cmd->argv.length, (char**)cmd->argv.data);
+			break ;
+		}
 }
