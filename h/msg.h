@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/17 23:11:52 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/17 23:23:22 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@
 
 # define E_ARG_INT		C_LRED "%s: '%s' is not a valid int" ENDL
 # define E_ARG_NOT		C_LRED "%s: Not enougth argument" ENDL
+# define E_ARG_OPT		C_LRED "%s: Invalid option -- '%c'" ENDL
 
 #endif

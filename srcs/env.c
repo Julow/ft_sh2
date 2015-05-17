@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/05 13:42:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/16 18:48:37 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/17 23:31:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,25 @@ void			set_env(t_msh *sh, char const *key, char const *value)
 			return ;
 		}
 	ft_arrayadd(&(sh->env), line);
+}
+
+void			export_env(t_msh *sh, char const *var)
+{
+	const int		key_len = ft_strchri(var, '=');
+	int				i;
+
+	if (key_len < 0)
+		return ;
+	i = -1;
+	while (++i < sh->env.length)
+		if (ft_strnequ(var, AG(char*, &(sh->env), i), key_len)
+			&& AG(char*, &(sh->env), i)[key_len] == '=')
+		{
+			free(sh->env.data[i]);
+			sh->env.data[i] = ft_strdup(var);
+			return ;
+		}
+	ft_arrayadd(&(sh->env), ft_strdup(var));
 }
 
 void			unset_env(t_msh *sh, char const *key)
