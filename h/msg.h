@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/16 18:47:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/17 23:11:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define E_CD_HOME		C_LRED "%s: Cannot find $HOME variable." ENDL
 # define E_CD_OLDPWD	C_LRED "%s: Cannot find $OLDPWD variable." ENDL
 # define E_CD_FAIL		C_LRED "%s: No such file or directory: %s" ENDL
+# define E_CD_ERR		C_LRED "%s: Unexpected error" ENDL
 
 # define E_ARG_INT		C_LRED "%s: '%s' is not a valid int" ENDL
 # define E_ARG_NOT		C_LRED "%s: Not enougth argument" ENDL
