@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/17 23:31:50 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 00:35:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,37 @@
 ** {...}
 ** ~
 ** ----
-** env
-** setenv
-** unsetenv
-** cd
-** chdir
-** help
-** export
-** echo
-** exit
-** eval
-** false
-** true
-** pwd
-** printenv [arg]
-** builtin
-** return
-** sleep
-** sortw
-** rand
+** == Args
+**  -v                              Print version and quit
+**  -c "cmd" [$0 [...]]             Execute 'cmd' (with shell args) and quit
+**  "file" [$1 [...]]               Execute each line of 'file' and quit
 ** ----
-** [-v] [file [$1 ...]]
-** [-c "cmd" [$0 $1 ...]]
+*/
+
+/*
+** ========================================================================== **
+** Features
 ** ----
+** == Builtins
+**  env [-i] [VAR=... [...]] [cmd]  Eval 'cmd' (printenv) with a modified env
+**  setenv <name> <value>           Set a variable in the env
+**  unsetenv <name> [...]           Unset a variable from the env
+**  cd [-|path]                     Change directory
+**  chdir [-|path]                  Alias for 'cd'
+**  help                            Print this
+**  export [VAR=... [...]]          Export variables to the env
+**  echo [text [...]]               Echo text
+**  exit [status]                   Exit the shell
+**  eval [cmd ...]                  Eval 'cmd'
+**  false                           Return false
+**  true                            Return true
+**  pwd                             Print current working directory
+**  printenv [name [...]]           Print the env variables
+**  builtin                         Print builtins list
+**  return [status]                 Return 'status'
+**  sleep <sec>                     Sleep
+**  sortw [-|file [...]]            Apply ordalphlong to the files or stdin
+**  rand [[min] max]                Print a rand int between 'min' and 'max'
 */
 
 typedef struct	s_msh
