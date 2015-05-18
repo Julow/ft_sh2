@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 20:12:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/18 22:12:03 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 23:04:48 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		msh_start(t_msh *sh, int fd, t_bool interactif)
 	while (true)
 	{
 		if (interactif)
-			ft_printf("lol> ");
+			print_prompt(sh);
 		if (get_next_line(fd, &line) <= 0)
 			break ;
 		exec_line(sh, line);

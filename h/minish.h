@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/18 22:18:12 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 23:38:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 ** {...}
 ** ~
 ** ----
+** .mshrc
+** ----
 */
 
 /*
@@ -81,6 +83,8 @@
 **  "file"                          Execute each line of 'file' and quit
 **  VAR=data						Add 'VAR=data' to the env variables
 **  -i								Clear env variables
+** == PS1
+**  Prompt support variables ($VAR)
 ** ----
 */
 
@@ -100,6 +104,7 @@ typedef enum	e_error
 }				t_error;
 
 # define DEFAULT_PATH	"/bin:/usr/bin"
+# define DEFAULT_PS1	"$> "
 
 # define STR(s)			#s
 # define STR_VALUE(s)	STR(s)
@@ -110,6 +115,8 @@ char const		*get_env(t_msh *sh, char const *key, char const *def);
 void			set_env(t_msh *sh, char const *key, char const *value);
 void			export_env(t_msh *sh, char const *var);
 void			unset_env(t_msh *sh, char const *key);
+
+void			print_prompt(t_msh *sh);
 
 t_error			ft_access(char const *file, t_bool exec);
 
