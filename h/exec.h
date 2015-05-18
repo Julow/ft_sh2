@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/23 17:49:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/15 23:49:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 21:46:37 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_cmd
 /*
 ** Public
 */
-void			exec_line(t_msh *sh, t_sub *line);
+void			exec_line(t_msh *sh, t_sub line);
 
 /*
 ** Internal

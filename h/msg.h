@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/17 23:57:11 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 21:45:25 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # define SH				"ft_msh2"
 # define ENDL			C_RESET "\n"
+
+# define T_VERSION		"ft_minishell, version 2\n"
 
 # define E_EXEC			C_RED SH ": %s: Cannot exec" ENDL
 # define E_FORK			C_RED SH ": Cannot create process" ENDL
@@ -52,5 +54,6 @@
 # define E_ARG_NOT		C_LRED "%s: Not enougth argument" ENDL
 # define E_ARG_OPT		C_LRED "%s: Invalid option -- '%c'" ENDL
 # define E_ARG_TOO		C_LRED "%s: Too many argument" ENDL
+# define E_ARG_ARG		C_LRED "%s: Option requires an argument: '%s'" ENDL
 
 #endif

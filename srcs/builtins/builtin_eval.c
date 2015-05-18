@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/15 23:06:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/17 23:46:01 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 21:47:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int				builtin_eval(t_msh *sh, int argc, char **argv)
 {
 	t_string		eval;
-	t_sub			tmp;
 	int				i;
 
 	ft_stringini(&eval);
@@ -28,8 +27,7 @@ int				builtin_eval(t_msh *sh, int argc, char **argv)
 			ft_stringaddc(&eval, ' ');
 		ft_stringadd(&eval, argv[i]);
 	}
-	tmp = SUB(eval.content, eval.length);
-	exec_line(sh, &tmp);
+	exec_line(sh, SUB(eval.content, eval.length));
 	free(eval.content);
 	return (0);
 }

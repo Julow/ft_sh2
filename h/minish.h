@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/18 00:35:57 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/18 22:18:12 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@
 ** {...}
 ** ~
 ** ----
-** == Args
-**  -v                              Print version and quit
-**  -c "cmd" [$0 [...]]             Execute 'cmd' (with shell args) and quit
-**  "file" [$1 [...]]               Execute each line of 'file' and quit
-** ----
 */
 
 /*
@@ -79,11 +74,20 @@
 **  sleep <sec>                     Sleep
 **  sortw [-|file [...]]            Apply ordalphlong to the files or stdin
 **  rand [[min] max]                Print a rand int between 'min' and 'max'
+** == Args
+**  [-i] [-v|-c "cmd"|"file"] [VAR=data [...]]
+**  -v                              Print version and quit
+**  -c "cmd"                        Execute 'cmd' and quit
+**  "file"                          Execute each line of 'file' and quit
+**  VAR=data						Add 'VAR=data' to the env variables
+**  -i								Clear env variables
+** ----
 */
 
 typedef struct	s_msh
 {
 	t_array			env;
+	int				flags;
 	int				last_status;
 }				t_msh;
 
