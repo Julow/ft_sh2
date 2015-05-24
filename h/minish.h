@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 18:45:40 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/05/18 23:38:04 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/24 23:44:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@
 **  VAR=data						Add 'VAR=data' to the env variables
 **  -i								Clear env variables
 ** == PS1
-**  Prompt support variables ($VAR)
+**  Prompt support variables and colors
 ** ----
 */
 

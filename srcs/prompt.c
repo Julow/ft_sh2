@@ -6,21 +6,26 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/18 23:03:40 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/18 23:28:26 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/24 21:03:09 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 #include <stdlib.h>
 
-static void		print_escape(char const *e)
+static int		print_escape(char const *e)
 {
-	if (*e == '\n')
+	if (*e == 'n')
 		PC('\n');
 	else if (*e == '$')
 		PC('$');
+	else if (*e == 'e')
+		PC('\e');
+	else if (ft_strnequ(e, "033", 3))
+		return (PC('\033'), 3);
 	else
-		PC('\\'), PC(*e);
+		return (PC('\\'), 0);
+	return (1);
 }
 
 static int		print_var(t_msh *sh, char const *ps1, t_string *var)
@@ -49,7 +54,7 @@ void			print_prompt(t_msh *sh)
 	while (prompt[++i] != '\0')
 	{
 		if (prompt[i] == '\\')
-			print_escape(prompt + (++i));
+			i += print_escape(prompt + i + 1);
 		else if (prompt[i] == '$')
 			i += print_var(sh, prompt + i + 1, &var);
 		else
