@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:59:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/18 21:45:25 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/25 17:10:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define M_RIGHT		"Permission denied"
 # define M_ISDIR		"Is a directory"
 # define M_NOEXISTS		"No such file or directory"
+# define M_CREATE		"Cannot create"
 # define M_ERR			"Cannot open"
 
 /*
