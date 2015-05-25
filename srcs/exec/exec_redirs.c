@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/10 00:22:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/05/14 17:05:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/05/25 17:28:31 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,37 @@
 
 static t_bool	exec_redir_right(t_redir *redir)
 {
-	int				fd_src;
-	int				fd_dst;
+	int				fd_new;
+	int				fd_old;
 
-	fd_src = (redir->fd_left < 0) ? 1 : redir->fd_left;
+	fd_new = (redir->fd_left < 0) ? 1 : redir->fd_left;
 	if (redir->data == NULL)
-		fd_dst = redir->fd_right;
+		fd_old = redir->fd_right;
 	else if (redir->redir_t == REDIR_APPEND)
-		fd_dst = exec_open(redir->data, APPEND_O);
+		fd_old = exec_open(redir->data, APPEND_O);
 	else
-		fd_dst = exec_open(redir->data, CREATE_O);
-	if (fd_dst < 0)
+		fd_old = exec_open(redir->data, CREATE_O);
+	if (fd_old < 0)
 		return (false);
-	if (dup2(fd_dst, fd_src) < 0)
-		return (ft_fdprintf(2, E_DUP2, fd_dst), false);
+	if (dup2(fd_old, fd_new) < 0)
+		return (ft_fdprintf(2, E_DUP2, fd_old), false);
 	return (true);
 }
 
 static t_bool	exec_redir_left(t_redir *redir)
 {
-	int				fd_src;
-	int				fd_dst;
+	int				fd_new;
+	int				fd_old;
 
-	fd_dst = (redir->fd_left < 0) ? 0 : redir->fd_left;
+	fd_new = (redir->fd_left < 0) ? 0 : redir->fd_left;
 	if (redir->data == NULL)
-		fd_src = redir->fd_right;
+		fd_old = redir->fd_right;
 	else
-		fd_src = exec_open(redir->data, READ_O);
-	if (fd_src < 0)
+		fd_old = exec_open(redir->data, READ_O);
+	if (fd_old < 0)
 		return (false);
-	if (dup2(fd_dst, fd_src) < 0)
-		return (ft_fdprintf(2, E_DUP2, fd_dst), false);
+	if (dup2(fd_old, fd_new) < 0)
+		return (ft_fdprintf(2, E_DUP2, fd_new), false);
 	return (true);
 }
 
